@@ -26,12 +26,37 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	void GameStage::CreateField() {
+		vector<vector<Vec3>> vec = {
+			{
+				Vec3(10.0f, 1.0f, 10.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(0.0f,0.0f,0.0f)//Position
+			}
+		};
+		for (auto v : vec) {
+			AddGameObject<FixedBox>(v[0], v[1], v[2]);
+		}
+
+	}
+	
+	void GameStage::CreatePlayer() {
+		auto ptrPlayer = AddGameObject <Player>();
+		SetSharedGameObject(L"Player", ptrPlayer);
+		ptrPlayer->AddTag(L"Player");
+
+	}
 
 
 	void GameStage::OnCreate() {
 		try {
 			//ビューとライトの作成
 			CreateViewLight();
+			//フィールドの作成
+			CreateField();
+			//プレイヤーの作成
+			CreatePlayer();
+
 		}
 		catch (...) {
 			throw;
