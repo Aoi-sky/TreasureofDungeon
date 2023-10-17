@@ -117,18 +117,44 @@ namespace basecross{
 
 
 		//カメラを得る
-		//auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
-		//if (ptrCamera) {
-		//	//MyCameraである
-		//	//MyCameraに注目するオブジェクト（プレイヤー）の設定
-		//	ptrCamera->SetTargetObject(GetThis<GameObject>());
-		//	ptrCamera->SetTargetToAt(Vec3(0, 0.25f, 0));
-		//}
+
+
 
 	}
 
 	void Player::OnUpdate() {
 		MovePlayer();
+		auto& app = App::GetApp();
+
+		float delta = app->GetElapsedTime(); // 前フレームからの経過時間（60FPS）
+
+
+		auto device = app->GetInputDevice(); // インプットデバイスオブジェクトを取得する
+		auto& pad = device.GetControlerVec()[0]; // １個目のコントローラーの状態を取得する
+
+		//スティックの傾きに表すベクトル
+		Vec3 padLstick(pad.fThumbLX, 0.0f, pad.fThumbLY);
+
+		//スティックの傾きにカメラを合わせる
+		if (padLstick.length() > 0.0f)
+		{
+			float stickRad = atan2(padLstick.z, padLstick.x);
+			//カメラの回り込み
+			auto camera = GetStage()->GetView()->GetTargetCamera();
+			auto mainCamera = dynamic_pointer_cast<MainCamera>(camera);
+			if (mainCamera)
+			{
+				float cameraAngle = mainCamera->GetAngle();//カメラの回り込み取得
+				stickRad += cameraAngle + XM_PIDIV2;
+
+				padLstick.x = cos(stickRad);
+				padLstick.z = sin(stickRad);
+			}
+		}
+
+		auto transComp = GetComponent<Transform>();
+		auto pos = transComp->GetPosition();
+		pos += padLstick * 3.0f * delta;
 	}
 }
 //end basecross

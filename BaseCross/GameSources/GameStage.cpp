@@ -16,7 +16,7 @@ namespace basecross {
 		const Vec3 at(0.0f);
 		auto PtrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
+		auto PtrCamera = ObjectFactory::Create<MainCamera>();
 		PtrView->SetCamera(PtrCamera);
 		PtrCamera->SetEye(eye);
 		PtrCamera->SetAt(at);
@@ -55,8 +55,15 @@ namespace basecross {
 			//フィールドの作成
 			CreateField();
 			//プレイヤーの作成
-			CreatePlayer();
-
+			//CreatePlayer();
+			auto player = AddGameObject<Player>();
+			//メインカメラにプレイヤーをセット
+			auto camera = GetView()->GetTargetCamera();
+			auto mainCamera = dynamic_pointer_cast<MainCamera>(camera);
+			if (mainCamera)
+			{
+				mainCamera->SetTarget(player);
+			}
 		}
 		catch (...) {
 			throw;
