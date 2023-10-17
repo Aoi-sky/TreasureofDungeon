@@ -7,7 +7,7 @@
 #include "stdafx.h"
 
 namespace basecross {
-	weak_ptr<GameObject> m_TargetObject;
+	//weak_ptr<GameObject> m_TargetObject;
 
 
 }
