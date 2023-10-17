@@ -12,7 +12,13 @@ namespace basecross{
 	///	ゲームシーン
 	//--------------------------------------------------------------------------------------
 	class Scene : public SceneBase{
+
 	public:
+
+		void CreateResourses();
+
+		void RoadTexture(const wstring& UseTextureName, const wstring& TextureDataName);
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief コンストラクタ

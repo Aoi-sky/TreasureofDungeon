@@ -14,8 +14,7 @@ namespace basecross{
 
 	Vec2 Player::GetInputState() const{
 		Vec2 ret;
-		//コントローラ取得
-		auto controllerVec = App::GetApp()->GetInputDevice().GetControlerVec();
+		auto controllerVec = App::GetApp()->GetInputDevice().GetControlerVec();//コントローラ取得
 		ret.x = 0.0f;
 		ret.y = 0.0f;
 		if (controllerVec[0].bConnected)

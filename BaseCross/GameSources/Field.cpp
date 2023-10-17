@@ -35,7 +35,8 @@ namespace basecross {
 		shadowPtr->SetMeshResource(L"DEFAULT_CUBE");
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-		//ptrDraw->SetTextureResource(L"SKY_TX");
+
+		ptrDraw->SetTextureResource(L"FIELD");
 		ptrDraw->SetFogEnabled(true);
 		ptrDraw->SetOwnShadowActive(true);
 
