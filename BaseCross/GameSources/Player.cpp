@@ -92,7 +92,7 @@ namespace basecross{
 
 		auto  ptrDraw = AddComponent<BcPNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
-		//ptrDraw->SetTextureResource(L"TRACE_TX");
+		ptrDraw->SetTextureResource(L"PLAYER");
 		SetAlphaActive(true);
 
 
