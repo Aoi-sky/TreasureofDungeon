@@ -23,25 +23,6 @@ namespace basecross{
 			ret.x = controllerVec[0].fThumbLX;
 			ret.y = controllerVec[0].fThumbLY;
 		}
-
-		//キーボード取得
-		auto KeyState = App::GetApp()->GetInputDevice().GetKeyState();
-		if (KeyState.m_bPushKeyTbl['W'])
-		{
-			ret.y = 1.0f;
-		}
-		if (KeyState.m_bPushKeyTbl['S'])
-		{
-			ret.y = -1.0f;
-		}
-		if (KeyState.m_bPushKeyTbl['A'])
-		{
-			ret.x = -1.0f;
-		}
-		if (KeyState.m_bPushKeyTbl['D'])
-		{
-			ret.x = 1.0f;
-		}
 		return ret;
 	}
 
