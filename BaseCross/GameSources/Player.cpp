@@ -8,8 +8,8 @@
 
 namespace basecross{
 	Player::Player(const shared_ptr<Stage>& StagePtr) :
-		GameObject(StagePtr)
-
+		GameObject(StagePtr),
+		m_Speed(5.0f)
 	{}
 
 	Vec2 Player::GetInputState() const{
@@ -54,27 +54,19 @@ namespace basecross{
 			float moveLength = 0;	//動いた時のスピード
 			auto ptrTransform = GetComponent<Transform>();
 			auto ptrCamera = OnGetDrawCamera();
-			//進行方向の向きを計算
-			auto front = ptrTransform->GetPosition() - ptrCamera->GetEye();
+			auto front = ptrTransform->GetPosition() - ptrCamera->GetEye();//進行方向の向きを計算
 			front.y = 0;
 			front.normalize();
-			//進行方向向きからの角度を算出
-			float frontAngle = atan2(front.z, front.x);
+			float frontAngle = atan2(front.z, front.x);//進行方向向きからの角度を算出
 			//コントローラの向き計算
 			Vec2 moveVec(moveX, moveZ);
 			float moveSize = moveVec.length();
-			//コントローラの向きから角度を計算
-			float cntlAngle = atan2(-moveX, moveZ);
-			//トータルの角度を算出
-			float totalAngle = frontAngle + cntlAngle;
-			//角度からベクトルを作成
-			angle = Vec3(cos(totalAngle), 0, sin(totalAngle));
-			//正規化する
-			angle.normalize();
-			//移動サイズを設定。
-			angle *= moveSize;
-			//Y軸は変化させない
-			angle.y = 0;
+			float cntlAngle = atan2(-moveX, moveZ);//コントローラの向きから角度を計算
+			float totalAngle = frontAngle + cntlAngle;//トータルの角度を算出
+			angle = Vec3(cos(totalAngle), 0, sin(totalAngle));//角度からベクトルを作成
+			angle.normalize();//正規化する
+			angle *= moveSize;//移動サイズを設定
+			angle.y = 0;//Y軸は変化させない
 		}
 		return angle;
 	}
@@ -96,9 +88,9 @@ namespace basecross{
 
 	void Player::OnCreate() {
 		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(0.5f, 1.0f, 0.5f);
+		ptr->SetScale(0.5f, 0.75f, 0.5f);
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
-		ptr->SetPosition(Vec3(0.0f, 0.1, 0.0f));
+		ptr->SetPosition(Vec3(0.0f, 0.8f, 0.0f));
 
 		auto ptrColl = AddComponent<CollisionRect>();
 
@@ -107,7 +99,7 @@ namespace basecross{
 		//GetStage()->SetUpdatePerformanceActive(true);
 		//GetStage()->SetDrawPerformanceActive(true);
 
-		auto ptrGracity = AddComponent<Gravity>();
+		//auto ptrGracity = AddComponent<Gravity>();
 
 		//GetStage()->SetCollisionPerformanceActive(true);
 		//GetStage()->SetUpdatePerformanceActive(true);
@@ -136,7 +128,7 @@ namespace basecross{
 	}
 
 	void Player::OnUpdate() {
-
+		MovePlayer();
 	}
 }
 //end basecross
