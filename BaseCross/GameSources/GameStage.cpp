@@ -32,6 +32,26 @@ namespace basecross {
 				Vec3(10.0f, 1.0f, 10.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
 				Vec3(0.0f,0.0f,0.0f)//Position
+			},
+			{
+				Vec3(10.0f, 10.0f, 10.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(10.0f,0.0f,0.0f)//Position
+			},
+			{
+				Vec3(10.0f, 10.0f, 10.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(-10.0f,0.0f,0.0f)//Position
+			},
+			{
+				Vec3(10.0f, 10.0f, 10.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(0.0f,0.0f,10.0f)//Position
+			},
+			{
+				Vec3(10.0f, 10.0f, 10.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(0.0f,0.0f,-10.0f)//Position
 			}
 		};
 		for (auto v : vec) {
