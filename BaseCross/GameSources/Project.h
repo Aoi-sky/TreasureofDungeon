@@ -13,6 +13,7 @@
 #include "Character.h"
 #include "Player.h"
 
+#include "MyCamera.h"
 #include "Field.h"
 
 
