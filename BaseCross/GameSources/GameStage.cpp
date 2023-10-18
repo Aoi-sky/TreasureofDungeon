@@ -74,6 +74,12 @@ namespace basecross {
 		ptrPlayer->AddTag(L"Player");
 
 	}
+	//“G‚Ìì¬
+	void GameStage::CreateEnemy() {
+		auto Ptrcellmap = GetSharedGameObject<StageCellMap>;
+		AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 0.25f, 15.0f));
+
+	}
 
 
 	void GameStage::OnCreate() {
@@ -84,7 +90,8 @@ namespace basecross {
 			CreateField();
 			//ƒvƒŒƒCƒ„[‚Ìì¬
 			CreatePlayer();
-
+			//“G‚Ìì¬
+			CreateEnemy();
 		}
 		catch (...) {
 			throw;

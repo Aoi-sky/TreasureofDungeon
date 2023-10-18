@@ -30,10 +30,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Field.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Field.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Enemy.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,10 +58,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Field.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Field.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Enemy.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
