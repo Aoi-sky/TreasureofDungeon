@@ -25,14 +25,13 @@ namespace basecross {
 		bool m_UDBaseMode;//上下スティック変更のモード
 
 	public:
-		MyCamera();
-		MyCamera(float ArmLen);
-		virtual ~MyCamera();
-
+		MyCamera();//コンストラクタ
+		MyCamera(float ArmLen);//コンストラクタ（初期のarmの長さ）
+		virtual ~MyCamera();//デストラクタ
+		//カメラの位置
 		virtual void SetEye(const bsm::Vec3& Eye)override;
-
 		virtual void SetEye(float x, float y, float z)override;
-
+		//カメラの目標オブジェクトを取得
 		shared_ptr<GameObject> GetTargetObject() const;
 		void SetTargetObject(const shared_ptr<GameObject>& Obj);
 		float GetToTargetLerp() const;
