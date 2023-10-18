@@ -12,14 +12,22 @@ namespace basecross {
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
 	void GameStage::CreateViewLight() {
-		const Vec3 eye(0.0f, 3.0f, -5.0f);
-		const Vec3 at(0.0f);
-		auto PtrView = CreateView<SingleView>();
+		//const Vec3 eye(0.0f, 3.0f, -5.0f);
+		//const Vec3 at(0.0f);
+		//auto PtrView = CreateView<SingleView>();
+		////ビューのカメラの設定
+		//auto PtrCamera = ObjectFactory::Create<Camera>();
+		//PtrView->SetCamera(PtrCamera);
+		//PtrCamera->SetEye(eye);
+		//PtrCamera->SetAt(at);
+
+		auto ptrView = CreateView<SingleView>();
 		//ビューのカメラの設定
-		auto PtrCamera = ObjectFactory::Create<Camera>();
-		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(eye);
-		PtrCamera->SetAt(at);
+		auto ptrMyCamera = ObjectFactory::Create<MyCamera>();
+		ptrView->SetCamera(ptrMyCamera);
+		ptrMyCamera->SetEye(Vec3(0.0f, 5.0f, -5.0f));
+		ptrMyCamera->SetAt(Vec3(0.0f, 0.0f, 0.0f));
+
 		//マルチライトの作成
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
