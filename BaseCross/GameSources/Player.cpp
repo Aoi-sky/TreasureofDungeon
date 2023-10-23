@@ -112,16 +112,11 @@ namespace basecross{
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		if (Other->FindTag(L"FixedCylinder")) {
-			m_Speed = 0.0f;
-		}
-		else {
-			//m_Speed = 5.0f;
-		}
+			
 	}
 
 	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
-		GetComponent<Transform>()->ClearParent();
+		
 	}
 
 }
