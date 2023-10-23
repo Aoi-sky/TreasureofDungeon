@@ -36,36 +36,76 @@ namespace basecross {
 
 	void GameStage::CreateField() {
 		vector<vector<Vec3>> vec = {
-			{
-				Vec3(10.0f, 1.0f, 10.0f),//Scale
+			{//ínñ 
+				Vec3(50.0f, 1.0f, 80.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
 				Vec3(0.0f,0.0f,0.0f)//Position
 			},
-			{
-				Vec3(10.0f, 10.0f, 10.0f),//Scale
+			{//ñkï«
+				Vec3(50.0f, 20.0f, 5.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(10.0f,0.0f,0.0f)//Position
+				Vec3(0.0f,10.0f,40.0f)//Position
 			},
-			{
-				Vec3(10.0f, 10.0f, 10.0f),//Scale
+			{//ìÏï«
+				Vec3(50.0f, 20.0f, 5.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(-10.0f,0.0f,0.0f)//Position
+				Vec3(0.0f,10.0f,-40.0f)//Position
 			},
-			{
-				Vec3(10.0f, 10.0f, 10.0f),//Scale
+			{//êºï«
+				Vec3(0.0f, 20.0f, 80.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(0.0f,0.0f,10.0f)//Position
+				Vec3(25.0f,10.0f,0.0f)//Position
 			},
-			{
-				Vec3(10.0f, 10.0f, 10.0f),//Scale
+			{//ìåï«
+				Vec3(0.0f, 20.0f, 80.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(0.0f,0.0f,-10.0f)//Position
+				Vec3(-25.0f,10.0f,0.0f)//Position
+			},
+			{//ìVà‰
+				Vec3(50.0f, 1.0f, 80.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(0.0f,20.0f,0.0f)//Position
 			}
 		};
 		for (auto v : vec) {
 			AddGameObject<FixedBox>(v[0], v[1], v[2]);
 		}
 
+		vector<vector<Vec3>> vec2 = {
+			{
+				Vec3(5.0f, 20.0f, 5.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(15.0f,10.0f,-25.0f)//Position
+			},
+			{
+				Vec3(5.0f, 20.0f, 5.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(15.0f,10.0f,25.0f)//Position
+			},
+			{
+				Vec3(5.0f, 20.0f, 5.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(-15.0f,10.0f,-25.0f)//Position
+			},
+			{
+				Vec3(5.0f, 20.0f, 5.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(-15.0f,10.0f,25.0f)//Position
+			},
+			{
+				Vec3(5.0f, 20.0f, 5.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(15.0f,10.0f,0.0f)//Position
+			},
+			{
+				Vec3(5.0f, 20.0f, 5.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(-15.0f,10.0f,0.0f)//Position
+			},
+		};
+		for (auto v : vec2) {
+			AddGameObject<FixedCylinder>(v[0], v[1], v[2]);
+		}
 	}
 	
 	void GameStage::CreatePlayer() {
