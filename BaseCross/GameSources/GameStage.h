@@ -18,7 +18,10 @@ namespace basecross {
 		void CreateField();
 		//プレイヤーの作成
 		void CreatePlayer();
-
+		//敵の作成
+		void CreateEnemy();
+		//セルマップ
+		void CreateStageCellMap();
 	public:
 		//構築と破棄
 		GameStage() :Stage() {}

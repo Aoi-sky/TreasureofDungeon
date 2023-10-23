@@ -26,7 +26,17 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
-	//フィールド生成
+	
+	//セルマップの作成
+	void GameStage::CreateStageCellMap(){
+		float PieceSize = 1.0f;
+		auto Ptr = AddGameObject<StageCellMap>(Vec3(-12.0f, 0, 5.0f), PieceSize, 26, 16);
+		//セルマップの区域を表示する場合の設定
+		Ptr->SetDrawActive(true);
+		SetSharedGameObject(L"StageCellMap", Ptr);
+	}
+	
+//フィールド生成
 	void GameStage::CreateField() {
 		vector<vector<Vec3>> vec = {
 			{//地面
@@ -109,6 +119,12 @@ namespace basecross {
 		ptrPlayer->AddTag(L"Player");
 
 	}
+	//敵の作成
+	void GameStage::CreateEnemy() {
+		auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
+		AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 0.25f, 15.0f));
+
+	}
 
 
 	void GameStage::OnCreate() {
@@ -117,6 +133,8 @@ namespace basecross {
 			CreateViewLight();
 			//フィールドの作成
 			CreateField();
+			//セルマップの作成
+			CreateStageCellMap();
 			//プレイヤーの作成
 			CreatePlayer();
 		}
