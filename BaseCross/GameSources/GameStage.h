@@ -18,8 +18,6 @@ namespace basecross {
 		void CreateField();
 		//ƒvƒŒƒCƒ„[‚Ìì¬
 		void CreatePlayer();
-		//“G‚Ìì¬
-		void CreateEnemy();
 
 	public:
 		//\’z‚Æ”jŠü
