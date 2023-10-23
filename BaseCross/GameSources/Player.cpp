@@ -70,7 +70,7 @@ namespace basecross{
 		auto ptr = AddComponent<Transform>();
 		ptr->SetScale(0.5f, 0.75f, 0.5f);
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
-		ptr->SetPosition(Vec3(0.0f, 0.8f, 0.0f));
+		ptr->SetPosition(Vec3(0.0f, 0.4f, 0.0f));
 
 		auto ptrColl = AddComponent<CollisionRect>();
 
