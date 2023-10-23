@@ -7,6 +7,7 @@
 #include "Project.h"
 
 namespace basecross {
+	//ボックス
 	FixedBox::FixedBox(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
@@ -41,7 +42,7 @@ namespace basecross {
 
 	}
 
-
+	//円柱
 	FixedCylinder::FixedCylinder(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
@@ -63,8 +64,10 @@ namespace basecross {
 		ptrTransform->SetPosition(m_Position);
 		//OBB衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionObb>();
+		ptrColl->SetAfterCollision(AfterCollision::Auto);
+		//ptrColl->SetSleepActive(true);
 		ptrColl->SetFixed(true);
-		AddTag(L"FixedBox");//タグをつける
+		AddTag(L"FixedCylinder");//タグをつける
 		auto shadowPtr = AddComponent<Shadowmap>();//影をつける（シャドウマップを描画する）
 		//影の形（メッシュ）を設定
 		shadowPtr->SetMeshResource(L"DEFAULT_CYLINDER");

@@ -11,16 +11,8 @@ namespace basecross {
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
+	//カメラの生成
 	void GameStage::CreateViewLight() {
-		//const Vec3 eye(0.0f, 3.0f, -5.0f);
-		//const Vec3 at(0.0f);
-		//auto PtrView = CreateView<SingleView>();
-		////ビューのカメラの設定
-		//auto PtrCamera = ObjectFactory::Create<Camera>();
-		//PtrView->SetCamera(PtrCamera);
-		//PtrCamera->SetEye(eye);
-		//PtrCamera->SetAt(at);
-
 		auto ptrView = CreateView<SingleView>();
 		//ビューのカメラの設定
 		auto ptrMyCamera = ObjectFactory::Create<MyCamera>();
@@ -110,6 +102,7 @@ namespace basecross {
 		}
 	}
 	
+	//プレイヤーの生成
 	void GameStage::CreatePlayer() {
 		auto ptrPlayer = AddGameObject <Player>();
 		SetSharedGameObject(L"Player", ptrPlayer);

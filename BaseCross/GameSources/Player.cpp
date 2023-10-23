@@ -72,18 +72,19 @@ namespace basecross{
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(0.0f, 0.85f, 0.0f));
 
+		//衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionRect>();
 
 		//各パフォーマンスを得る
-		//GetStage()->SetCollisionPerformanceActive(true);
-		//GetStage()->SetUpdatePerformanceActive(true);
-		//GetStage()->SetDrawPerformanceActive(true);
+		GetStage()->SetCollisionPerformanceActive(true);
+		GetStage()->SetUpdatePerformanceActive(true);
+		GetStage()->SetDrawPerformanceActive(true);
 
 		//auto ptrGracity = AddComponent<Gravity>();
 
-		//GetStage()->SetCollisionPerformanceActive(true);
-		//GetStage()->SetUpdatePerformanceActive(true);
-		//GetStage()->SetDrawPerformanceActive(true);
+		GetStage()->SetCollisionPerformanceActive(true);
+		GetStage()->SetUpdatePerformanceActive(true);
+		GetStage()->SetDrawPerformanceActive(true);
 
 		//影をつける（シャドウマップを描画する）
 		auto shadowPtr = AddComponent<Shadowmap>();
@@ -104,12 +105,25 @@ namespace basecross{
 			ptrCamera->SetTargetObject(GetThis<GameObject>());
 			ptrCamera->SetTargetToAt(Vec3(0, 0.25f, 0));
 		}
-
 	}
 
 	void Player::OnUpdate() {
 		MovePlayer();
 	}
+
+	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		if (Other->FindTag(L"FixedCylinder")) {
+			m_Speed = 0.0f;
+		}
+		else {
+			//m_Speed = 5.0f;
+		}
+	}
+
+	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
+		GetComponent<Transform>()->ClearParent();
+	}
+
 }
 //end basecross
 
