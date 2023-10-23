@@ -17,7 +17,11 @@ namespace basecross{
 
 		void CreateResourses();
 
-		void RoadTexture(const wstring& UseTextureName, const wstring& TextureDataName);
+		void RoadTexture(const wstring& UseTextureName, const wstring& TextureDataName);//テクスチャ
+		//void RoadSound(const wstring& soundName, const wstring& soundDataName);//サウンド
+		void RoadStaticModelMesh(const wstring& staticModelMeshName, const wstring& staticModelbmfName);//静的モデル
+		void RoadBoneModel(const wstring& boneModelbmfName, const wstring& boneModelMeshName, const wstring& boneModelMeshTangentName);//動的モデル
+
 
 		//--------------------------------------------------------------------------------------
 		/*!
