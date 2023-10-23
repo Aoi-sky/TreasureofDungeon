@@ -52,6 +52,7 @@ namespace basecross{
 	void Scene::CreateResourses()
 	{
 		RoadTexture(L"FIELD", L"field.png");
+		RoadTexture(L"PILLAR", L"pillar2.png");
 		RoadTexture(L"PLAYER", L"Player.png");
 	}
 

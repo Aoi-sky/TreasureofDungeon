@@ -34,6 +34,7 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	//フィールド生成
 	void GameStage::CreateField() {
 		vector<vector<Vec3>> vec = {
 			{//地面
@@ -52,12 +53,12 @@ namespace basecross {
 				Vec3(0.0f,10.0f,-40.0f)//Position
 			},
 			{//西壁
-				Vec3(0.0f, 20.0f, 80.0f),//Scale
+				Vec3(5.0f, 20.0f, 80.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
 				Vec3(25.0f,10.0f,0.0f)//Position
 			},
 			{//東壁
-				Vec3(0.0f, 20.0f, 80.0f),//Scale
+				Vec3(5.0f, 20.0f, 80.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
 				Vec3(-25.0f,10.0f,0.0f)//Position
 			},
@@ -71,6 +72,7 @@ namespace basecross {
 			AddGameObject<FixedBox>(v[0], v[1], v[2]);
 		}
 
+		//柱生成
 		vector<vector<Vec3>> vec2 = {
 			{
 				Vec3(5.0f, 20.0f, 5.0f),//Scale

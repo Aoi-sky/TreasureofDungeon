@@ -70,7 +70,7 @@ namespace basecross {
 		shadowPtr->SetMeshResource(L"DEFAULT_CYLINDER");
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CYLINDER");
-		ptrDraw->SetTextureResource(L"FIELD");//テクスチャを反映する
+		ptrDraw->SetTextureResource(L"PILLAR");//テクスチャを反映する
 		ptrDraw->SetFogEnabled(true);
 		ptrDraw->SetOwnShadowActive(true);
 
