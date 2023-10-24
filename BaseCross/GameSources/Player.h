@@ -12,7 +12,7 @@ namespace basecross{
 		Vec2 GetInputState() const;//プレイヤーのコントローラとキーボードの入力
 		Vec3 GetMoveVector() const;// コントローラから方向ベクトルを得る
 		void MovePlayer();//プレイヤーの移動
-		
+		const WORD BUTTON_SHOT = XINPUT_GAMEPAD_X;
 		float m_Speed;
 
 	public:

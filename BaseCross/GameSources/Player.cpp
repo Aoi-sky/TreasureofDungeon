@@ -22,6 +22,7 @@ namespace basecross{
 			ret.x = controllerVec[0].fThumbLX;
 			ret.y = controllerVec[0].fThumbLY;
 		}
+
 		return ret;
 	}
 
@@ -109,6 +110,21 @@ namespace basecross{
 
 	void Player::OnUpdate() {
 		MovePlayer();
+		auto& app = App::GetApp();
+
+		float delta = app->GetElapsedTime(); // 前フレームからの経過時間（60FPS）
+
+		auto device = app->GetInputDevice(); // インプットデバイスオブジェクトを取得する
+		auto& pad = device.GetControlerVec()[0]; // １個目のコントローラーの状態を取得する
+		// Xボタンが押されたら弾を発射する
+		if (pad.wPressedButtons & BUTTON_SHOT)
+		{
+			// プレイヤーが所属している「ステージ」を取得し、
+			// そこにBulletオブジェクトを追加する
+			GetStage()->AddGameObject<Wave>(GetThis<Player>()); //自分自身のオブジェクトのポインタを取得する
+		}
+
+
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
