@@ -54,6 +54,9 @@ namespace basecross{
 		RoadTexture(L"FIELD", L"field.png");
 		RoadTexture(L"PILLAR", L"pillar2.png");
 		RoadTexture(L"PLAYER", L"Player.png");
+
+
+		RoadBoneModel(L"Golem_Boss", L"GOLRM", L"GOLRM_TAN");
 	}
 
 

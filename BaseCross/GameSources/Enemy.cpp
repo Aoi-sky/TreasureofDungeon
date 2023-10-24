@@ -28,7 +28,7 @@ namespace basecross {
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 		ptrDraw->SetFogEnabled(true);
 		//•`‰æ‚·‚éƒƒbƒVƒ…‚ðÝ’è
-		ptrDraw->SetMeshResource(L"DEFAULT_SPHERE");
+		ptrDraw->SetMeshResource(L"GOLRM");
 		ptrDraw->SetDiffuse(Col4(1.0f, 0, 0, 1.0f));
 	}
 	void Enemy::OnUpdate() {
