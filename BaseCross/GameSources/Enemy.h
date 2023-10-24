@@ -25,6 +25,8 @@ namespace basecross {
 		int m_NextCellIndex;
 		//ターゲットのセルインデックス
 		int m_TargetCellIndex;
+		//敵のスピード
+		float m_Speed;
 	public:
 		Enemy(const shared_ptr<Stage>& StagePtr, const shared_ptr<StageCellMap>& CellMap, const Vec3& Position);
 		virtual ~Enemy();

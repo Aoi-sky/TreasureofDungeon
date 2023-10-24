@@ -9,7 +9,8 @@ namespace basecross {
 		m_CelMap(CellMap),
 		m_StartPosition(Position),
 		m_Force(0),
-		m_Velocity(0)
+		m_Velocity(0),
+		m_Speed(0.05f)
 	{}
 	Enemy::~Enemy(){}
 	//初期化
@@ -41,7 +42,7 @@ namespace basecross {
 			}
 		}
 		float ElapsedTime = App::GetApp()->GetElapsedTime();
-		m_Velocity += m_Force * ElapsedTime;
+		m_Velocity += m_Force * ElapsedTime * m_Speed;
 		auto EnemyPos = GetComponent<Transform>()->GetPosition();
 		if (length(EnemyPos - PlayerPos) <= 1.8f) {
 			m_Velocity *= 0.95f;
@@ -56,19 +57,15 @@ namespace basecross {
 		if (MapPtr) {
 			auto PathPtr = GetComponent<PathSearch>();
 			m_CellPath.clear();
-			//パス検索をかける
-			if (PathPtr->SearchCell(TargetPos, m_CellPath)) {
+			if (PathPtr->SearchCell(TargetPos, m_CellPath)) {//パス検索をかける
 				//検索が成功した
 				m_CellIndex = 0;
 				m_TargetCellIndex = (int)(m_CellPath.size() - 1);
 				if (m_CellIndex == m_TargetCellIndex) {
-					//すでに同じセルにいる
-					m_NextCellIndex = m_CellIndex;
+					m_NextCellIndex = m_CellIndex;//すでに同じセルにいる
 				}
 				else {
-					//離れている
-					m_NextCellIndex = m_CellIndex + 1;
-
+					m_NextCellIndex = m_CellIndex + 1;//離れている
 				}
 				return true;
 			}
