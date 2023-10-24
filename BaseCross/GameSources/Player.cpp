@@ -73,14 +73,14 @@ namespace basecross{
 		ptr->SetPosition(Vec3(0.0f, 0.85f, 0.0f));
 
 		//衝突判定を付ける
-		auto ptrColl = AddComponent<CollisionRect>();
+		auto ptrColl = AddComponent<CollisionObb>();
 
 		//各パフォーマンスを得る
 		GetStage()->SetCollisionPerformanceActive(true);
 		GetStage()->SetUpdatePerformanceActive(true);
 		GetStage()->SetDrawPerformanceActive(true);
 
-		//auto ptrGracity = AddComponent<Gravity>();
+		auto ptrGracity = AddComponent<Gravity>();
 
 		GetStage()->SetCollisionPerformanceActive(true);
 		GetStage()->SetUpdatePerformanceActive(true);
@@ -112,7 +112,10 @@ namespace basecross{
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-			
+		if (L"")
+		{
+
+		}
 	}
 
 	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
