@@ -38,15 +38,12 @@ namespace basecross {
 		m_transform->SetPosition(pos);
 
 	}
-	void Wave::Reset(const Vec3& Emitter, const Vec3& Velocity) {
-		auto ptrTrans = GetComponent<Transform>();
-		ptrTrans->ResetPosition(Emitter);
-		m_Velocity = Velocity;
-		auto ptrGrav = GetComponent<Gravity>();
-		ptrGrav->SetGravityVerocityZero();
-		SetUpdateActive(true);
-		SetDrawActive(true);
+	void Wave::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		if (Other->FindTag(L"FixedCylinder")|| Other->FindTag(L"FixedBox"))
+		{
+			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			return;
+		}
 	}
-
 
 }

@@ -123,8 +123,6 @@ namespace basecross{
 			// そこにBulletオブジェクトを追加する
 			GetStage()->AddGameObject<Wave>(GetThis<Player>()); //自分自身のオブジェクトのポインタを取得する
 		}
-
-
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {

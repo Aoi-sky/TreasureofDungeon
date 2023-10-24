@@ -27,10 +27,9 @@ namespace basecross {
 
 		void OnCreate()override;
 		void OnUpdate()override;
-		//•¨‘Ì‚ðƒŠƒZƒbƒg‚·‚é
-		void Reset(const Vec3& Emitter, const Vec3& Velocity);
+		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 	};
-
+	
 
 
 
