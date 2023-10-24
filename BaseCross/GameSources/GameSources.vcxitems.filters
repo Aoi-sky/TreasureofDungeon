@@ -39,7 +39,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
       <Filter>Headers</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="$(MSBuildThisFileDirectory)Gimmick.h">
+=======
+    <ClInclude Include="$(MSBuildThisFileDirectory)Wave.h">
+>>>>>>> origin/Wave
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,7 +78,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="$(MSBuildThisFileDirectory)Gimmick.cpp">
+=======
+    <ClCompile Include="$(MSBuildThisFileDirectory)Wave.cpp">
+>>>>>>> origin/Wave
       <Filter>Sources</Filter>
     </ClCompile>
   </ItemGroup>
