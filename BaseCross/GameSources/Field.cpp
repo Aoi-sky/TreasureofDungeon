@@ -65,7 +65,6 @@ namespace basecross {
 		//OBB衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionObb>();
 		ptrColl->SetAfterCollision(AfterCollision::Auto);
-		//ptrColl->SetSleepActive(true);
 		ptrColl->SetFixed(true);
 		AddTag(L"FixedCylinder");//タグをつける
 		auto shadowPtr = AddComponent<Shadowmap>();//影をつける（シャドウマップを描画する）
@@ -76,7 +75,13 @@ namespace basecross {
 		ptrDraw->SetTextureResource(L"PILLAR");//テクスチャを反映する
 		ptrDraw->SetFogEnabled(true);
 		ptrDraw->SetOwnShadowActive(true);
-
 	}
+
+	void FixedCylinder::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		if (Other->FindTag(L"Player")) {
+			GetComponent< FallingRocks>()->OnCreate();
+		}
+	}
+
 
 }

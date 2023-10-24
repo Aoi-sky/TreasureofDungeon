@@ -22,6 +22,8 @@ namespace basecross {
 		void CreateEnemy();
 		//セルマップ
 		void CreateStageCellMap();
+		//落石ギミック
+		void CreateFallingRocks();
 	public:
 		//構築と破棄
 		GameStage() :Stage() {}

@@ -72,8 +72,10 @@ namespace basecross {
 		};
 		for (auto v : vec) {
 			AddGameObject<FixedBox>(v[0], v[1], v[2]);
+			AddGameObject< FallingRocks>();
 		}
 
+		
 		//íåê∂ê¨
 		vector<vector<Vec3>> vec2 = {
 			{
@@ -123,9 +125,21 @@ namespace basecross {
 	void GameStage::CreateEnemy() {
 		auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
 		AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 1.0f, 15.0f));
-
 	}
-
+	void GameStage::CreateFallingRocks() {
+		vector<vector<Vec3>> vec2 = {
+			{
+				Vec3(5.0f, 5.0f, 5.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(5.0f,10.0f,5.0f)//Position
+			}
+		};
+			for (auto v : vec2) {
+				AddGameObject<FixedCylinder>(v[0], v[1], v[2]);
+			}
+		
+	}
+	
 
 	void GameStage::OnCreate() {
 		try {
