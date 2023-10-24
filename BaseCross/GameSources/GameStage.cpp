@@ -30,7 +30,7 @@ namespace basecross {
 	//セルマップの作成
 	void GameStage::CreateStageCellMap(){
 		float PieceSize = 1.0f;
-		auto Ptr = AddGameObject<StageCellMap>(Vec3(-12.0f, 0, 5.0f), PieceSize, 26, 16);
+		auto Ptr = AddGameObject<StageCellMap>(Vec3(-12.0f, 0.8, 5.0f), PieceSize, 26, 16);
 		//セルマップの区域を表示する場合の設定
 		Ptr->SetDrawActive(true);
 		SetSharedGameObject(L"StageCellMap", Ptr);
@@ -122,7 +122,7 @@ namespace basecross {
 	//敵の作成
 	void GameStage::CreateEnemy() {
 		auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
-		AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 0.25f, 15.0f));
+		AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 1.0f, 15.0f));
 
 	}
 
@@ -137,6 +137,8 @@ namespace basecross {
 			CreateStageCellMap();
 			//プレイヤーの作成
 			CreatePlayer();
+			//敵の作成
+			CreateEnemy();
 		}
 		catch (...) {
 			throw;
