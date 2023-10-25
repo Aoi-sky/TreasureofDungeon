@@ -1,87 +1,117 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp">
+      <Filter>Function\Window</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Character.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Enemy.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Field.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Gimmick.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ProjectBehavior.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
-      <Filter>cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ProjectShader.cpp">
-      <Filter>cpp</Filter>
+      <Filter>Other\Characters\Character</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Wave.cpp">
-      <Filter>cpp</Filter>
+      <Filter>Other\GameGimmick\Wave</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp">
-      <Filter>cpp</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Enemy.cpp">
+      <Filter>Other\Characters\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameStage.cpp">
+      <Filter>Stage\GameStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Field.cpp">
+      <Filter>Stage\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp">
+      <Filter>Other\Characters\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Gimmick.cpp">
+      <Filter>Other\GameGimmick\Falling rocks</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp">
+      <Filter>Function\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp">
+      <Filter>Other\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Enemy.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Field.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Gimmick.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Player.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Project.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ProjectBehavior.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ProjectShader.h">
-      <Filter>h</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h">
-      <Filter>h</Filter>
+      <Filter>Other\Characters\Character</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Wave.h">
-      <Filter>h</Filter>
+      <Filter>Other\GameGimmick\Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Enemy.h">
+      <Filter>Other\Characters\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Field.h">
+      <Filter>Stage\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Player.h">
+      <Filter>Other\Characters\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameStage.h">
+      <Filter>Stage\GameStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Gimmick.h">
+      <Filter>Other\GameGimmick\Falling rocks</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h">
+      <Filter>Function\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Project.h">
+      <Filter>Function\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
+      <Filter>Other\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="h">
-      <UniqueIdentifier>{134e1044-df27-49b5-881b-20e6cf641596}</UniqueIdentifier>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{66be26ad-4c1b-4745-8dfd-b38a072cc9ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cpp">
+    <Filter Include="Stage\GameStage">
+      <UniqueIdentifier>{336733b2-12b4-411d-8605-fe7bef19d73c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Field">
+      <UniqueIdentifier>{644ba04c-0358-4aa6-929c-9251857ede1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function">
+      <UniqueIdentifier>{51ae4da1-2527-4b10-a7e1-902063b91977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function\Window">
       <UniqueIdentifier>{fdd4f6b1-6d26-419b-baad-a00e41388517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function\Project">
+      <UniqueIdentifier>{96ed695d-c8f9-42ce-80e2-1a144be89252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{ef725e94-46d7-4a46-b609-d7795db9df9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\GameGimmick">
+      <UniqueIdentifier>{f06e02c9-7c3e-42c5-a6f9-9426cc746a53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\GameGimmick\Falling rocks">
+      <UniqueIdentifier>{78e7216d-bc1a-4dd5-a3f4-d9a40dfa76d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\GameGimmick\Wave">
+      <UniqueIdentifier>{092b7bc1-4c68-4fd8-b4f7-1d4901adf102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Camera">
+      <UniqueIdentifier>{daccb423-dadd-4766-b2d2-fc08829fe700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function\Scene">
+      <UniqueIdentifier>{7275daf5-4881-4410-afdc-4e5c6d52b023}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Characters">
+      <UniqueIdentifier>{be66c6a2-be67-497a-86c5-1ef018891666}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Characters\Player">
+      <UniqueIdentifier>{bf94930f-c46c-40ae-a1c4-b2597f95fc3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Characters\Enemy">
+      <UniqueIdentifier>{af16bdde-2f2a-4e7c-9080-11b369faffb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Characters\Character">
+      <UniqueIdentifier>{50b2648d-2766-4c37-b092-783f73c917e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
