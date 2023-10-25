@@ -43,7 +43,7 @@ namespace basecross {
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
 		}
-		if (Other->FindTag(L"Golrm"))//ƒS[ƒŒƒ€
+		if (Other->FindTag(L"Enemy"))//“G
 		{
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
