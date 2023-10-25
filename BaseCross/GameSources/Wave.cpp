@@ -17,7 +17,7 @@ namespace basecross {
 		//自分のトランスコンポーネントを所得して座標や大きさを設定
 		m_transform = GetComponent<Transform>();
 		m_transform->SetPosition(ownerTrans->GetPosition());
-		m_transform->SetScale(Vec3(0.5f));
+		m_transform->SetScale(Vec3(1.0f,0.5f,1.0f));
 		//コリジョンをつける
 		auto ptrColl = AddComponent<CollisionSphere>();
 		//衝突判定
@@ -30,8 +30,7 @@ namespace basecross {
 	void Wave::OnUpdate()
 	{
 		auto& app = App::GetApp();
-		//デルタタイムを取得
-		float delta = app->GetElapsedTime();
+		float delta = app->GetElapsedTime();//デルタタイムを取得
 
 		//移動処理
 		auto pos = m_transform->GetPosition();//現在の座標を所得
@@ -40,17 +39,28 @@ namespace basecross {
 
 	}
 	void Wave::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		if (Other->FindTag(L"FixedCylinder"))
+		if (Other->FindTag(L"FixedCylinder"))//柱
 		{
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			GetStage()->AddGameObject<FallingRocks>();
 			return;
 		}
-		if (Other->FindTag(L"FixedBox"))
+		if (Other->FindTag(L"FixedBox"))//壁
 		{
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
 		}
+		if (Other->FindTag(L"Golrm"))//ゴーレム
+		{
+			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			return;
+		}
+		if (Other->FindTag(L"FallingRocks"))//落石
+		{
+			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			return;
+		}
+		
 	}
 
 }

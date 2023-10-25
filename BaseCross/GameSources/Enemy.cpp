@@ -37,6 +37,7 @@ namespace basecross {
 		m_Force.setAll(0.0f);
 		auto PlayerPtr = GetStage()->GetSharedGameObject<Player>(L"Player");
 		auto PlayerPos = PlayerPtr->GetComponent<Transform>()->GetPosition();
+
 		PlayerPos.y = GetStartPosition().y;
 		if (SeekBehavior(PlayerPos) == CellSearchFlg::Failed) {
 			if (SeekBehavior(GetStartPosition()) == CellSearchFlg::Arrived) {
@@ -52,7 +53,6 @@ namespace basecross {
 		auto Pos = GetComponent<Transform>()->GetPosition();
 		Pos += m_Velocity * ElapsedTime;
 		GetComponent<Transform>()->SetPosition(Pos);
-
 	}
 	bool Enemy::Search(const Vec3& TargetPos) {
 		auto MapPtr = m_CelMap.lock();
@@ -71,8 +71,7 @@ namespace basecross {
 				}
 				return true;
 			}
-			else {
-				//Ž¸”s‚µ‚½
+			else {//Ž¸”s‚µ‚½
 				m_CellIndex = -1;
 				m_NextCellIndex = -1;
 				m_TargetCellIndex = -1;

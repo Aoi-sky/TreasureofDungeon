@@ -22,16 +22,13 @@ namespace basecross {
 		if (i == 0){
 			xp = 1;
 			zm = 1;
-		}
-		else if (i == 1){
+		}else if (i == 1){
 			xp = -1;
 			zm = 1;
-		}
-		else if (i == 2){
+		}else if (i == 2){
 			xp = 1;
 			zm = -1;
-		}
-		else{
+		}else{
 			xp = -1;
 			zm = -1;
 		}
@@ -41,7 +38,7 @@ namespace basecross {
 		auto ptrTransform = GetComponent<Transform>();
 		ptrTransform->SetScale(m_Scale);
 		ptrTransform->SetRotation(m_Rotation);
-		ptrTransform->SetPosition(Vec3(x, 15.0f, z));
+		ptrTransform->SetPosition(Vec3(float(x), 15.0f, float(z)));
 		
 		auto ptrColl = AddComponent<CollisionObb>();//OBBÕ“Ëj”»’è‚ð•t‚¯‚é
 		ptrColl->SetFixed(false);
@@ -55,18 +52,20 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
 		ptrDraw->SetTextureResource(L"PLAYER");
 		ptrDraw->SetOwnShadowActive(true);
-	}
 
+		AddTag(L"FallingRocks");
+	}
 
 	void FallingRocks::OnUpdate(){
 		
 	}
 
-	void FallingRocks::FallingRocksCreate()
-	{
-		
+	void FallingRocks::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		if (Other->FindTag(L"Wave"))//
+		{
+			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
+			return;
+		}
 	}
-
-
 }
 //end basecross
