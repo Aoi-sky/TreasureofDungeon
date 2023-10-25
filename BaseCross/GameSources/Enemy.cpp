@@ -30,6 +30,8 @@ namespace basecross {
 		//•`‰æ‚·‚éƒƒbƒVƒ…‚ðÝ’è
 		ptrDraw->SetMeshResource(L"GOLRM");
 		ptrDraw->SetDiffuse(Col4(1.0f, 0, 0, 1.0f));
+
+		AddTag(L"Golrm");
 	}
 	void Enemy::OnUpdate() {
 		m_Force.setAll(0.0f);

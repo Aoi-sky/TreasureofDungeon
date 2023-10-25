@@ -72,9 +72,7 @@ namespace basecross {
 		};
 		for (auto v : vec) {
 			AddGameObject<FixedBox>(v[0], v[1], v[2]);
-			AddGameObject< FallingRocks>();
 		}
-
 		
 		//íåê∂ê¨
 		vector<vector<Vec3>> vec2 = {

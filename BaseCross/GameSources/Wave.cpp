@@ -24,6 +24,7 @@ namespace basecross {
 		ptrColl->SetAfterCollision(AfterCollision::None);
 		ptrColl->SetSleepActive(true);
 
+		AddTag(L"Wave");
 	}
 
 	void Wave::OnUpdate()
@@ -39,7 +40,13 @@ namespace basecross {
 
 	}
 	void Wave::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		if (Other->FindTag(L"FixedCylinder")|| Other->FindTag(L"FixedBox"))
+		if (Other->FindTag(L"FixedCylinder"))
+		{
+			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			GetStage()->AddGameObject<FallingRocks>();
+			return;
+		}
+		if (Other->FindTag(L"FixedBox"))
 		{
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
