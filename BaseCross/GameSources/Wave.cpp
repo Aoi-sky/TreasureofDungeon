@@ -4,36 +4,29 @@
 
 
 namespace basecross {
-	void Wave::OnCreate()
-	{
-		//弾の形
+	void Wave::OnCreate() {
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		drawComp->SetMeshResource(L"DEFAULT_SPHERE");
+		drawComp->SetMeshResource(L"DEFAULT_SPHERE");//弾の形
 
 		//向きをベクトルで所得
 		auto ownerTrans = m_owner->GetComponent<Transform>();
 		m_forward = ownerTrans->GetForward();
-
-		//自分のトランスコンポーネントを所得して座標や大きさを設定
-		m_transform = GetComponent<Transform>();
-		m_transform->SetPosition(ownerTrans->GetPosition());
-		m_transform->SetScale(Vec3(1.0f,0.5f,1.0f));
-		//コリジョンをつける
-		auto ptrColl = AddComponent<CollisionSphere>();
+		m_transform = GetComponent<Transform>();//コンポーネントの取得
+		m_transform->SetPosition(ownerTrans->GetPosition());//座標設定
+		m_transform->SetScale(Vec3(1.0f,0.5f,1.0f));//サイズ調整
+		auto ptrColl = AddComponent<CollisionSphere>();//コリジョンをつける
 		//衝突判定
 		ptrColl->SetAfterCollision(AfterCollision::None);
 		ptrColl->SetSleepActive(true);
-
-		AddTag(L"Wave");
+		AddTag(L"Wave");//タグの設定
 	}
 
-	void Wave::OnUpdate()
-	{
+	void Wave::OnUpdate() {
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime();//デルタタイムを取得
 
 		//移動処理
-		auto pos = m_transform->GetPosition();//現在の座標を所得
+		auto pos = m_transform->GetPosition();
 		pos += m_forward * m_speed * delta;
 		m_transform->SetPosition(pos);
 
