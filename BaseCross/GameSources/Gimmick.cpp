@@ -71,6 +71,12 @@ namespace basecross {
 			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
 			return;
 		}
+		if (Other->FindTag(L"FixedCylinder")|| Other->FindTag(L"FallingRocks"))//’Œ
+		{
+			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
+			GetStage()->AddGameObject<FallingRocks>();
+			return;
+		}
 	}
 }
 //end basecross

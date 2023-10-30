@@ -126,7 +126,7 @@ namespace basecross {
 	}
 	//—Î‚Ìì¬
 	void GameStage::CreateFallingRocks() {
-			AddGameObject<FallingRocks>();
+		AddGameObject<FallingRocks>();
 	}
 	
 
