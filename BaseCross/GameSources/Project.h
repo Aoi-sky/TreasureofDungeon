@@ -18,3 +18,4 @@
 #include "Enemy.h"
 #include "Wave.h"
 #include "Gimmick.h"
+#include "Golem.h"
