@@ -20,10 +20,14 @@ namespace basecross {
 		void CreatePlayer();
 		//敵の作成
 		void CreateEnemy();
-		//セルマップ
+		//セルマップの生成
 		void CreateStageCellMap();
+		// セルマップのコストを設定
+		void SetCellMapCost();
 		//落石ギミック
 		void CreateFallingRocks();
+		// ゴーレムの生成
+		void CreateGolem();
 	public:
 		//構築と破棄
 		GameStage() :Stage() {}

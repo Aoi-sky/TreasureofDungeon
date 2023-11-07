@@ -28,14 +28,51 @@ namespace basecross {
 
 	
 	//セルマップの作成
-	void GameStage::CreateStageCellMap(){
-		float PieceSize = 1.0f;
-		auto Ptr = AddGameObject<StageCellMap>(Vec3(-25.0f, 0.5f, -40.0f), PieceSize, 50, 80);
-		//セルマップの区域を表示する場合の設定
-		Ptr->SetDrawActive(true);
+	// セルマップの生成
+	void GameStage::CreateStageCellMap()
+	{
+		//セルマップを生成
+		auto Ptr = AddGameObject<StageCellMap>(Vec3(0.0f, 0.0f, 0.0f), 1.0f, 50, 80);
+
+		//セルマップの区画を表示
+		Ptr->SetDrawActive(false);
+
+		//シェアオブジェクトに登録
 		SetSharedGameObject(L"StageCellMap", Ptr);
 	}
-	
+
+	// セルマップ内のセルにコストを設定
+	void GameStage::SetCellMapCost() {
+		////セルマップ内にFixedBoxの情報をセット
+		//auto PtrCellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
+		//auto BoxGroup = GetSharedObjectGroup(L"CellMap");
+		////セルマップからセルの配列を取得
+		//auto& CellVec = PtrCellmap->GetCellVec();
+		////ボックスグループからボックスの配列を取得
+		//auto& BoxVec = BoxGroup->GetGroupVector();
+		//vector<AABB> ObjectsAABBVec;
+		//for (auto& v : BoxVec) {
+		//	auto FixedBoxPtr = dynamic_pointer_cast<FixedBox>(v.lock());
+		//	if (FixedBoxPtr) {
+		//		auto ColPtr = FixedBoxPtr->GetComponent<CollisionObb>();
+		//		//ボックスの衝突判定かラッピングするAABBを取得して保存
+		//		ObjectsAABBVec.push_back(ColPtr->GetObb().GetWrappedAABB());
+		//	}
+		//}
+		////セル配列からセルをスキャン
+		//for (auto& v : CellVec) {
+		//	for (auto& v2 : v) {
+		//		for (auto& vObj : ObjectsAABBVec) {
+		//			if (HitTest::AABB_AABB_NOT_EQUAL(v2.m_PieceRange, vObj)) {
+		//				//ボックスのABBとNOT_EQUALで衝突判定
+		//				v2.m_Cost = -1;
+		//				break;
+		//			}
+		//		}
+		//	}
+		//}
+	}
+
 //フィールド生成
 	void GameStage::CreateField() {
 		vector<vector<Vec3>> vec = {
@@ -117,13 +154,19 @@ namespace basecross {
 		auto ptrPlayer = AddGameObject <Player>();
 		SetSharedGameObject(L"Player", ptrPlayer);
 		ptrPlayer->AddTag(L"Player");
-
 	}
+
 	//敵の作成
 	void GameStage::CreateEnemy() {
-		auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
-		AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 1.0f, 15.0f));
+		//auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
+		//AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 1.0f, 15.0f));
 	}
+
+	void GameStage::CreateGolem() {
+		auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
+		AddGameObject<Golem>(Ptrcellmap, Vec3(0, 3.5f, 20.0f));
+	}
+
 	void GameStage::CreateFallingRocks() {
 		vector<vector<Vec3>> vec2 = {
 			{
@@ -141,16 +184,18 @@ namespace basecross {
 
 	void GameStage::OnCreate() {
 		try {
-			//ビューとライトの作成
+			//ビューとライトの生成
 			CreateViewLight();
-			//フィールドの作成
+			//フィールドの生成
 			CreateField();
-			//セルマップの作成
+			//セルマップの生成
 			CreateStageCellMap();
-			//プレイヤーの作成
+			//プレイヤーの生成
 			CreatePlayer();
-			//敵の作成
+			//敵の生成
 			CreateEnemy();
+			// ゴーレムの生成
+			CreateGolem();
 		}
 		catch (...) {
 			throw;
