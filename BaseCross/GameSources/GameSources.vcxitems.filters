@@ -31,6 +31,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp">
       <Filter>Other\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Golem.cpp">
+      <Filter>Other\Characters\Golem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -62,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MyCamera.h">
       <Filter>Other\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Golem.h">
+      <Filter>Other\Characters\Golem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +118,9 @@
     </Filter>
     <Filter Include="Other\Characters\Character">
       <UniqueIdentifier>{50b2648d-2766-4c37-b092-783f73c917e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Characters\Golem">
+      <UniqueIdentifier>{0762c6ca-4812-4ff8-897f-9a8740aef7a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
