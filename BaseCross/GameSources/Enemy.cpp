@@ -16,7 +16,7 @@ namespace basecross {
 	//‰Šú‰»
 	void Enemy::OnCreate() {
 		auto ptr = GetComponent<Transform>();
-		ptr->SetScale(0.5f, 0.5f, 0.5f);
+		ptr->SetScale(Vec3(0.5f));
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(m_StartPosition);
 		AddComponent<CollisionSphere>();
@@ -31,8 +31,9 @@ namespace basecross {
 		ptrDraw->SetMeshResource(L"GOLRM");
 		ptrDraw->SetDiffuse(Col4(1.0f, 0, 0, 1.0f));
 
-		AddTag(L"Golrm");
+		AddTag(L"Enemy");
 	}
+
 	void Enemy::OnUpdate() {
 		m_Force.setAll(0.0f);
 		auto PlayerPtr = GetStage()->GetSharedGameObject<Player>(L"Player");

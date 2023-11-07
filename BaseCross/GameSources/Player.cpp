@@ -111,7 +111,6 @@ namespace basecross{
 	void Player::OnUpdate() {
 		MovePlayer();
 		auto& app = App::GetApp();
-
 		float delta = app->GetElapsedTime(); // 前フレームからの経過時間（60FPS）
 
 		auto device = app->GetInputDevice(); // インプットデバイスオブジェクトを取得する

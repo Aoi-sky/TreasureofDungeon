@@ -61,9 +61,20 @@ namespace basecross {
 	}
 
 	void FallingRocks::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		if (Other->FindTag(L"Wave"))//
+		if (Other->FindTag(L"Wave"))//ÕŒ‚”g
 		{
 			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
+			return;
+		}
+		if (Other->FindTag(L"Enemy"))//“G
+		{
+			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
+			return;
+		}
+		if (Other->FindTag(L"FixedCylinder")|| Other->FindTag(L"FallingRocks"))//’Œ
+		{
+			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
+			GetStage()->AddGameObject<FallingRocks>();
 			return;
 		}
 	}

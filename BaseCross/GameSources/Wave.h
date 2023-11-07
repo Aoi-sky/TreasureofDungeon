@@ -6,7 +6,6 @@
 
 namespace basecross {
 	class Wave :public GameObject {
-
 		// 自分自身のトランスフォームコンポーネント（Update処理の最適化のために宣言）
 		std::shared_ptr<Transform> m_transform;
 
@@ -29,8 +28,4 @@ namespace basecross {
 		void OnUpdate()override;
 		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 	};
-	
-
-
-
 }

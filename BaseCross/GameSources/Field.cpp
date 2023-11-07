@@ -78,10 +78,11 @@ namespace basecross {
 	}
 
 	void FixedCylinder::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		//if (Other->FindTag(L"Player")) {
-		//	GetComponent< FallingRocks>()->OnCreate();
+		//if (Other->FindTag(L"FallingRocks")) {
+		//	GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
+		//	GetStage()->AddGameObject<FallingRocks>();
+		//	return;
 		//}
 	}
-
 
 }

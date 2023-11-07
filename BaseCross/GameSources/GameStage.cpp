@@ -167,18 +167,9 @@ namespace basecross {
 		AddGameObject<Golem>(Ptrcellmap, Vec3(0, 3.5f, 20.0f));
 	}
 
+	//—Î‚Ìì¬
 	void GameStage::CreateFallingRocks() {
-		vector<vector<Vec3>> vec2 = {
-			{
-				Vec3(5.0f, 5.0f, 5.0f),//Scale
-				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(5.0f,10.0f,5.0f)//Position
-			}
-		};
-			for (auto v : vec2) {
-				AddGameObject<FixedCylinder>(v[0], v[1], v[2]);
-			}
-		
+		AddGameObject<FallingRocks>();
 	}
 	
 
@@ -196,6 +187,8 @@ namespace basecross {
 			CreateEnemy();
 			// ƒS[ƒŒƒ€‚Ì¶¬
 			CreateGolem();
+			//—Î‚Ìì¬
+			CreateFallingRocks();
 		}
 		catch (...) {
 			throw;
