@@ -30,7 +30,7 @@ namespace basecross{
 
 		App::GetApp()->RegisterResource(
 			staticModelMeshName,
-			MeshResource::CreateStaticModelMesh(dataDir, L"MayaModels\\" + staticModelbmfName + L".bmf")
+			MeshResource::CreateStaticModelMesh(dataDir, L"Models\\" + staticModelbmfName + L".bmf")
 		);
 	}
 
@@ -41,10 +41,10 @@ namespace basecross{
 		App::GetApp()->GetDataDirectory(dataDir);
 
 		App::GetApp()->RegisterResource(boneModelMeshName,
-			MeshResource::CreateBoneModelMesh(dataDir, L"MayaModels\\" + boneModelbmfName + L".bmf"));
+			MeshResource::CreateBoneModelMesh(dataDir, L"Models\\" + boneModelbmfName + L".bmf"));
 
 		App::GetApp()->RegisterResource(boneModelMeshTangentName,
-			MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"MayaModels\\" + boneModelbmfName + L".bmf")
+			MeshResource::CreateBoneModelMeshWithTangent(dataDir, L"Models\\" + boneModelbmfName + L".bmf")
 		);
 
 	}
@@ -57,6 +57,22 @@ namespace basecross{
 
 
 		RoadBoneModel(L"Golem_Boss", L"GOLRM", L"GOLRM_TAN");
+
+		const auto& app = App::GetApp();
+		// ディレクトリパスの設定
+		const wstring mediaPath = app->GetDataDirWString();
+
+		// テクスチャディレクトリパス
+		const wstring texturePath = mediaPath + L"Textures/";
+
+		// ゴーレムのテクスチャの読込
+		app->RegisterTexture(L"Golem", texturePath + L"Golem.png");
+
+		// モデルディレクトリパスの取得
+		const wstring modelPath = mediaPath + L"Models/";
+
+		// ゴーレムのモデルの読み込み
+		RegisterSingleMesh(L"GOLEM", modelPath, L"Golem", true);
 	}
 
 
@@ -87,5 +103,19 @@ namespace basecross{
 		}
 	}
 
+	void Scene::RegisterSingleMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse)
+	{
+		shared_ptr<MeshResource> modelMesh;
+		if (boneUse)
+		{
+			modelMesh = MeshResource::CreateBoneModelMesh(path, fileName + L".bmf");
+		}
+		else
+		{
+			modelMesh = MeshResource::CreateStaticModelMesh(path, fileName + L".bmf");
+		}
+		const auto& app = App::GetApp();
+		app->RegisterResource(registerKey, modelMesh);
+	}
 }
 //end basecross
