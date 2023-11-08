@@ -34,6 +34,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Golem.cpp">
       <Filter>Other\Characters\Golem</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GimmickMove.cpp">
+      <Filter>Other\GameGimmick\Falling rocks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -68,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Golem.h">
       <Filter>Other\Characters\Golem</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GimmickMove.h">
+      <Filter>Other\GameGimmick\Falling rocks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

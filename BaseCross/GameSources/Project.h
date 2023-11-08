@@ -19,3 +19,4 @@
 #include "Wave.h"
 #include "Gimmick.h"
 #include "Golem.h"
+#include "GimmickMove.h"
