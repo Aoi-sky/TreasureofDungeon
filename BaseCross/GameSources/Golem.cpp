@@ -40,7 +40,7 @@ namespace basecross {
 
 		// 新規ドローコンポーネントの設定
 		auto ptrDraw = AddComponent<BcPNTBoneModelDraw>();
-		ptrDraw->SetMeshResource(L"GOLEM");
+		ptrDraw->SetMultiMeshResource(L"GOLEM");
 		ptrDraw->SetMeshToTransformMatrix(m_differenceMatrix);
 		ptrDraw->SetSpecularColor(Col4(1, 1, 1, 1));
 		ptrDraw->SetOwnShadowActive(true);
@@ -50,7 +50,8 @@ namespace basecross {
 		ptrDraw->AddAnimation(L"WAIT", 0, 1, true);
 		ptrDraw->AddAnimation(L"BOOTING", 0, 90, false);
 		ptrDraw->AddAnimation(L"WALKSTART", 100, 30, false);
-		ptrDraw->AddAnimation(L"WALKING", 130, 60, true);
+		ptrDraw->AddAnimation(L"WALKING1", 130, 60, false);
+		ptrDraw->AddAnimation(L"WALKING2", 130, 60, false);
 		ptrDraw->AddAnimation(L"WALKFINISH", 190, 15, false);
 		ptrDraw->AddAnimation(L"ATTACKSTART_SWINGDOWN", 210, 60, false);
 		ptrDraw->AddAnimation(L"ATTACKFINISH_SWINGDOWN", 270, 30, false);
@@ -59,7 +60,7 @@ namespace basecross {
 		ptrDraw->AddAnimation(L"ATTACKSTART_RAMMING", 440, 60, false);
 		ptrDraw->AddAnimation(L"ATTACKING_RAMMING", 500, 30, true);
 		ptrDraw->AddAnimation(L"ATTACKFINISH_RAMMING", 530, 60, false);
-		ptrDraw->AddAnimation(L"DEATH", 0, 1, true);
+		ptrDraw->AddAnimation(L"DEATH", 600, 1, true);
 
 		// 最初のアニメーションを指定
 		ptrDraw->ChangeCurrentAnimation(L"BOOTING");
@@ -68,26 +69,23 @@ namespace basecross {
 
 		// 影を追加
 		auto ptrShadow = AddComponent<Shadowmap>();
-		ptrShadow->SetMeshResource(L"GOLEM");
+		ptrShadow->SetMultiMeshResource(L"GOLEM");
 		ptrShadow->SetMeshToTransformMatrix(m_differenceMatrix);
 		// タグの設定
-		AddTag(L"ENEMY");
-		AddTag(L"BOSS");
+		AddTag(L"Enemy");
+		AddTag(L"Golem");
 
 	}
 
 	void Golem::OnUpdate() {
-		// アニメーションを更新
-		AnimationUpdate();
-
-		if (m_motion == Walking) {
+		if (m_motion == Walking1 || m_motion == Walking2) {
 			// デルタタイムを取得
 			float deltaTime = App::GetApp()->GetElapsedTime();
 			// 攻撃用のカウントを加算
-			m_countTime += deltaTime;
+			m_countTime += 1;
 		}
 
-		if (m_motion == Walking || m_motion == WalkFinish || m_motion == Attacking_Ramming || m_motion == AttackFinish_Ramming) {
+		if (m_motion == Walking1 || m_motion == Walking2 || m_motion == Attacking_Ramming || m_motion == AttackFinish_Ramming) {
 			MoveGolem();
 		}
 
@@ -108,14 +106,28 @@ namespace basecross {
 			}
 
 			if (m_currentMotion == eMotion::WalkStart) {
-				m_motion = Walking;
+				m_motion = Walking1;
 			}
 
-			if (m_currentMotion == eMotion::Walking) {
+			if (m_currentMotion == eMotion::Walking1) {
 				// カウントが攻撃間隔に達したか
 				if (m_countTime > m_status.attackInterspace) {
 					m_motion = WalkFinish;
 					m_countTime = 0;
+				}
+				else {
+					m_motion = Walking2;
+				}
+			}
+
+			if (m_currentMotion == eMotion::Walking2) {
+				// カウントが攻撃間隔に達したか
+				if (m_countTime > m_status.attackInterspace) {
+					m_motion = WalkFinish;
+					m_countTime = 0;
+				}
+				else {
+					m_motion = Walking1;
 				}
 			}
 
@@ -188,6 +200,7 @@ namespace basecross {
 
 		}
 	}
+
 	void Golem::AnimationUpdate()
 	{
 		// アニメーションの再生
@@ -210,12 +223,27 @@ namespace basecross {
 			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
 			return;
 		}
+		if (m_motion == Booting)
+		{
+			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
+			return;
+		}
+		if (m_motion == Wait)
+		{
+			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
+			return;
+		}
 		if (m_motion == WalkStart)
 		{
 			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
 			return;
 		}
-		if (m_motion == Walking)
+		if (m_motion == Walking1)
+		{
+			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
+			return;
+		}
+		if (m_motion == Walking2)
 		{
 			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
 			return;
@@ -288,26 +316,26 @@ namespace basecross {
 			m_velocity *= m_status.speed / m_velocity.length();
 		}
 
+		// 座標を更新
+		golemPos += m_velocity * deltaTime * 0.1f;
+		ptrTrans->SetPosition(golemPos);
 
-		if (m_motion == Walking || m_motion == WalkFinish) {
-			// 座標を更新
-			golemPos += m_velocity * deltaTime * 0.1f;
-			ptrTrans->SetPosition(golemPos);
+
+		if (m_motion == Walking1 || m_motion == Walking2 || m_motion == WalkFinish) {
 
 			// 移動方向の向きを取得
 			float rad = -atan2(golemPos.z - m_currentPos.z, golemPos.x - m_currentPos.x);
 			// ズレの修正のために角度を90°ずらす
-			Vec3 rotation(0.0f, rad - XM_PIDIV2, 0.0f);
+			Vec3 rotation(0.0f, rad, 0.0f);
 
 			if (m_rotation.y < rotation.y) {
-				m_rotation.y += 3.0f * (XM_PI / 180.0f);
-				if (m_rotation.y > rotation.y) {
-					m_rotation.y -= 3.0f * (XM_PI / 180.0f);
-				}
-
-				// 計算した向きを自身に適用
-				m_transform->SetRotation(m_rotation);
+				m_rotation.y += 2.0f * (XM_PI / 180.0f);
 			}
+			if (m_rotation.y > rotation.y) {
+				m_rotation.y -= 2.0f * (XM_PI / 180.0f);
+			}
+			// 計算した向きを自身に適用
+			m_transform->SetRotation(m_rotation);
 		}
 		else
 		{

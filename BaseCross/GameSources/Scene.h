@@ -62,7 +62,7 @@ namespace basecross{
 		@param[in]  ƒ{[ƒ“‚ª‚ ‚é‚©‚Ì^‹U
 		*/
 		//--------------------------------------------------------------------------------------
-		virtual void RegisterSingleMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse);
+		virtual void RegisterMultiMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse);
 
 	};
 
