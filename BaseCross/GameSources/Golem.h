@@ -42,7 +42,8 @@ namespace basecross {
 			Wait, // 待機
 			Booting, // 起動
 			WalkStart, // 歩行開始
-			Walking, // 歩行中(ループ可)
+			Walking1, // 歩行中(ループ可)
+			Walking2, // 歩行中(ループ可)
 			WalkFinish, // 歩行終了
 			AttackStart_Swingdown,// 攻撃開始(振り下ろし)
 			AttackFinish_Swingdown, // 攻撃終了(振り下ろし)
@@ -101,7 +102,7 @@ namespace basecross {
 			m_startPosition(position) // 初期座標
 		{
 			// 難易度が増えた場合はここでステータスリストの参照先を変更
-			m_status = statusList[1];
+			m_status = statusList[0];
 
 			m_rotation = Vec3(0.0f);
 
@@ -116,7 +117,8 @@ namespace basecross {
 				L"WAIT", // 起動
 				L"BOOTING", // 起動
 				L"WALKSTART", // 歩行開始
-				L"WALKING", // 歩行中(ループ可)
+				L"WALKING1", // 歩行中(ループ可)
+				L"WALKING2", // 歩行中(ループ可)
 				L"WALKFINISH", // 歩行終了
 				L"ATTACKSTART_SWINGDOWN", // 攻撃開始(振り下ろし)
 				L"ATTACKFINISH_SWINGDOWN", // 攻撃終了(振り下ろし)
@@ -127,8 +129,9 @@ namespace basecross {
 				L"ATTACKFINISH_RAMMING", // 攻撃終了(突進)
 				L"DEATH" // 死亡
 			};
-			m_motion = Wait;
-			m_currentMotion = Wait;
+
+			m_motion = Booting;
+			m_currentMotion = Booting;
 
 		}
 

@@ -98,6 +98,8 @@ namespace basecross{
 		ptrDraw->SetTextureResource(L"PLAYER");
 		SetAlphaActive(true);
 
+		// ƒ^ƒO‚Ìİ’è
+		AddTag(L"Player");
 
 		//ƒJƒƒ‰‚ğæ“¾
 		auto ptrCamera = dynamic_pointer_cast<MyCamera>(OnGetDrawCamera());
@@ -126,10 +128,7 @@ namespace basecross{
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		if (L"")
-		{
 
-		}
 	}
 
 	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {

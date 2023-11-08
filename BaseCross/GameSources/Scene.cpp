@@ -65,17 +65,15 @@ namespace basecross{
 		// ディレクトリパスの設定
 		const wstring mediaPath = app->GetDataDirWString();
 
-		// テクスチャディレクトリパス
-		const wstring texturePath = mediaPath + L"Textures/";
-
 		// ゴーレムのテクスチャの読込
-		app->RegisterTexture(L"Golem", texturePath + L"Golem.png");
+		//RoadTexture(L"Golem", L"Golem.png");
+		//RoadTexture(L"Golem", L"Golem_Core.png");
 
 		// モデルディレクトリパスの取得
 		const wstring modelPath = mediaPath + L"Models/";
-
+	
 		// ゴーレムのモデルの読み込み
-		RegisterSingleMesh(L"GOLEM", modelPath, L"Golem", true);
+		RegisterMultiMesh(L"GOLEM", modelPath, L"Golem", true);
 	}
 
 
@@ -106,16 +104,16 @@ namespace basecross{
 		}
 	}
 
-	void Scene::RegisterSingleMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse)
+	void Scene::RegisterMultiMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse)
 	{
-		shared_ptr<MeshResource> modelMesh;
+		shared_ptr<MultiMeshResource> modelMesh;
 		if (boneUse)
 		{
-			modelMesh = MeshResource::CreateBoneModelMesh(path, fileName + L".bmf");
+			modelMesh = MultiMeshResource::CreateBoneModelMultiMesh(path, fileName + L".bmf");
 		}
 		else
 		{
-			modelMesh = MeshResource::CreateStaticModelMesh(path, fileName + L".bmf");
+			modelMesh = MultiMeshResource::CreateStaticModelMultiMesh(path, fileName + L".bmf");
 		}
 		const auto& app = App::GetApp();
 		app->RegisterResource(registerKey, modelMesh);
