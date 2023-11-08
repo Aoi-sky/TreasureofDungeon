@@ -28,7 +28,7 @@ namespace basecross {
 		//ˆÚ“®ˆ—
 		auto pos = m_transform->GetPosition();
 		pos += m_forward * m_speed * delta;
-		m_transform->SetPosition(pos);
+		m_transform->SetPosition(pos.x, 1,pos.z);
 
 	}
 	void Wave::OnCollisionEnter(shared_ptr<GameObject>& Other) {

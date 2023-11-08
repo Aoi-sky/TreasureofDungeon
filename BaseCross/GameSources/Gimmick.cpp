@@ -9,7 +9,7 @@
 namespace basecross {
 	FallingRocks::FallingRocks(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
-		m_Scale(Vec3(1.0f,2.0f,1.0f)),
+		m_Scale(Vec3(1.0f,1.0f,1.0f)),
 		m_Rotation(Vec3(0,0,0)),
 		m_Position(Vec3(0, 0, 0))
 	{
@@ -49,7 +49,7 @@ namespace basecross {
 		//ï`âÊèàóù
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 		ptrDraw->SetFogEnabled(true);
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		ptrDraw->SetMeshResource(L"FALLINGROCKS");
 		ptrDraw->SetTextureResource(L"PLAYER");
 		ptrDraw->SetOwnShadowActive(true);
 
@@ -65,7 +65,6 @@ namespace basecross {
 		{
 			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
 			GetStage()->AddGameObject<MoveFallingRocks>(GetThis<FallingRocks>());
-			//GetStage()->AddGameObject<MoveFallingRocks>(GetThis<Player>());
 			return;
 		}
 		if (Other->FindTag(L"Enemy"))//ìG
@@ -78,6 +77,10 @@ namespace basecross {
 			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
 			GetStage()->AddGameObject<FallingRocks>();
 			return;
+		}
+		if (Other->FindTag(L"FixedBox"))//è∞
+		{
+
 		}
 	}
 }

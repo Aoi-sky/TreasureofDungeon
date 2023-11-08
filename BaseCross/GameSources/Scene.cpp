@@ -55,8 +55,11 @@ namespace basecross{
 		RoadTexture(L"PILLAR", L"pillar2.png");
 		RoadTexture(L"PLAYER", L"Player.png");
 
+		RoadStaticModelMesh(L"Rock2", L"FALLINGROCKS");
 
 		RoadBoneModel(L"Golem_Boss", L"GOLRM", L"GOLRM_TAN");
+		RoadBoneModel(L"Player", L"M_PLAYER", L"PLAYER_TAN");
+		
 
 		const auto& app = App::GetApp();
 		// ディレクトリパスの設定

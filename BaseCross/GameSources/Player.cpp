@@ -69,7 +69,7 @@ namespace basecross{
 
 	void Player::OnCreate() {
 		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(0.5f, 0.75f, 0.5f);
+		ptr->SetScale(0.5f, 0.5f, 0.5f);
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(0.0f, 0.85f, 0.0f));
 
@@ -90,10 +90,11 @@ namespace basecross{
 		//影をつける（シャドウマップを描画する）
 		auto shadowPtr = AddComponent<Shadowmap>();
 		//影の形（メッシュ）を設定
-		shadowPtr->SetMeshResource(L"DEFAULT_CUBE");
+		//shadowPtr->SetMeshResource(L"DEFAULT_CUBE");
+		shadowPtr->SetMeshResource(L"M_PLAYER");
 
 		auto  ptrDraw = AddComponent<BcPNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		ptrDraw->SetMeshResource(L"M_PLAYER");
 		ptrDraw->SetTextureResource(L"PLAYER");
 		SetAlphaActive(true);
 

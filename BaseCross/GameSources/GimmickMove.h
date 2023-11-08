@@ -21,7 +21,7 @@ namespace basecross {
 	public:
 		MoveFallingRocks(const std::shared_ptr<Stage>& stage, const shared_ptr<GameObject>& owner) :
 			GameObject(stage),
-			m_speed(5.0f),
+			m_speed(10.0f),
 			m_owner(owner),
 			m_forward(Vec3(0)),
 			m_Positon(Vec3(0))
