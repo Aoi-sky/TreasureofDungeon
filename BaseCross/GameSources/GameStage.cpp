@@ -73,14 +73,9 @@ namespace basecross {
 		//}
 	}
 
-//フィールド生成
-	void GameStage::CreateField() {
+	// 壁の生成
+	void GameStage::CreateWall() {
 		vector<vector<Vec3>> vec = {
-			{//地面
-				Vec3(50.0f, 1.0f, 80.0f),//Scale
-				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(0.0f,0.0f,0.0f)//Position
-			},
 			{//北壁
 				Vec3(50.0f, 20.0f, 5.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
@@ -108,11 +103,29 @@ namespace basecross {
 			}
 		};
 		for (auto v : vec) {
-			AddGameObject<FixedBox>(v[0], v[1], v[2]);
+			AddGameObject<Wall>(v[0], v[1], v[2]);
 		}
-		
+	}
+
+	// 床の生成
+	void GameStage::CreateFloor() {
+		// 地面の生成
+		vector<vector<Vec3>> vec = {
+			{
+				Vec3(50.0f, 1.0f, 80.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(0.0f,0.0f,0.0f)//Position
+			}
+		};
+		for (auto v : vec) {
+			AddGameObject<Floor>(v[0], v[1], v[2]);
+		}
+	}
+
+	// 壁の生成
+	void GameStage::CreatePiller() {
 		//柱生成
-		vector<vector<Vec3>> vec2 = {
+		vector<vector<Vec3>> vec = {
 			{
 				Vec3(5.0f, 20.0f, 5.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
@@ -144,10 +157,11 @@ namespace basecross {
 				Vec3(-15.0f,10.0f,0.0f)//Position
 			},
 		};
-		for (auto v : vec2) {
+		for (auto v : vec) {
 			AddGameObject<FixedCylinder>(v[0], v[1], v[2]);
 		}
 	}
+
 	
 	//プレイヤーの生成
 	void GameStage::CreatePlayer() {
@@ -177,8 +191,12 @@ namespace basecross {
 		try {
 			//ビューとライトの生成
 			CreateViewLight();
-			//フィールドの生成
-			CreateField();
+			//壁の生成
+			CreateWall();
+			//床の生成
+			CreateFloor();
+			//柱の生成
+			CreatePiller();
 			//セルマップの生成
 			CreateStageCellMap();
 			//プレイヤーの生成
