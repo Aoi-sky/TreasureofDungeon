@@ -42,6 +42,49 @@ namespace basecross {
 
 	}
 
+
+	//壁
+	Wall::Wall(const shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
+		const Vec3& Rotation,
+		const Vec3& Position
+	) :
+		FixedBox(StagePtr, Scale, Rotation, Position)
+	{
+	}
+	Wall::~Wall() {}
+
+	//初期化
+	void Wall::OnCreate() {
+		// 継承元のOnCreateの呼び出し
+		FixedBox::OnCreate();
+
+		// タグの設定
+		AddTag(L"Wall");
+	}
+
+
+	//床
+	Floor::Floor(const shared_ptr<Stage>& StagePtr,
+		const Vec3& Scale,
+		const Vec3& Rotation,
+		const Vec3& Position
+	) :
+		FixedBox(StagePtr, Scale, Rotation, Position)
+	{
+	}
+	Floor::~Floor() {}
+
+	//初期化
+	void Floor::OnCreate() {
+		// 継承元のOnCreateの呼び出し
+		FixedBox::OnCreate();
+
+		// タグの設定
+		AddTag(L"Floor");
+	}
+
+
 	//円柱
 	FixedCylinder::FixedCylinder(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
@@ -78,11 +121,11 @@ namespace basecross {
 	}
 
 	void FixedCylinder::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		//if (Other->FindTag(L"FallingRocks")) {
-		//	GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
-		//	GetStage()->AddGameObject<FallingRocks>();
-		//	return;
-		//}
+		if (Other->FindTag(L"FallingRocks")) {
+			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
+			GetStage()->AddGameObject<FallingRocks>();
+			return;
+		}
 	}
 
 }
