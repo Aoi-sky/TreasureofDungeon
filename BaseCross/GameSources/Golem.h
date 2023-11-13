@@ -28,7 +28,7 @@ namespace basecross {
 	// ステータスを設定
 	// 体力, 移動速度, 攻撃頻度(フレーム)
 	const Status statusList[1] = {
-			{1000, 10.0f, 150}
+			{1000, 0.05f, 180}
 	};
 
 	// 基底クラス
@@ -50,7 +50,8 @@ namespace basecross {
 			AttackStart_Punch,// 攻撃開始(パンチ)
 			AttackFinish_Punch, // 攻撃終了(パンチ)
 			AttackStart_Ramming,// 攻撃開始(突進)
-			Attacking_Ramming, // 攻撃中(突進)(ループ可)
+			Attacking_Ramming1, // 攻撃中(突進)(ループ可)
+			Attacking_Ramming2, // 攻撃中(突進)(ループ可)
 			AttackFinish_Ramming, // 攻撃終了(突進)
 			Death, // 死亡
 		};
@@ -62,15 +63,21 @@ namespace basecross {
 		// 前回の攻撃から経過したフレーム数
 		int m_countTime;
 		// スポーン地点
-		Vec3 m_startPosition;
+		Vec3 m_startPos;
 		// 回転
 		Vec3 m_rotation;
 		// 加速度
 		Vec3 m_force;
 		// 速度
 		Vec3 m_velocity;
+		// 移動方向
+		Vec3 m_forward;
 		// 前フレームの座標
 		Vec3 m_currentPos;
+		// 突進攻撃開始時の座標
+		Vec3 m_rammingPos;
+		// 突進を中断するかを判定するフラグ
+		bool m_stopRammingFlg;
 		// 自分自身のトランスフォームコンポーネント
 		std::shared_ptr<Transform> m_transform;
 		// 通過する経路
@@ -99,7 +106,7 @@ namespace basecross {
 		) :
 			GameObject(stagePtr), // ステージのポインタ
 			m_cellMapPtr(cellMapptr), // セルマップのシェアドポインタ
-			m_startPosition(position) // 初期座標
+			m_startPos(position) // 初期座標
 		{
 			// 難易度が増えた場合はここでステータスリストの参照先を変更
 			m_status = statusList[0];
@@ -125,7 +132,8 @@ namespace basecross {
 				L"ATTACKSTART_PUNCH", // 攻撃開始(パンチ)
 				L"ATTACKFINISH_PUNCH", // 攻撃終了(パンチ)
 				L"ATTACKSTART_RAMMING", // 攻撃開始(突進)
-				L"ATTACKING_RAMMING", // 攻撃中(突進)(ループ可)
+				L"ATTACKING_RAMMING1", // 攻撃中(突進)(ループ可)
+				L"ATTACKING_RAMMING2", // 攻撃中(突進)(ループ可)
 				L"ATTACKFINISH_RAMMING", // 攻撃終了(突進)
 				L"DEATH" // 死亡
 			};
@@ -160,14 +168,26 @@ namespace basecross {
 
 		/*!
 		@brief	 指定された攻撃の範囲内にプレイヤーが居るかを確認する関数
-		@param[in]	 
+		@param[in]	 motion
 		@return 攻撃範囲内に居たらtrue
 		*/
 		bool CheckAttackArea(eMotion motion);
 
 		/*!
-		@brief	 ボスにダメージを与える関数
+		@brief	 ゴーレムにダメージを与える関数
 		*/
 		void AddDamage(int damage);
+
+		/*!
+		@brief	 他のコリジョンと衝突した時に実行される関数
+		@param[in]	Other	衝突したオブジェクトのポインタ
+		*/
+		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
+
+		/*!
+		@brief	 他のコリジョンとの衝突が解消された時に実行される関数
+		@param[in]	Other	衝突していたオブジェクトのポインタ
+		*/
+		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
 	};
 }
