@@ -76,11 +76,6 @@ namespace basecross {
 //フィールド生成
 	void GameStage::CreateField() {
 		vector<vector<Vec3>> vec = {
-			{//地面
-				Vec3(50.0f, 1.0f, 80.0f),//Scale
-				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(0.0f,0.0f,0.0f)//Position
-			},
 			{//北壁
 				Vec3(50.0f, 20.0f, 5.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
@@ -100,6 +95,17 @@ namespace basecross {
 				Vec3(5.0f, 20.0f, 80.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
 				Vec3(-25.0f,10.0f,0.0f)//Position
+			}
+		};
+		for (auto v : vec) {
+			AddGameObject<FixedBox>(v[0], v[1], v[2]);
+		}
+
+		vector<vector<Vec3>> vec2 = {
+			{//地面
+				Vec3(50.0f, 1.0f, 80.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(0.0f,0.0f,0.0f)//Position
 			},
 			{//天井
 				Vec3(50.0f, 1.0f, 80.0f),//Scale
@@ -107,12 +113,13 @@ namespace basecross {
 				Vec3(0.0f,20.0f,0.0f)//Position
 			}
 		};
-		for (auto v : vec) {
-			AddGameObject<FixedBox>(v[0], v[1], v[2]);
+		for (auto v : vec2) {
+			AddGameObject<FixedFloor>(v[0], v[1], v[2]);
 		}
+
 		
 		//柱生成
-		vector<vector<Vec3>> vec2 = {
+		vector<vector<Vec3>> vec3 = {
 			{
 				Vec3(5.0f, 20.0f, 5.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
@@ -144,7 +151,7 @@ namespace basecross {
 				Vec3(-15.0f,10.0f,0.0f)//Position
 			},
 		};
-		for (auto v : vec2) {
+		for (auto v : vec3) {
 			AddGameObject<FixedCylinder>(v[0], v[1], v[2]);
 		}
 	}

@@ -7,7 +7,7 @@
 #include "stdafx.h"
 
 namespace basecross {
-	//キューブ生成
+	//キューブ生成:壁
 	class FixedBox : public GameObject {
 		Vec3 m_Scale;
 		Vec3 m_Rotation;
@@ -19,6 +19,22 @@ namespace basecross {
 			const Vec3& Position
 		);
 		virtual ~FixedBox();
+		//初期化
+		virtual void OnCreate() override;
+	};
+
+	//キューブ生成:床
+	class FixedFloor : public GameObject {
+		Vec3 m_Scale;
+		Vec3 m_Rotation;
+		Vec3 m_Position;
+	public:
+		FixedFloor(const shared_ptr<Stage>& StagePtr,
+			const Vec3& Scale,
+			const Vec3& Rotation,
+			const Vec3& Position
+		);
+		virtual ~FixedFloor();
 		//初期化
 		virtual void OnCreate() override;
 	};

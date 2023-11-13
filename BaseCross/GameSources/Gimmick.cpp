@@ -9,7 +9,7 @@
 namespace basecross {
 	FallingRocks::FallingRocks(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
-		m_Scale(Vec3(1.0f,1.0f,1.0f)),
+		m_Scale(Vec3(5.0f, 5.0f, 5.0f)),
 		m_Rotation(Vec3(0,0,0)),
 		m_Position(Vec3(0, 0, 0))
 	{
@@ -40,12 +40,14 @@ namespace basecross {
 		ptrTransform->SetRotation(m_Rotation);
 		ptrTransform->SetPosition(Vec3(float(x), 15.0f, float(z)));
 		
-		auto ptrColl = AddComponent<CollisionObb>();//OBB衝突j判定を付ける
+		auto ptrColl = AddComponent<CollisionSphere>();//OBB衝突j判定を付ける
 		ptrColl->SetFixed(false);
+		ptrColl->SetDrawActive(true);
+
 		auto ptrGra = AddComponent<Gravity>();//重力をつける
 		//影をつける
 		auto shadowPtr = AddComponent<Shadowmap>();
-		shadowPtr->SetMeshResource(L"DEFAULT_CUBE");
+		shadowPtr->SetMeshResource(L"FALLINGROCKS");
 		//描画処理
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 		ptrDraw->SetFogEnabled(true);
@@ -72,13 +74,13 @@ namespace basecross {
 			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
 			return;
 		}
-		if (Other->FindTag(L"FixedCylinder")|| Other->FindTag(L"FallingRocks"))//柱
+		if (Other->FindTag(L"FixedCylinder")|| Other->FindTag(L"FallingRocks"))//柱・落石
 		{
 			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
 			GetStage()->AddGameObject<FallingRocks>();
 			return;
 		}
-		if (Other->FindTag(L"FixedBox"))//床
+		if (Other->FindTag(L"FixedFloor"))//床
 		{
 
 		}
