@@ -19,7 +19,7 @@ namespace basecross {
 		m_transform = GetComponent<Transform>();
 		m_transform->SetScale(Vec3(3.0f));
 		m_transform->SetRotation(Vec3(0.0f));
-		m_transform->SetPosition(m_startPosition);
+		m_transform->SetPosition(m_startPos);
 
 
 		// PathSearchコンポーネントの取得
@@ -30,9 +30,8 @@ namespace basecross {
 		}
 		//CollisionSphere衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionCapsule>();
-		ptrColl->SetDrawActive(false);
-		ptrColl->SetFixed(true);
 		ptrColl->SetDrawActive(true);
+		ptrColl->SetFixed(false);
 
 		//描画コンポーネントの設定
 		SetAlphaActive(true);
@@ -58,7 +57,8 @@ namespace basecross {
 		ptrDraw->AddAnimation(L"ATTACKSTART_PUNCH", 310, 60, false);
 		ptrDraw->AddAnimation(L"ATTACKFINISH_PUNCH", 370, 60, false);
 		ptrDraw->AddAnimation(L"ATTACKSTART_RAMMING", 440, 60, false);
-		ptrDraw->AddAnimation(L"ATTACKING_RAMMING", 500, 30, true);
+		ptrDraw->AddAnimation(L"ATTACKING_RAMMING1", 500, 30, false);
+		ptrDraw->AddAnimation(L"ATTACKING_RAMMING2", 500, 30, false);
 		ptrDraw->AddAnimation(L"ATTACKFINISH_RAMMING", 530, 60, false);
 		ptrDraw->AddAnimation(L"DEATH", 600, 1, true);
 
@@ -78,15 +78,18 @@ namespace basecross {
 	}
 
 	void Golem::OnUpdate() {
-		if (m_motion == Walking1 || m_motion == Walking2) {
-			// デルタタイムを取得
-			float deltaTime = App::GetApp()->GetElapsedTime();
+		switch (m_motion) {
+		case Walking1:
+		case Walking2:
+		case Attacking_Ramming1:
+		case Attacking_Ramming2:
 			// 攻撃用のカウントを加算
-			m_countTime += 1;
-		}
-
-		if (m_motion == Walking1 || m_motion == Walking2 || m_motion == Attacking_Ramming || m_motion == AttackFinish_Ramming) {
+			m_countTime++;
 			MoveGolem();
+			break;
+
+		default:
+			break;
 		}
 
 
@@ -181,16 +184,41 @@ namespace basecross {
 			}
 
 			if (m_currentMotion == eMotion::AttackStart_Ramming) {
-				m_motion = Attacking_Ramming;
+				if (m_countTime > m_status.attackInterspace || m_stopRammingFlg) {
+					m_motion = AttackFinish_Ramming;
+					m_stopRammingFlg = false;
+				}
+				else {
+					m_motion = Attacking_Ramming1;
+					m_rammingPos = m_transform->GetPosition();
+				}
 			}
 
-			if (m_currentMotion == eMotion::Attacking_Ramming) {
+			if (m_currentMotion == eMotion::Attacking_Ramming1) {
+				// カウントが攻撃間隔に達する、または突進攻撃を中止するフラグがtrueなら
+				if (m_countTime > m_status.attackInterspace || m_stopRammingFlg) {
+					m_motion = AttackFinish_Ramming;
+					m_countTime = 0;
+				}
+				else {
+					m_motion = Attacking_Ramming2;
+				}
+			}
 
-				m_motion = AttackFinish_Ramming;
+			if (m_currentMotion == eMotion::Attacking_Ramming2) {
+				// カウントが攻撃間隔に達する、または突進攻撃を中止するフラグがtrueなら
+				if (m_countTime > m_status.attackInterspace || m_stopRammingFlg) {
+					m_motion = AttackFinish_Ramming;
+					m_countTime = 0;
+				}
+				else {
+					m_motion = Attacking_Ramming1;
+				}
 			}
 
 			if (m_currentMotion == eMotion::AttackFinish_Ramming) {
 				m_motion = WalkStart;
+				m_stopRammingFlg = false;
 			}
 			if (m_currentMotion == eMotion::Death) {
 				// ゴーレムを消去する
@@ -278,7 +306,12 @@ namespace basecross {
 			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
 			return;
 		}
-		if (m_motion == Attacking_Ramming)
+		if (m_motion == Attacking_Ramming1)
+		{
+			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
+			return;
+		}
+		if (m_motion == Attacking_Ramming2)
 		{
 			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
 			return;
@@ -297,56 +330,93 @@ namespace basecross {
 	}
 
 	void Golem::MoveGolem() {
-		// プレイヤーの座標を取得
+		// プレイヤーのポインタを取得
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
+		// プレイヤーの座標を取得
 		auto playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
 
 		// 自身の座標を取得
-		auto ptrTrans = GetComponent<Transform>();
-		auto golemPos = ptrTrans->GetPosition();
+		auto golemPos = m_transform->GetPosition();
 
 		// デルタタイムを取得
 		float deltaTime = App::GetApp()->GetElapsedTime();
 
-		// 計算した加速度を移動量に加算
-		m_velocity += m_force * deltaTime;
+		if (m_motion == Walking1 || m_motion == Walking2) {
+			// 敵の向きををプレイヤーの方向に向ける
+			float rad = -atan2(golemPos.z - playerPos.z, golemPos.x - playerPos.x);
 
-		// 移動量はm_status.speedを上限とする
-		if (m_status.speed < m_velocity.length()) {
-			m_velocity *= m_status.speed / m_velocity.length();
-		}
-
-		// 座標を更新
-		golemPos += m_velocity * deltaTime * 0.1f;
-		ptrTrans->SetPosition(golemPos);
-
-
-		if (m_motion == Walking1 || m_motion == Walking2 || m_motion == WalkFinish) {
-
-			// 移動方向の向きを取得
-			float rad = -atan2(golemPos.z - m_currentPos.z, golemPos.x - m_currentPos.x);
-			// ズレの修正のために角度を90°ずらす
-			Vec3 rotation(0.0f, rad, 0.0f);
-
-			if (m_rotation.y < rotation.y) {
-				m_rotation.y += 2.0f * (XM_PI / 180.0f);
+			// 角度を90°ずらす
+			Vec3 Rotation(0.0f, rad + XM_PIDIV2, 0.0f);
+			// 現在の向きをプレイヤーの方向へに近づける
+			if (m_rotation.y < Rotation.y) {
+				m_rotation.y += 1.5f * (XM_PI / 180.0f);
 			}
-			if (m_rotation.y > rotation.y) {
-				m_rotation.y -= 2.0f * (XM_PI / 180.0f);
+			if (m_rotation.y > Rotation.y) {
+				m_rotation.y -= 1.5f * (XM_PI / 180.0f);
 			}
-			// 計算した向きを自身に適用
+
 			m_transform->SetRotation(m_rotation);
+			m_forward = m_transform->GetForward();
 		}
-		else
-		{
-			// プレイヤーを発見出来なかった場合は移動量を0にする
-			m_velocity = Vec3(0.0f, 0.0f, 0.0f);
+
+		if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+			// 敵の向きををプレイヤーの方向に向ける
+			float rad = -atan2(golemPos.z - playerPos.z, golemPos.x - playerPos.x);
+
+			// 角度を90°ずらす
+			Vec3 Rotation(0.0f, rad + XM_PIDIV2, 0.0f);
+			// 現在の向きをプレイヤーの方向へに近づける
+			if (m_rotation.y < Rotation.y) {
+				m_rotation.y += 0.3f * (XM_PI / 180.0f);
+			}
+			if (m_rotation.y > Rotation.y) {
+				m_rotation.y -= 0.3f * (XM_PI / 180.0f);
+			}
+
+			m_transform->SetRotation(m_rotation);
+			m_forward = m_transform->GetForward();
 		}
+
+		// 計算した加速度をm_velocityに加算
+		m_velocity = m_forward * deltaTime;
+
+		// m_velocityの総量をm_status.speedと同じになるよう調整する
+		m_velocity *= m_status.speed / m_velocity.length();
+
+		// 突進中は移動量を増加させる
+		if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+			m_velocity *= 4.0f;
+		}
+
+		
+		// 座標を更新
+		//golemPos += m_velocity * deltaTime * 0.1f;
+		golemPos -= m_velocity;
+		m_transform->SetPosition(golemPos);
+
 
 		// 現在の座標を前回のフレームの座標としてm_currentPosに保存
 		m_currentPos = m_transform->GetPosition();
-		// 加速度をリセットする
-		m_force = Vec3(0.0f, 0.0f, 0.0f);
+
+		// 突進を中止するかをチェック
+		if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+			// 突進攻撃がプレイヤーを通り過ぎているかをチェック
+			float golemMomentum = sqrt((golemPos.x - m_rammingPos.x) * (golemPos.x - m_rammingPos.x) + (golemPos.z - m_rammingPos.z) * (golemPos.z - m_rammingPos.z));
+			float playerMomentum = sqrt((playerPos.x - m_rammingPos.x) * (playerPos.x - m_rammingPos.x) + (playerPos.z - m_rammingPos.z) * (playerPos.z - m_rammingPos.z));
+
+			// 通り過ぎていた場合は突進を中止する
+			if (golemMomentum > playerMomentum) {
+				m_stopRammingFlg = true;
+			}
+
+			// 突進攻撃中にプレイヤーの近くにいるかをチェック
+			float DistancetoPlayer = sqrt((golemPos.x - playerPos.x) * (golemPos.x - playerPos.x) + (golemPos.z - playerPos.z) * (golemPos.z - playerPos.z));
+
+			// プレイヤーが近くにいた場合は突進を中止する
+			if (DistancetoPlayer < 3.0f) {
+				m_stopRammingFlg = true;
+			}
+		}
 	}
 
 	bool Golem::CheckAttackArea(eMotion motion) {
@@ -374,7 +444,7 @@ namespace basecross {
 		auto ptrPlayer = GetStage()->GetSharedGameObject<Player>(L"Player");
 		auto playerPos = ptrPlayer->GetComponent<Transform>()->GetPosition();
 
-		// 攻撃範囲の中心座標からプレーヤーまでの距離を計算
+		// 攻撃範囲の中心座標からプレイヤーまでの距離を計算
 		float  targetToLength = Vec3(areaPos.x - playerPos.x, 0.0f, areaPos.z - playerPos.z).length();
 
 		// 攻撃範囲内に居た場合true
@@ -383,9 +453,55 @@ namespace basecross {
 		}
 		// 居なければfalse
 		return false;
+		if (playerPos.x != 0) {
+			m_motion = Death;
+		}
 	}
 
 	void Golem::AddDamage(int Damage) {
 		m_status.life -= Damage;
 	}
+
+	void Golem::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		// プレイヤーとの衝突
+		if (Other->FindTag(L"Player"))
+		{
+			auto ptrColl =GetComponent<CollisionCapsule>();
+			ptrColl->SetFixed(true);
+			return;
+		}
+		if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+			// 壁との衝突
+			if (Other->FindTag(L"Wall"))
+			{
+				m_stopRammingFlg = true;
+				return;
+			}
+
+			// 柱との衝突
+			if (Other->FindTag(L"FixedCylinder"))
+			{
+				m_stopRammingFlg = true;
+				return;
+			}
+
+			// 落石との衝突
+			if (Other->FindTag(L"FallingRocks"))
+			{
+				m_stopRammingFlg = true;
+				return;
+			}
+		}
+	}
+
+	void Golem::OnCollisionExit(shared_ptr<GameObject>& Other) {
+		if (Other->FindTag(L"Player"))
+		{
+			auto ptrColl = GetComponent<CollisionCapsule>();
+			ptrColl->SetFixed(false);
+			return;
+		}
+
+	}
+
 }
