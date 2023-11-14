@@ -425,10 +425,10 @@ namespace basecross {
 
 		// UŒ‚‚É‰‚¶‚ÄUŒ‚”ÍˆÍ‚ğ‘ã“ü
 		if (motion == AttackStart_Swingdown) {
-			attackRange = 4.0f;
+			attackRange = 8.0f;
 		}
 		if (motion == AttackStart_Punch) {
-			attackRange = 2.0f;
+			attackRange = 6.0f;
 		}
 
 		// ©g‚ÌÀ•W‚ğæ“¾
