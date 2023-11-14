@@ -7,7 +7,7 @@
 #include "Project.h"
 
 namespace basecross {
-	//ボックス:壁
+	//ボックス
 	FixedBox::FixedBox(const shared_ptr<Stage>& StagePtr,
 		const Vec3& Scale,
 		const Vec3& Rotation,
@@ -57,6 +57,8 @@ namespace basecross {
 	void Wall::OnCreate() {
 		// 継承元のOnCreateの呼び出し
 		FixedBox::OnCreate();
+		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
+		ptrDraw->SetTextureResource(L"WALL");//テクスチャを反映する
 
 		// タグの設定
 		AddTag(L"Wall");
