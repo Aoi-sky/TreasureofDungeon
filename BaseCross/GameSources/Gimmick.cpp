@@ -14,10 +14,10 @@ namespace basecross {
 		m_Position(Vec3(0, 0, 0))
 	{
 		m_differenceMatrix.affineTransformation(
-			Vec3(0.4f, 0.4f, 0.4f),
+			Vec3(1.0f, 1.0f, 1.0f),
 			Vec3(0.0f),
 			Vec3(0.0f, XM_PIDIV2, 0.0f),
-			Vec3(0.0f, -0.3f, 0.0f)
+			Vec3(0.0f, 0.3f, 0.0f)
 		);
 
 	}
@@ -49,8 +49,8 @@ namespace basecross {
 		
 		//Õ“Ë”»’è‚ğ•t‚¯‚é
 		auto ptrColl = AddComponent<CollisionSphere>();
-		ptrColl->SetDrawActive(false);
-		ptrColl->SetFixed(true);
+		ptrColl->SetDrawActive(true);
+		ptrColl->SetFixed(false);
 
 		//d—Í‚ğ‚Â‚¯‚é
 		auto ptrGra = AddComponent<Gravity>();
@@ -85,9 +85,17 @@ namespace basecross {
 	}
 
 	void FallingRocks::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+		if (Other->FindTag(L"Wave"))
+		{
+			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
+			GetStage()->AddGameObject<MoveFallingRocks>(GetThis<FallingRocks>());
+			return;
+
+		}
 		if (Other->FindTag(L"Enemy"))//“G
 		{
 			GetStage()->RemoveGameObject<GameObject>(GetThis<GameObject>());
+			//GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
 			return;
 		}
 		if (Other->FindTag(L"FixedCylinder")|| Other->FindTag(L"FallingRocks"))//’ŒE—Î
