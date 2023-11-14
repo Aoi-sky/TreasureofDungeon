@@ -14,6 +14,9 @@ namespace basecross {
 
 		// トランスフォームとモデルの差分行列
 		Mat4x4 m_differenceMatrix;
+
+		Vec3 randPos;
+		bool isFloor;
 	public:
 		//コンストラクタ
 		FallingRocks(const shared_ptr<Stage>& StagePtr);

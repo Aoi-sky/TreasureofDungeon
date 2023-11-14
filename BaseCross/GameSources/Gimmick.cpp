@@ -11,13 +11,15 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Scale(Vec3(5.0f, 5.0f, 5.0f)),
 		m_Rotation(Vec3(0,0,0)),
-		m_Position(Vec3(0, 0, 0))
+		m_Position(Vec3(0, 0, 0)),
+		randPos(0),
+		isFloor(false)
 	{
 		m_differenceMatrix.affineTransformation(
 			Vec3(1.0f, 1.0f, 1.0f),
 			Vec3(0.0f),
 			Vec3(0.0f, XM_PIDIV2, 0.0f),
-			Vec3(0.0f, 0.3f, 0.0f)
+			Vec3(0.0f, 0.2f, 0.0f)
 		);
 
 	}
@@ -39,13 +41,14 @@ namespace basecross {
 			xp = -1;
 			zm = -1;
 		}
-		int x = rand() % 15 * xp;
-		int z = rand() % 30 * zm;
+		int randx = rand() % 15 * xp;
+		int randz = rand() % 30 * zm;
 
 		auto ptrTransform = GetComponent<Transform>();
 		ptrTransform->SetScale(m_Scale);
 		ptrTransform->SetRotation(m_Rotation);
-		ptrTransform->SetPosition(Vec3(float(x), 15.0f, float(z)));
+		ptrTransform->SetPosition(Vec3(float(randx), 15.0f, float(randz)));
+		randPos = Vec3(float(randx), 15.0f, float(randz));
 		
 		//衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionSphere>();
@@ -75,10 +78,10 @@ namespace basecross {
 		Vec3 pos = ptrTransform->GetPosition();
 		auto ptrGra = AddComponent<Gravity>();
 
-		if (pos.y < 2.0f) {
+		if (isFloor) {
 			pos.y = 2.0f;
 			// 座標を地面上に設定
-			ptrTransform->SetPosition(pos);
+			ptrTransform->SetPosition(randPos.x, pos.y, randPos.z);
 			// 重力を0に設定
 			ptrGra->SetGravityVerocityZero();
 		}
@@ -95,18 +98,17 @@ namespace basecross {
 		if (Other->FindTag(L"Enemy"))//敵
 		{
 			GetStage()->RemoveGameObject<GameObject>(GetThis<GameObject>());
-			//GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
 			return;
 		}
 		if (Other->FindTag(L"FixedCylinder")|| Other->FindTag(L"FallingRocks"))//柱・落石
 		{
 			GetStage()->RemoveGameObject<GameObject>(GetThis<GameObject>());
-			GetStage()->AddGameObject<FallingRocks>();
+			//GetStage()->AddGameObject<FallingRocks>();
 			return;
 		}
 		if (Other->FindTag(L"Floor"))//床
 		{
-
+			isFloor = true;
 		}
 	}
 
