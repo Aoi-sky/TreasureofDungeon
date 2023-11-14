@@ -38,7 +38,7 @@ namespace basecross {
 		//ˆÚ“®ˆ—
 		auto pos = m_transform->GetPosition();
 		pos += m_forward * m_speed * delta;
-		m_transform->SetPosition(pos.x,3,pos.z);
+		m_transform->SetPosition(pos.x,5,pos.z);
 
 	}
 	void MoveFallingRocks::OnCollisionEnter(shared_ptr<GameObject>& Other) {
@@ -47,7 +47,7 @@ namespace basecross {
 			GetStage()->RemoveGameObject<MoveFallingRocks>(GetThis<MoveFallingRocks>());
 			return;
 		}
-		if (Other->FindTag(L"FixedBox"))//•Ç
+		if (Other->FindTag(L"Wall"))//•Ç
 		{
 			GetStage()->RemoveGameObject<MoveFallingRocks>(GetThis<MoveFallingRocks>());
 			return;
