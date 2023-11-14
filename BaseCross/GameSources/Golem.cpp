@@ -198,6 +198,7 @@ namespace basecross {
 				// ƒJƒEƒ“ƒg‚ªUŒ‚ŠÔŠu‚É’B‚·‚éA‚Ü‚½‚Í“ËiUŒ‚‚ð’†Ž~‚·‚éƒtƒ‰ƒO‚ªtrue‚È‚ç
 				if (m_countTime > m_status.attackInterspace || m_stopRammingFlg) {
 					m_motion = AttackFinish_Ramming;
+					GetStage()->AddGameObject<FallingRocks>();
 					m_countTime = 0;
 				}
 				else {
@@ -492,6 +493,12 @@ namespace basecross {
 				return;
 			}
 		}
+		if (Other->FindTag(L"MoveFallingRocks"))
+		{
+			GetStage()->RemoveGameObject<Golem>(GetThis<Golem>());
+			return;
+		}
+
 	}
 
 	void Golem::OnCollisionExit(shared_ptr<GameObject>& Other) {

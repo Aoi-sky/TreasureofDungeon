@@ -35,7 +35,7 @@ namespace basecross {
 		if (Other->FindTag(L"FixedCylinder"))//’Œ
 		{
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
-			GetStage()->AddGameObject<FallingRocks>();
+			//GetStage()->AddGameObject<FallingRocks>();
 			return;
 		}
 		if (Other->FindTag(L"FixedBox"))//•Ç
