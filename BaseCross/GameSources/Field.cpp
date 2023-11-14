@@ -37,8 +37,6 @@ namespace basecross {
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
 		ptrDraw->SetTextureResource(L"FIELD");//テクスチャを反映する
-		ptrDraw->SetFogEnabled(true);
-		ptrDraw->SetOwnShadowActive(true);
 
 	}
 
@@ -117,8 +115,6 @@ namespace basecross {
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 		ptrDraw->SetMeshResource(L"DEFAULT_CYLINDER");
 		ptrDraw->SetTextureResource(L"PILLAR");//テクスチャを反映する
-		ptrDraw->SetFogEnabled(true);
-		ptrDraw->SetOwnShadowActive(true);
 	}
 
 	void FixedCylinder::OnCollisionEnter(shared_ptr<GameObject>& Other) {

@@ -98,22 +98,6 @@ namespace basecross {
 			}
 		};
 		for (auto v : vec) {
-			AddGameObject<FixedBox>(v[0], v[1], v[2]);
-		}
-
-		vector<vector<Vec3>> vec2 = {
-			{//ínñ 
-				Vec3(50.0f, 1.0f, 80.0f),//Scale
-				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(0.0f,0.0f,0.0f)//Position
-			},
-			{//ìVà‰
-				Vec3(50.0f, 1.0f, 80.0f),//Scale
-				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(0.0f,20.0f,0.0f)//Position
-			}
-		};
-		for (auto v : vec) {
 			AddGameObject<Wall>(v[0], v[1], v[2]);
 		}
 	}
@@ -126,6 +110,11 @@ namespace basecross {
 				Vec3(50.0f, 1.0f, 80.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
 				Vec3(0.0f,0.0f,0.0f)//Position
+			},
+			{//ìVà‰
+				Vec3(50.0f, 1.0f, 80.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(0.0f,20.0f,0.0f)//Position
 			}
 		};
 		for (auto v : vec) {
@@ -133,9 +122,8 @@ namespace basecross {
 		}
 	}
 
-	// ï«ÇÃê∂ê¨
+	//íåê∂ê¨
 	void GameStage::CreatePiller() {
-		//íåê∂ê¨
 		vector<vector<Vec3>> vec = {
 			{
 				Vec3(5.0f, 20.0f, 5.0f),//Scale

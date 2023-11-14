@@ -30,7 +30,7 @@ namespace basecross {
 		}
 		//CollisionSphere衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionCapsule>();
-		ptrColl->SetDrawActive(true);
+		ptrColl->SetDrawActive(false);
 		ptrColl->SetFixed(false);
 
 		//描画コンポーネントの設定
