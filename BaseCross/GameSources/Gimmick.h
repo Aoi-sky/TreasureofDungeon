@@ -11,6 +11,8 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Rotation;
 		Vec3 m_Position;
+		Vec3 m_StartPos;
+		bool m_fallenFlg;
 
 		// トランスフォームとモデルの差分行列
 		Mat4x4 m_differenceMatrix;
