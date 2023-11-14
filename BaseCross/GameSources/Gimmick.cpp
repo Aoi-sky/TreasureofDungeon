@@ -11,9 +11,7 @@ namespace basecross {
 		GameObject(StagePtr),
 		m_Scale(Vec3(3.0f, 3.0f, 3.0f)),
 		m_Rotation(Vec3(0,0,0)),
-		m_Position(Vec3(0, 0, 0)),
-		randPos(0),
-		isFloor(false)
+		m_Position(Vec3(0, 0, 0))
 	{
 		m_differenceMatrix.affineTransformation(
 			Vec3(0.8f, 0.8f, 0.8f),
@@ -78,12 +76,6 @@ namespace basecross {
 		Vec3 pos = ptrTransform->GetPosition();
 		auto ptrGra = AddComponent<Gravity>();
 
-		// 地面に落ちたかを判定
-		if (pos.y < 2.5f) {
-			// 落ちていた場合はフラグを立てる
-			m_fallenFlg = true;
-		}
-
 		// 一度でも床に落ちていた場合は地面に固定する
 		if (m_fallenFlg) {
 			pos.y = 1.5f;
@@ -115,6 +107,12 @@ namespace basecross {
 			//GetStage()->AddGameObject<FallingRocks>();
 			return;
 		}
+		if (Other->FindTag(L"Floor"))//敵
+		{
+			m_fallenFlg = true;
+			return;
+		}
+
 	}
 
 	void FallingRocks::OnCollisionExit(shared_ptr<GameObject>& Other) {

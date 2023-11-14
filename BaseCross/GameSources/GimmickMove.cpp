@@ -23,7 +23,7 @@ namespace basecross {
 
 		m_transform = GetComponent<Transform>();//コンポーネントの取得
 		m_transform->SetPosition(m_Positon.x, 3.0f, m_Positon.z);//座標設定
-		m_transform->SetScale(Vec3(5.0f, 5.0f, 5.0f));//サイズ調整
+		m_transform->SetScale(Vec3(3.0f, 3.0f, 3.0f));//サイズ調整
 		auto ptrColl = AddComponent<CollisionSphere>();//コリジョンをつける
 		//衝突判定
 		ptrColl->SetAfterCollision(AfterCollision::None);
@@ -38,7 +38,7 @@ namespace basecross {
 		//移動処理
 		auto pos = m_transform->GetPosition();
 		pos += m_forward * m_speed * delta;
-		m_transform->SetPosition(pos.x,5,pos.z);
+		m_transform->SetPosition(pos.x,3.0f ,pos.z);
 
 	}
 	void MoveFallingRocks::OnCollisionEnter(shared_ptr<GameObject>& Other) {
