@@ -17,7 +17,7 @@ namespace basecross {
 	void Golem::OnCreate() {
 		//‰ŠúˆÊ’u‚È‚Ç‚Ìİ’è
 		m_transform = GetComponent<Transform>();
-		m_transform->SetScale(Vec3(3.0f));
+		m_transform->SetScale(Vec3(3.5f));
 		m_transform->SetRotation(Vec3(0.0f));
 		m_transform->SetPosition(m_startPos);
 
