@@ -30,6 +30,13 @@ namespace basecross {
 		pos += m_forward * m_speed * delta;
 		m_transform->SetPosition(pos.x, 1,pos.z);
 
+		m_time += delta;
+		if (m_time <= 10.0f)
+		{
+			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			m_time = 0;
+		}
+
 	}
 	void Wave::OnCollisionEnter(shared_ptr<GameObject>& Other) {
 		if (Other->FindTag(L"FixedCylinder"))//’Œ
