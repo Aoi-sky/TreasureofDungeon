@@ -12,6 +12,9 @@ namespace basecross {
 		Vec3 m_Scale;
 		Vec3 m_Rotation;
 		Vec3 m_Position;
+
+		shared_ptr<MeshResource> m_mesh; // OnCreate‚Å¶¬‚µ‚½ƒƒbƒVƒ…‚ğ•Û‘¶‚·‚é‚½‚ß‚ÉéŒ¾
+
 	public:
 		FixedBox(const shared_ptr<Stage>& StagePtr,
 			const Vec3& Scale,

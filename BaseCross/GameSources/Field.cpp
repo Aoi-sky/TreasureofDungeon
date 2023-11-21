@@ -32,11 +32,32 @@ namespace basecross {
 		ptrColl->SetFixed(true);
 		AddTag(L"FixedBox");//タグをつける
 		auto shadowPtr = AddComponent<Shadowmap>();//影をつける（シャドウマップを描画する）
-		//影の形（メッシュ）を設定
-		shadowPtr->SetMeshResource(L"DEFAULT_CUBE");
+		shadowPtr->SetMeshResource(L"DEFAULT_CUBE");//影の形（メッシュ）を設定
+		
+		m_mesh = MeshResource::CreateCube(1.0f, true); // ボックスを生成する
+		const Vec3 scale(m_Scale / 10);
+
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
-		ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		ptrDraw->SetMeshResource(m_mesh);
 		ptrDraw->SetTextureResource(L"FIELD");//テクスチャを反映する
+		ptrDraw->SetSamplerState(SamplerState::AnisotropicWrap); 
+
+		auto vertices = m_mesh->GetBackupVerteces<VertexPositionNormalTexture>();
+		for (auto& vertex : vertices) { 
+			if (vertex.normal.z < 0.0f || vertex.normal.z > 0.0f){ // 法線がZ軸方向の向いていたらXY平面のポリゴン（前後）
+				vertex.textureCoordinate.x *= scale.x;
+				vertex.textureCoordinate.y *= scale.y;
+			}
+			if (vertex.normal.x < 0.0f || vertex.normal.x > 0.0f){ // 法線がX方向の向いていたらZY平面のポリゴン（左右）
+				vertex.textureCoordinate.x *= scale.z;
+				vertex.textureCoordinate.y *= scale.y;
+			}
+			if (vertex.normal.y < 0.0f || vertex.normal.y > 0.0f){ // 法線がY方向を向いていたらXZ平面のポリゴン（上下）
+				vertex.textureCoordinate.x *= scale.x;
+				vertex.textureCoordinate.y *= scale.z;
+			}
+		}
+		m_mesh->UpdateVirtexBuffer<VertexPositionNormalTexture>(vertices);
 
 	}
 
