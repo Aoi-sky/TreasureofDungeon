@@ -80,6 +80,10 @@ namespace basecross{
 
 	void Scene::OnCreate(){
 		try {
+			//エフェクト作成
+			m_EfkInterface = ObjectFactory::Create<EfkInterface>();
+
+			// リソースの取得
 			CreateResourses();
 
 			//クリアする色を設定
@@ -93,6 +97,20 @@ namespace basecross{
 		catch (...) {
 			throw;
 		}
+	}
+
+	void Scene::OnUpdate()
+	{
+		SceneBase::OnUpdate();
+		m_EfkInterface->OnUpdate();
+	}
+
+	void Scene::OnDraw()
+	{
+		SceneBase::OnDraw();
+		auto& camera = GetActiveStage()->GetView()->GetTargetCamera();
+		m_EfkInterface->SetViewProj(camera->GetViewMatrix(), camera->GetProjMatrix());
+		m_EfkInterface->OnDraw();
 	}
 
 	Scene::~Scene() {
@@ -119,5 +137,8 @@ namespace basecross{
 		const auto& app = App::GetApp();
 		app->RegisterResource(registerKey, modelMesh);
 	}
+
+
+
 }
 //end basecross

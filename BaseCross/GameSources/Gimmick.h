@@ -14,6 +14,13 @@ namespace basecross {
 		Vec3 m_StartPos;
 		bool m_fallenFlg;
 
+
+		shared_ptr<EfkEffect> m_damageEffect;
+		shared_ptr<EfkPlay> m_EfkPlay; // エフェクト実行オブジェクト
+		wstring m_damageEffectStr;
+
+		shared_ptr<Transform> m_transform; // トランスフォームコンポーネント
+
 		// トランスフォームとモデルの差分行列
 		Mat4x4 m_differenceMatrix;
 	public:

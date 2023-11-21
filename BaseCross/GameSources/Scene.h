@@ -13,6 +13,10 @@ namespace basecross{
 	//--------------------------------------------------------------------------------------
 	class Scene : public SceneBase{
 
+		//エフェクトのインターフェイス
+		shared_ptr<EfkInterface> m_EfkInterface;
+
+
 	public:
 
 		void CreateResourses();
@@ -45,6 +49,12 @@ namespace basecross{
 		//--------------------------------------------------------------------------------------
 		virtual void OnCreate() override;
 
+		// 更新処理
+		virtual void OnUpdate() override;
+
+		// 描画処理
+		virtual void OnDraw() override;
+
 		//--------------------------------------------------------------------------------------
 		/*!
 		@brief イベント取得
@@ -63,6 +73,11 @@ namespace basecross{
 		*/
 		//--------------------------------------------------------------------------------------
 		virtual void RegisterMultiMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse);
+
+		//エフェクトのインターフェイスの取得
+		shared_ptr<EfkInterface> GetEfkInterface() const {
+			return m_EfkInterface;
+		}
 
 	};
 

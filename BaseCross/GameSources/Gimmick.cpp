@@ -68,6 +68,16 @@ namespace basecross {
 		ptrDraw->SetMeshToTransformMatrix(m_differenceMatrix);
 
 		AddTag(L"FallingRocks");
+
+		//エフェクトの初期化
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		m_damageEffectStr = DataDir + L"Effects\\" + L"damage.efk";
+		auto& app = App::GetApp();
+		auto scene = app->GetScene<Scene>();
+		auto ShEfkInterface = scene->GetEfkInterface();
+		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
+
 	}
 
 	void FallingRocks::OnUpdate(){
@@ -93,6 +103,10 @@ namespace basecross {
 		{
 			GetStage()->RemoveGameObject<FallingRocks>(GetThis<FallingRocks>());
 			GetStage()->AddGameObject<MoveFallingRocks>(GetThis<FallingRocks>());
+
+			auto pos = GetComponent<Transform>()->GetPosition();
+			m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(1.0f));
+
 			return;
 
 		}

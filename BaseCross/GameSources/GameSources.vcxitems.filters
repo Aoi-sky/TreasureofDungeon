@@ -37,6 +37,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GimmickMove.cpp">
       <Filter>Other\GameGimmick\Falling rocks</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Effect.cpp">
+      <Filter>Other\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -74,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GimmickMove.h">
       <Filter>Other\GameGimmick\Falling rocks</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Effect.h">
+      <Filter>Other\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +133,9 @@
     </Filter>
     <Filter Include="Other\Characters\Golem">
       <UniqueIdentifier>{0762c6ca-4812-4ff8-897f-9a8740aef7a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Effect">
+      <UniqueIdentifier>{59a1b0f8-8a61-4d45-80d2-8b3b7c11d4b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

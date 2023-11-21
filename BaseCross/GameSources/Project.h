@@ -5,6 +5,10 @@
 
 #pragma once
 
+#include <Effekseer.h>
+#include <EffekseerRendererDX11.h>
+
+#include "Effect.h"
 
 #include "ProjectShader.h"
 #include "ProjectBehavior.h"
