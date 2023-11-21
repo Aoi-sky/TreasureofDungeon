@@ -40,6 +40,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Effect.cpp">
       <Filter>Other\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
+      <Filter>Stage\GameStage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -80,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Effect.h">
       <Filter>Other\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
+      <Filter>Stage\GameStage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
