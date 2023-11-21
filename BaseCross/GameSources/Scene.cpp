@@ -125,6 +125,12 @@ namespace basecross{
 		else if (event->m_MsgStr == L"ToTitleStage") {
 			ResetActiveStage<TitleStage>();
 		}
+		else if (event->m_MsgStr == L"ToClearStage") {
+			ResetActiveStage<ClearStage>();
+		}
+		else if (event->m_MsgStr == L"ToGameOverStage") {
+			ResetActiveStage<GameOverStage>();
+		}
 
 	}
 

@@ -128,7 +128,12 @@ namespace basecross{
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-
+		if (Other->FindTag(L"Enemy"))//“G
+		{
+			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+			//GetStage()->RemoveGameObject<Player>(GetThis<Player>());
+			return;
+		}
 	}
 
 	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {

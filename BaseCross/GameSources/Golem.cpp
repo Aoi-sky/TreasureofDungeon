@@ -496,9 +496,9 @@ namespace basecross {
 		if (Other->FindTag(L"MoveFallingRocks"))
 		{
 			GetStage()->RemoveGameObject<Golem>(GetThis<Golem>());
+			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
 			return;
 		}
-
 	}
 
 	void Golem::OnCollisionExit(shared_ptr<GameObject>& Other) {

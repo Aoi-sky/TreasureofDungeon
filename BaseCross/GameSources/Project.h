@@ -16,6 +16,8 @@
 
 #include "GameStage.h"
 #include "TitleStage.h"
+#include "ClearStage.h"
+#include "GameOverStage.h"
 
 #include "Character.h"
 #include "Player.h"

@@ -50,7 +50,7 @@ namespace basecross {
 		
 		//Õ“Ë”»’è‚ğ•t‚¯‚é
 		auto ptrColl = AddComponent<CollisionSphere>();
-		ptrColl->SetDrawActive(true);
+		ptrColl->SetDrawActive(false);
 		ptrColl->SetFixed(false);
 
 		//d—Í‚ğ‚Â‚¯‚é
