@@ -28,6 +28,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Player.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sprites.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Wave.h" />
   </ItemGroup>
@@ -45,6 +47,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MyCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Player.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sprites.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Wave.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WinMain.cpp" />

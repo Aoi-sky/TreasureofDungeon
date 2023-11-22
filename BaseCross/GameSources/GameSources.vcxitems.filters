@@ -43,6 +43,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
       <Filter>Stage\GameStage</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ClearStage.cpp">
+      <Filter>Stage\GameStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameOverStage.cpp">
+      <Filter>Stage\GameStage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp">
+      <Filter>Stage\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sprites.cpp">
+      <Filter>Stage\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -86,6 +98,18 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
       <Filter>Stage\GameStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ClearStage.h">
+      <Filter>Stage\GameStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameOverStage.h">
+      <Filter>Stage\GameStage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h">
+      <Filter>Stage\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sprites.h">
+      <Filter>Stage\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +166,9 @@
     </Filter>
     <Filter Include="Other\Effect">
       <UniqueIdentifier>{59a1b0f8-8a61-4d45-80d2-8b3b7c11d4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Sprite">
+      <UniqueIdentifier>{6fe30529-ac79-46d5-aa38-e5d69411b4f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

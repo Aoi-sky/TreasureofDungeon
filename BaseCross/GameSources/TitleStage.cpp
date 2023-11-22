@@ -12,7 +12,7 @@ namespace basecross {
 		//ビューのカメラの設定
 		auto PtrCamera = ObjectFactory::Create<Camera>();
 		PtrView->SetCamera(PtrCamera);
-		PtrCamera->SetEye(Vec3(0.0f, 2.0f, -3.0f));
+		PtrCamera->SetEye(Vec3(0.0f, 0.0f, -5.0f));
 		PtrCamera->SetAt(Vec3(0.0f, 0.0f, 0.0f));
 		//マルチライトの作成
 		auto PtrMultiLight = CreateLight<MultiLight>();
@@ -21,8 +21,18 @@ namespace basecross {
 	}
 
 	void TitleStage::CreateTitleSprite() {
-		//AddGameObject<Player>();
-		//AddGameObject<StartSprite>();
+		vector<vector<Vec3>> vec = {
+			{
+				Vec3(10.0f, 10.0f, 1.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(0.0f,0.0f,5.0f)//Position
+			},
+		};
+		for (auto v : vec) {
+			AddGameObject<FixedBox>(v[0], v[1], v[2]);
+		}
+
+		//AddGameObject<TitleSprite>();
 	} // end CreateTitleSprite
 
 

@@ -14,6 +14,9 @@
 #include "ProjectBehavior.h"
 #include "Scene.h"
 
+#include "Sprites.h"
+#include "TitleSprite.h"
+
 #include "GameStage.h"
 #include "TitleStage.h"
 #include "ClearStage.h"

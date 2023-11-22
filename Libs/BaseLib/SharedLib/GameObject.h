@@ -68,6 +68,17 @@ namespace basecross {
 			//mapに追加もしくは更新
 			m_BehaviorMap[TypeIndex] = Ptr;
 		}
+	protected:
+		// 描画レイヤーの層
+		enum class DrawLayer
+		{
+			MostBottom = -2,    // 最底面
+			Bottom,              // 底面
+			Center,                // 中間
+			Front,                // 前面
+			ForeFront            // 最前面
+		};
+
 	public:
 		//--------------------------------------------------------------------------------------
 		/*!
