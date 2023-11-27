@@ -20,9 +20,16 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	void GameOverStage::CreateGameOverSprite() {
+
+		AddGameObject<GameOverSprite>();
+
+	} // end CreateTitleSprite
+
+
 	void GameOverStage::OnCreate() {
 		CreateViewLight();
-
+		//CreateGameOverSprite();
 	}
 
 	void GameOverStage::OnUpdate() {

@@ -10,6 +10,7 @@ namespace basecross {
 	class GameOverStage :public Stage {
 
 		void CreateViewLight();
+		void CreateGameOverSprite();
 
 	public:
 		GameOverStage() :

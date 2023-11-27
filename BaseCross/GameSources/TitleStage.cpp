@@ -21,25 +21,16 @@ namespace basecross {
 	}
 
 	void TitleStage::CreateTitleSprite() {
-		vector<vector<Vec3>> vec = {
-			{
-				Vec3(10.0f, 10.0f, 1.0f),//Scale
-				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(0.0f,0.0f,5.0f)//Position
-			},
-		};
-		for (auto v : vec) {
-			AddGameObject<FixedBox>(v[0], v[1], v[2]);
-		}
 
-		//AddGameObject<TitleSprite>();
+		AddGameObject<TitleSprite>();
+		
 	} // end CreateTitleSprite
 
 
 
 	void TitleStage::OnCreate() {
 		CreateViewLight();
-		CreateTitleSprite();
+		//CreateTitleSprite();
 	}
 
 	void TitleStage::OnUpdate() {

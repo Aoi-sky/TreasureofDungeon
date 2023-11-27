@@ -16,6 +16,8 @@
 
 #include "Sprites.h"
 #include "TitleSprite.h"
+#include "ClearSprite.h"
+#include "GameOverSprite.h"
 
 #include "GameStage.h"
 #include "TitleStage.h"

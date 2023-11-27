@@ -11,6 +11,8 @@ namespace basecross {
 
 		void CreateViewLight();
 
+		void CreateClearSprite();
+
 	public:
 		ClearStage():
 			Stage()

@@ -20,9 +20,16 @@ namespace basecross {
 		PtrMultiLight->SetDefaultLighting();
 	}
 
+	void ClearStage::CreateClearSprite() {
+
+		AddGameObject<ClearSprite>();
+
+	} // end CreateTitleSprite
+
+
 	void ClearStage::OnCreate() {
 		CreateViewLight();
-
+		//CreateClearSprite();
 	}
 
 	void ClearStage::OnUpdate() {
