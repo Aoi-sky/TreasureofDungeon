@@ -63,7 +63,7 @@ namespace basecross{
 		RoadStaticModelMesh(L"Rock3", L"FALLINGROCKS");
 
 		RoadBoneModel(L"Golem_Boss", L"GOLRM", L"GOLRM_TAN");
-		RoadBoneModel(L"Player", L"M_PLAYER", L"PLAYER_TAN");
+		//RoadBoneModel(L"Player", L"M_PLAYER", L"PLAYER_TAN");
 		
 
 		const auto& app = App::GetApp();
@@ -79,6 +79,9 @@ namespace basecross{
 	
 		// ƒS[ƒŒƒ€‚Ìƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
 		RegisterMultiMesh(L"GOLEM", modelPath, L"Golem", true);
+
+		const auto& modelMesh = MeshResource::CreateBoneModelMeshWithTangent(modelPath + L"Player/", L"NEOPlayer01.bmf");
+		app->RegisterResource(L"M_PLAYER", modelMesh);
 	}
 
 
