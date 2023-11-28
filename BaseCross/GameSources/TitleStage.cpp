@@ -30,7 +30,7 @@ namespace basecross {
 
 	void TitleStage::OnCreate() {
 		CreateViewLight();
-		//CreateTitleSprite();
+		CreateTitleSprite();
 	}
 
 	void TitleStage::OnUpdate() {

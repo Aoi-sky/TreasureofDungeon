@@ -7,6 +7,7 @@ namespace basecross {
 	void Wave::OnCreate() {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_SPHERE");//弾の形
+		drawComp->SetDrawActive(false);
 
 		//向きをベクトルで所得
 		auto ownerTrans = m_owner->GetComponent<Transform>();

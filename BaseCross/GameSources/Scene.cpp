@@ -56,8 +56,8 @@ namespace basecross{
 		RoadTexture(L"PLAYER", L"Player.png");
 		RoadTexture(L"WALL", L"wall.jpg");
 
-		//RoadTexture(L"TITLE", L"title.png");
-		//RoadTexture(L"CLEAR", L"clear.png");
+		RoadTexture(L"TITLE", L"title.png");
+		RoadTexture(L"CLEAR", L"clear.png");
 		//RoadTexture(L"GAMEOVER", L"gameover.png");
 
 		RoadStaticModelMesh(L"Rock3", L"FALLINGROCKS");

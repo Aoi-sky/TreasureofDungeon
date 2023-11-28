@@ -29,7 +29,7 @@ namespace basecross {
 
 	void ClearStage::OnCreate() {
 		CreateViewLight();
-		//CreateClearSprite();
+		CreateClearSprite();
 	}
 
 	void ClearStage::OnUpdate() {

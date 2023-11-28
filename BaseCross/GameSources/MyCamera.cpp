@@ -18,7 +18,7 @@ namespace basecross {
 		m_ArmLen(5.0f),
 		m_MaxArm(20.0f),
 		m_MinArm(2.0f),
-		m_RotSpeed(1.0f),
+		m_RotSpeed(4.0f),
 		m_ZoomSpeed(0.5f),
 		m_LRBaseMode(true),
 		m_UDBaseMode(true)
@@ -273,6 +273,7 @@ namespace basecross {
 				m_ArmLen = m_MinArm;//m_MinArm以下近づかないようにする
 			}
 		}
+
 		////目指したい場所にアームの値と腕ベクトルでEyeを調整
 		Vec3 toEye = newAt + armVec * m_ArmLen;
 		newEye = Lerp::CalculateLerp(GetEye(), toEye, 0, 1.0f, m_ToTargetLerp, Lerp::Linear);
@@ -282,6 +283,8 @@ namespace basecross {
 		SetEye(newEye);
 		UpdateArmLengh();
 		Camera::OnUpdate();
+		
 	}
+
 }
 //end basecross
