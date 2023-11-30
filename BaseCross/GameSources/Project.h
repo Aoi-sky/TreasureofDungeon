@@ -27,6 +27,7 @@
 #include "Character.h"
 #include "Player.h"
 #include "MyCamera.h"
+#include "CameraObject.h"
 #include "Field.h"
 #include "Enemy.h"
 #include "Wave.h"

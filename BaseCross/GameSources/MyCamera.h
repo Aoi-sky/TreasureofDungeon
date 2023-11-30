@@ -15,6 +15,10 @@ namespace basecross {
 		float m_RadXZ;
 		float m_CameraUpDownSpeed;//カメラの上下スピード
 		float m_CameraUnderRot;//カメラを下げる下限角度
+
+		Vec3 m_newAt;
+		Vec3 m_newEye;
+
 		//腕の長さの設定
 		float m_ArmLen;
 		float m_MaxArm;
@@ -52,6 +56,7 @@ namespace basecross {
 		bool GetUDBaseMode() const;
 		bool IsUDBaseMode() const;
 		void SetUDBaseMode(bool b);
+		void CameraCollisionEnter();
 		virtual void SetAt(const bsm::Vec3& At)override;
 		virtual void SetAt(float x, float y, float z)override;
 		virtual void OnUpdate()override;

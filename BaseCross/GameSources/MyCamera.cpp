@@ -278,12 +278,21 @@ namespace basecross {
 		Vec3 toEye = newAt + armVec * m_ArmLen;
 		newEye = Lerp::CalculateLerp(GetEye(), toEye, 0, 1.0f, m_ToTargetLerp, Lerp::Linear);
 
+		m_newAt = newAt;
+		m_newEye = newEye;
 
 		SetAt(newAt);
 		SetEye(newEye);
 		UpdateArmLengh();
 		Camera::OnUpdate();
 		
+	}
+
+	void MyCamera::CameraCollisionEnter(){
+		m_ArmLen -= m_ZoomSpeed;//ƒJƒƒ‰ˆÊ’u‚ğŠñ‚é
+		if (m_ArmLen <= m_MinArm) {
+			m_ArmLen = m_MinArm;//m_MinArmˆÈ‰º‹ß‚Ã‚©‚È‚¢‚æ‚¤‚É‚·‚é
+		}
 	}
 
 }

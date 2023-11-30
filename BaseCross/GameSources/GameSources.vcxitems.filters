@@ -61,6 +61,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOverSprite.cpp">
       <Filter>Stage\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CameraObject.cpp">
+      <Filter>Other\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOverSprite.h">
       <Filter>Stage\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CameraObject.h">
+      <Filter>Other\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

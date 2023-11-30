@@ -24,6 +24,9 @@ namespace basecross {
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
+
+		//AddGameObject<CameraObject>(GetThis<MyCamera>());
+		AddGameObject<CameraObject>(ptrMyCamera);
 	}
 
 	

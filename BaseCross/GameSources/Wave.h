@@ -2,8 +2,6 @@
 #include "stdafx.h"
 
 
-
-
 namespace basecross {
 	class Wave :public GameObject {
 		// 自分自身のトランスフォームコンポーネント（Update処理の最適化のために宣言）

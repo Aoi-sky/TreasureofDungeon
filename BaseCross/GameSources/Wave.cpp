@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "Project.h"
 
-
-
 namespace basecross {
 	void Wave::OnCreate() {
 		auto drawComp = AddComponent<PNTStaticDraw>();
