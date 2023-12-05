@@ -38,6 +38,8 @@ namespace basecross {
 		virtual ~GameStage() {}
 		//‰Šú‰»
 		virtual void OnCreate()override;
+
+		virtual void OnDraw() override;
 	};
 
 

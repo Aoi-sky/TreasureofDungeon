@@ -7,7 +7,6 @@
 #include "Project.h"
 
 namespace basecross {
-
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
@@ -24,6 +23,7 @@ namespace basecross {
 		auto PtrMultiLight = CreateLight<MultiLight>();
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
+		PtrMultiLight->SetAmbientLightColor(Col4(0.1, 0.1f, 0.1f, 1.0f));
 	}
 
 	
@@ -102,11 +102,6 @@ namespace basecross {
 		}
 
 		vector<vector<Vec3>> vec2 = {
-			{//地面
-				Vec3(50.0f, 1.0f, 80.0f),//Scale
-				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(0.0f,0.0f,0.0f)//Position
-			},
 			{//天井
 				Vec3(50.0f, 1.0f, 80.0f),//Scale
 				Vec3(0.0f,0.0f,0.0f),//Rotation
@@ -133,7 +128,7 @@ namespace basecross {
 		}
 	}
 
-	// 壁の生成
+	// 柱の生成
 	void GameStage::CreatePiller() {
 		//柱生成
 		vector<vector<Vec3>> vec = {
@@ -224,5 +219,17 @@ namespace basecross {
 		}
 	}
 
+	void GameStage::OnDraw()
+	{
+		// デバッグ文字列を強制的に空にする
+		App::GetApp()->GetScene<Scene>()->SetDebugString(L"");
+
+		// 継承元の描画時の関数を実行する
+		Stage::OnDraw();
+
+		// デバック用文字列の表示非表示切り替え
+		const auto& debugStr = GetSharedObject(L"DebugString");
+		debugStr->SetDrawActive(true);
+	}
 }
 //end basecross
