@@ -52,6 +52,8 @@ namespace basecross {
 		if (Other->FindTag(L"Enemy"))//“G
 		{
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			GetStage()->GetSharedGameObject<Golem>(L"Golem")->AddDamage(100);
+
 			return;
 		}
 		if (Other->FindTag(L"FallingRocks"))//—Î

@@ -299,6 +299,7 @@ namespace basecross {
 
 			case eMotion::Death:
 				// ƒS[ƒŒƒ€‚ğÁ‹‚·‚é
+				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
 				GetStage()->RemoveGameObject<Golem>(GetThis<Golem>());
 				break;
 
@@ -592,6 +593,7 @@ namespace basecross {
 			if (Other->FindTag(L"FixedCylinder"))
 			{
 				m_stopRammingFlg = true;
+				GetStage()->AddGameObject<FallingRocks>();
 				return;
 			}
 
