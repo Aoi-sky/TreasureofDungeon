@@ -9,7 +9,8 @@
 namespace basecross{
 	Player::Player(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
-		m_Speed(5.0f)
+		m_Speed(5.0f),
+		m_life(100)
 	{}
 
 	Vec2 Player::GetInputState() const{
@@ -67,6 +68,17 @@ namespace basecross{
 		}
 	}
 
+	//ダメージ関数
+	void Player::AddPlayerDamage(int damage) {
+		m_life -= damage;
+	}
+
+	void Player::PlayerDead() {
+		if (m_life <= 0) {
+			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
+		}
+	}
+	
 	void Player::OnCreate() {
 		auto ptr = AddComponent<Transform>();
 		ptr->SetScale(0.5f, 0.5f, 0.5f);
@@ -113,6 +125,7 @@ namespace basecross{
 
 	void Player::OnUpdate() {
 		MovePlayer();
+		PlayerDead();
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime(); // 前フレームからの経過時間（60FPS）
 

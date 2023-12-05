@@ -29,7 +29,7 @@ namespace basecross {
 
 	void GameOverStage::OnCreate() {
 		CreateViewLight();
-		//CreateGameOverSprite();
+		CreateGameOverSprite();
 	}
 
 	void GameOverStage::OnUpdate() {
