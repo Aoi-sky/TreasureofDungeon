@@ -7,7 +7,6 @@
 #include "Project.h"
 
 namespace basecross {
-
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス実体
 	//--------------------------------------------------------------------------------------
@@ -25,12 +24,10 @@ namespace basecross {
 		//デフォルトのライティングを指定
 		PtrMultiLight->SetDefaultLighting();
 
-		//AddGameObject<CameraObject>(GetThis<MyCamera>());
 		AddGameObject<CameraObject>(ptrMyCamera);
 	}
 
 	
-	//セルマップの作成
 	// セルマップの生成
 	void GameStage::CreateStageCellMap()
 	{
@@ -101,6 +98,17 @@ namespace basecross {
 			}
 		};
 		for (auto v : vec) {
+			AddGameObject<FixedBox>(v[0], v[1], v[2]);
+		}
+
+		vector<vector<Vec3>> vec2 = {
+			{//天井
+				Vec3(50.0f, 1.0f, 80.0f),//Scale
+				Vec3(0.0f,0.0f,0.0f),//Rotation
+				Vec3(0.0f,20.0f,0.0f)//Position
+			}
+		};
+		for (auto v : vec) {
 			AddGameObject<Wall>(v[0], v[1], v[2]);
 		}
 	}
@@ -114,18 +122,18 @@ namespace basecross {
 				Vec3(0.0f,0.0f,0.0f),//Rotation
 				Vec3(0.0f,0.0f,0.0f)//Position
 			},
-			{//天井
-				Vec3(50.0f, 1.0f, 80.0f),//Scale
-				Vec3(0.0f,0.0f,0.0f),//Rotation
-				Vec3(0.0f,20.0f,0.0f)//Position
-			}
+			//{//天井
+			//	Vec3(50.0f, 1.0f, 80.0f),//Scale
+			//	Vec3(0.0f,0.0f,0.0f),//Rotation
+			//	Vec3(0.0f,20.0f,0.0f)//Position
+			//}
 		};
 		for (auto v : vec) {
 			AddGameObject<Floor>(v[0], v[1], v[2]);
 		}
 	}
 
-	//柱生成
+	// 柱の生成
 	void GameStage::CreatePiller() {
 		vector<vector<Vec3>> vec = {
 			{
@@ -215,5 +223,17 @@ namespace basecross {
 		}
 	}
 
+	void GameStage::OnDraw()
+	{
+		// デバッグ文字列を強制的に空にする
+		App::GetApp()->GetScene<Scene>()->SetDebugString(L"");
+
+		// 継承元の描画時の関数を実行する
+		Stage::OnDraw();
+
+		// デバック用文字列の表示非表示切り替え
+		const auto& debugStr = GetSharedObject(L"DebugString");
+		debugStr->SetDrawActive(true);
+	}
 }
 //end basecross

@@ -10,6 +10,8 @@
 
 #include "Effect.h"
 
+#include "DebugLog.h"
+
 #include "ProjectShader.h"
 #include "ProjectBehavior.h"
 #include "Scene.h"
@@ -32,5 +34,6 @@
 #include "Enemy.h"
 #include "Wave.h"
 #include "Gimmick.h"
-#include "Golem.h"
 #include "GimmickMove.h"
+#include "Golem.h"
+#include "FillSprite.h"

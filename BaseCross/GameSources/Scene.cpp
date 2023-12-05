@@ -54,7 +54,7 @@ namespace basecross{
 		RoadTexture(L"FIELD", L"field.png");
 		RoadTexture(L"PILLAR", L"pillar2.png");
 		RoadTexture(L"PLAYER", L"Player.png");
-		RoadTexture(L"WALL", L"wall.jpg");
+		RoadTexture(L"ATTACKAREA", L"AttackArea.png");
 
 		RoadTexture(L"TITLE", L"title.png");
 		RoadTexture(L"CLEAR", L"clear.png");
@@ -62,25 +62,17 @@ namespace basecross{
 
 		RoadStaticModelMesh(L"Rock3", L"FALLINGROCKS");
 
-		RoadBoneModel(L"Golem_Boss", L"GOLRM", L"GOLRM_TAN");
-		//RoadBoneModel(L"Player", L"M_PLAYER", L"PLAYER_TAN");
-		
-
 		const auto& app = App::GetApp();
 		// ディレクトリパスの設定
 		const wstring mediaPath = app->GetDataDirWString();
-
-		// ゴーレムのテクスチャの読込
-		//RoadTexture(L"Golem", L"Golem.png");
-		//RoadTexture(L"Golem", L"Golem_Core.png");
 
 		// モデルディレクトリパスの取得
 		const wstring modelPath = mediaPath + L"Models/";
 	
 		// ゴーレムのモデルの読み込み
-		RegisterMultiMesh(L"GOLEM", modelPath, L"Golem", true);
+		RegisterMultiMesh(L"GOLEM", modelPath + L"Golem/", L"Golem", true);
 
-		const auto& modelMesh = MeshResource::CreateBoneModelMeshWithTangent(modelPath + L"Player/", L"NEOPlayer01.bmf");
+		const auto& modelMesh = MeshResource::CreateBoneModelMeshWithTangent(modelPath + L"Player/", L"Player.bmf");
 		app->RegisterResource(L"M_PLAYER", modelMesh);
 	}
 

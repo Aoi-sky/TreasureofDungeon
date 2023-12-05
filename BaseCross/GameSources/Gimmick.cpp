@@ -39,8 +39,8 @@ namespace basecross {
 			xp = -1;
 			zm = -1;
 		}
-		m_StartPos.x = rand() % 15 * xp;
-		m_StartPos.z = rand() % 30 * zm;
+		m_StartPos.x = float(rand() % 15) * xp;
+		m_StartPos.z = float(rand() % 30) * zm;
 		m_StartPos.y = 15.0f;
 
 		auto ptrTransform = GetComponent<Transform>();
