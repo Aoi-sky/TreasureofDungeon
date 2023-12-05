@@ -75,7 +75,7 @@ namespace basecross{
 
 	void Player::PlayerDead() {
 		if (m_life <= 0) {
-			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
+			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 		}
 	}
 	

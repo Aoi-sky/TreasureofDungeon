@@ -22,6 +22,15 @@ namespace basecross{
 		App::GetApp()->RegisterTexture(UseTextureName, strTexture);
 	}
 
+	// サウンドの読み込み
+	void Scene::RoadSound(const wstring& soundName, const wstring& soundDataName)
+	{
+		wstring dataDir;
+		App::GetApp()->GetDataDirectory(dataDir);
+		wstring strMusic = dataDir + L"Sounds\\" + soundDataName;
+		App::GetApp()->RegisterWav(soundName, strMusic);
+	}
+
 	// 静的なモデルの読み込み
 	void Scene::RoadStaticModelMesh(const wstring& staticModelbmfName, const wstring& staticModelMeshName)
 	{
