@@ -91,7 +91,7 @@ namespace basecross {
 
 	void Golem::OnUpdate() {
 
-		Debug::Log(AngleCalculation(m_playerPtr.lock()->GetComponent<Transform>()));
+		//Debug::Log(AngleCalculation(m_playerPtr.lock()->GetComponent<Transform>()));
 
 		switch (m_motion) {
 		case Walking1:

@@ -64,6 +64,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CameraObject.cpp">
       <Filter>Other\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FillSprite.cpp">
+      <Filter>Stage\Sprite\FillSprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -129,6 +132,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CameraObject.h">
       <Filter>Other\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FillSprite.h">
+      <Filter>Stage\Sprite\FillSprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Stage">
@@ -187,6 +193,9 @@
     </Filter>
     <Filter Include="Stage\Sprite">
       <UniqueIdentifier>{6fe30529-ac79-46d5-aa38-e5d69411b4f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Sprite\FillSprite">
+      <UniqueIdentifier>{a47def6b-edbf-43c9-9f13-278a74ac86bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
