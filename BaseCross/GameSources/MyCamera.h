@@ -18,6 +18,7 @@ namespace basecross {
 
 		Vec3 m_newAt;
 		Vec3 m_newEye;
+		Vec3 m_ArmVec;
 
 		//˜r‚Ì’·‚³‚Ìİ’è
 		float m_ArmLen;

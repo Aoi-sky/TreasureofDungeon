@@ -6,10 +6,10 @@ namespace basecross {
 	class CameraObject :public GameObject {
 		std::shared_ptr<Transform> m_transform;
 
-		std::shared_ptr<Camera>m_owner;
+		std::shared_ptr<MyCamera>m_owner;
 
 	public:
-		CameraObject(const std::shared_ptr<Stage>& stage, const shared_ptr<Camera>& owner) :
+		CameraObject(const std::shared_ptr<Stage>& stage, const shared_ptr<MyCamera>& owner) :
 			GameObject(stage),
 			m_owner(owner)
 		{
