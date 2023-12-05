@@ -91,7 +91,7 @@ namespace basecross {
 
 	void Golem::OnUpdate() {
 
-		//Debug::Log(AngleCalculation(m_playerPtr.lock()->GetComponent<Transform>()));
+		Debug::Log(AngleCalculation(m_playerPtr.lock()->GetComponent<Transform>()));
 
 		switch (m_motion) {
 		case Walking1:
@@ -349,7 +349,6 @@ namespace basecross {
 
 			m_stunAttackFlg = false;
 		}
-
 	}
 
 	void Golem::AnimationUpdate()
@@ -576,7 +575,7 @@ namespace basecross {
 		if (Other->FindTag(L"MoveFallingRocks"))
 		{
 			// ƒXƒ^ƒ“UŒ‚‚ðŽó‚¯‚½
-			AddStun(300.0f);
+			AddStun(300);
 			m_rockAngle = AngleCalculation(Other->GetComponent<Transform>());
 			return;
 		}
@@ -602,12 +601,6 @@ namespace basecross {
 				m_stopRammingFlg = true;
 				return;
 			}
-		}
-		if (Other->FindTag(L"MoveFallingRocks"))
-		{
-			GetStage()->RemoveGameObject<Golem>(GetThis<Golem>());
-			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
-			return;
 		}
 	}
 
