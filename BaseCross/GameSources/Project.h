@@ -37,6 +37,7 @@
 #include "GimmickMove.h"
 #include "Golem.h"
 #include "FillSprite.h"
+#include "ShotEnemy.h"
 
 #include "Geuge.h"
 #include "PlayerHpGeuge.h"

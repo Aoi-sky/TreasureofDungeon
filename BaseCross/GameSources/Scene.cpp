@@ -60,6 +60,7 @@ namespace basecross{
 
 	void Scene::CreateResourses()
 	{
+		//テクスチャ
 		RoadTexture(L"FIELD", L"field.png");
 		RoadTexture(L"PILLAR", L"pillar2.png");
 		RoadTexture(L"PLAYER", L"Player.png");
@@ -73,14 +74,12 @@ namespace basecross{
 		RoadTexture(L"GREENHPBAR", L"GreenHpBar.png");
 		RoadTexture(L"REDHPBAR", L"RedHpBar.png");
 
+		//スタティックモデル
 		RoadStaticModelMesh(L"Rock3", L"FALLINGROCKS");
 
 		const auto& app = App::GetApp();
-		// ディレクトリパスの設定
-		const wstring mediaPath = app->GetDataDirWString();
-
-		// モデルディレクトリパスの取得
-		const wstring modelPath = mediaPath + L"Models/";
+		const wstring mediaPath = app->GetDataDirWString();// ディレクトリパスの設定
+		const wstring modelPath = mediaPath + L"Models/";// モデルディレクトリパスの取得
 	
 		// ゴーレムのモデルの読み込み
 		RegisterMultiMesh(L"GOLEM", modelPath + L"Golem/", L"Golem", true);

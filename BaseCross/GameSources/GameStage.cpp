@@ -108,7 +108,7 @@ namespace basecross {
 				Vec3(0.0f,20.0f,0.0f)//Position
 			}
 		};
-		for (auto v : vec) {
+		for (auto v : vec2) {
 			AddGameObject<Wall>(v[0], v[1], v[2]);
 		}
 	}
@@ -122,11 +122,6 @@ namespace basecross {
 				Vec3(0.0f,0.0f,0.0f),//Rotation
 				Vec3(0.0f,0.0f,0.0f)//Position
 			},
-			//{//“Vˆä
-			//	Vec3(50.0f, 1.0f, 80.0f),//Scale
-			//	Vec3(0.0f,0.0f,0.0f),//Rotation
-			//	Vec3(0.0f,20.0f,0.0f)//Position
-			//}
 		};
 		for (auto v : vec) {
 			AddGameObject<Floor>(v[0], v[1], v[2]);
@@ -186,6 +181,7 @@ namespace basecross {
 	void GameStage::CreateEnemy() {
 		//auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
 		//AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 1.0f, 15.0f));
+		AddGameObject<ShotEnemy>();
 	}
 
 	void GameStage::CreateGolem() {
