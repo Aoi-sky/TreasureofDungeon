@@ -67,8 +67,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FillSprite.cpp">
       <Filter>Stage\Sprite\FillSprite</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DebugLog.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Geuge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Geuge.cpp">
+      <Filter>Stage\Geuge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GolemHpGeuge.cpp">
+      <Filter>Stage\Geuge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.cpp">
+      <Filter>Stage\Geuge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugLog.cpp">
+      <Filter>Stage\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -137,8 +147,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FillSprite.h">
       <Filter>Stage\Sprite\FillSprite</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DebugLog.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Geuge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Geuge.h">
+      <Filter>Stage\Geuge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GolemHpGeuge.h">
+      <Filter>Stage\Geuge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.h">
+      <Filter>Stage\Geuge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DebugLog.h">
+      <Filter>Stage\Debug</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Stage">
@@ -200,6 +220,12 @@
     </Filter>
     <Filter Include="Stage\Sprite\FillSprite">
       <UniqueIdentifier>{a47def6b-edbf-43c9-9f13-278a74ac86bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Geuge">
+      <UniqueIdentifier>{c5936a5d-3d32-4289-b059-2da08d46ba36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage\Debug">
+      <UniqueIdentifier>{a34a1ec9-3523-4321-a004-c2bf23153a40}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

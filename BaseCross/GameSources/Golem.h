@@ -261,5 +261,16 @@ namespace basecross {
 		@param[in]	Other	衝突していたオブジェクトのポインタ
 		*/
 		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
+
+		int GetGolemMaxLife()
+		{
+			return  statusList[0].life;
+		}
+		int GetGolemCurrentLife()
+		{
+			return m_status.life;
+		}
+
 	};
+
 }

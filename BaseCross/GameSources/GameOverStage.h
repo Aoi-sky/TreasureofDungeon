@@ -19,7 +19,6 @@ namespace basecross {
 		}
 		virtual ~GameOverStage() {}
 
-
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
 	};

@@ -37,4 +37,7 @@
 #include "GimmickMove.h"
 #include "Golem.h"
 #include "FillSprite.h"
+
 #include "Geuge.h"
+#include "PlayerHpGeuge.h"
+#include "GolemHpGeuge.h"

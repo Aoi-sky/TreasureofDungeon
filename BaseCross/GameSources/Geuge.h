@@ -7,8 +7,7 @@
 #include "stdafx.h"
 
 namespace basecross {
-	class Gauge : public GameObject
-	{
+	class Gauge : public GameObject{
 		
 		const Vec2 m_DefaultSize;// Gaugeの初期サイズ
 		const int m_SquareVartex;// 頂点の数
@@ -42,13 +41,10 @@ namespace basecross {
 		void UpdateGaugeSize(int gaugeSizeLimit, float currentGaugeSize);
 		void SetVartices();
 		virtual void SetPosition(const Vec3& pos, float h);
-		virtual void SetPosition(const Vec2& pos, float h)
-		{
+		virtual void SetPosition(const Vec2& pos, float h){
 			SetPosition(Vec3(pos.x, pos.y, 0.0f), h);
 		}
-		
-		void SetPosition(float x, float y, float h)
-		{
+		void SetPosition(float x, float y, float h){
 			SetPosition(Vec2(x, y), h);
 		}
 	};

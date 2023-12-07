@@ -39,12 +39,11 @@ namespace basecross {
 		auto& pad = device.GetControlerVec()[0];
 
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B) {
-
-			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
-
+			if (!stage) {
+				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameStage");
+				stage = true;
+			}
 		}
-
 	}
-
 }
 //end basecross

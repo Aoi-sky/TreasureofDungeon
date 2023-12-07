@@ -42,20 +42,15 @@ namespace basecross {
 		for (int i = 0; i < m_SquareVartex; i++)// 頂点データを更新
 		{
 			// テクスチャ名がHPBAR_GREENまたはHPBAR_REDなら
-			if (m_TextureKey == L"HPBAR_GREEN" || m_TextureKey == L"HPBAR_RED")
-			{
-				// 右側から減らす
+			if (m_TextureKey == L"GREENHPBAR" || m_TextureKey == L"REDHPBAR"){// 右側から減らす
 				float currentLostGauge = gaugeSizeLimit - currentGaugeSize;
 
-				if (i % 2 == 1 && currentGaugeSize <= gaugeSizeLimit)
-				{
+				if (i % 2 == 1 && currentGaugeSize <= gaugeSizeLimit){
 					m_vertices[i].position.x = m_DefaultSize.x - gaugeSizeDiff * currentLostGauge;
 				}
 			}
-			else 
-			{
-				if (i % 2 == 1 && currentGaugeSize <= gaugeSizeLimit)// 左側から増やす
-				{
+			else {
+				if (i % 2 == 1 && currentGaugeSize <= gaugeSizeLimit){// 左側から増やす
 					m_vertices[i].position.x = gaugeSizeDiff * currentGaugeSize;
 				}
 			}
@@ -63,7 +58,6 @@ namespace basecross {
 
 		// 更新されたデータを元にポリゴンを作り直す
 		m_draw->UpdateVertices(m_vertices);
-
 	}
 
 	void Gauge::SetPosition(const Vec3& pos, float h){

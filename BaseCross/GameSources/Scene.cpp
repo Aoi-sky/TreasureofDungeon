@@ -70,6 +70,9 @@ namespace basecross{
 		RoadTexture(L"CLEAR", L"clear.png");
 		RoadTexture(L"GAMEOVER", L"gameover.png");
 
+		RoadTexture(L"GREENHPBAR", L"GreenHpBar.png");
+		RoadTexture(L"REDHPBAR", L"RedHpBar.png");
+
 		RoadStaticModelMesh(L"Rock3", L"FALLINGROCKS");
 
 		const auto& app = App::GetApp();

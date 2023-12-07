@@ -7,7 +7,6 @@
 #include "stdafx.h"
 
 namespace basecross {
-
 	//--------------------------------------------------------------------------------------
 	//	ゲームステージクラス
 	//--------------------------------------------------------------------------------------
@@ -36,9 +35,8 @@ namespace basecross {
 		//構築と破棄
 		GameStage() :Stage() {}
 		virtual ~GameStage() {}
-		//初期化
+		
 		virtual void OnCreate()override;
-
 		virtual void OnDraw() override;
 	};
 

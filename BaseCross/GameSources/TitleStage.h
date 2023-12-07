@@ -9,11 +9,10 @@
 namespace basecross {
 	class TitleStage : public Stage {
 
-		//ビューの作成
-		void CreateViewLight();
-		//スプライトの作成
-		void CreateTitleSprite();
+		bool stage = false;
 
+		void CreateViewLight();//ビューの作成
+		void CreateTitleSprite();//スプライトの作成
 
 	public:
 		TitleStage():

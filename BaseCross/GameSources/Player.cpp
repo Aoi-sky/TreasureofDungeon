@@ -10,7 +10,7 @@ namespace basecross{
 	Player::Player(const shared_ptr<Stage>& StagePtr) :
 		GameObject(StagePtr),
 		m_Speed(5.0f),
-		m_life(100)
+		m_Life(m_DefaultLife)
 	{}
 
 	Vec2 Player::GetInputState() const{
@@ -70,11 +70,11 @@ namespace basecross{
 
 	//ダメージ関数
 	void Player::AddPlayerDamage(int damage) {
-		m_life -= damage;
+		m_Life -= damage;
 	}
 
 	void Player::PlayerDead() {
-		if (m_life <= 0) {
+		if (m_Life <= 0) {
 			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 		}
 	}
@@ -137,6 +137,7 @@ namespace basecross{
 			// プレイヤーが所属している「ステージ」を取得し、
 			// そこにBulletオブジェクトを追加する
 			GetStage()->AddGameObject<Wave>(GetThis<Player>()); //自分自身のオブジェクトのポインタを取得する
+			AddPlayerDamage(5);
 		}
 	}
 

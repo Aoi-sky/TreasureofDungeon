@@ -10,7 +10,6 @@ namespace basecross {
 	class ClearStage :public Stage {
 
 		void CreateViewLight();
-
 		void CreateClearSprite();
 
 	public:
@@ -20,10 +19,8 @@ namespace basecross {
 		}
 		virtual ~ClearStage() {}
 
-
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
 	};
-
 }
 //end basecross

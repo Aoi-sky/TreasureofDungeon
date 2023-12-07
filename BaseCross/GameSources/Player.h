@@ -14,7 +14,8 @@ namespace basecross{
 		void MovePlayer();//プレイヤーの移動
 		const WORD BUTTON_SHOT = XINPUT_GAMEPAD_X;
 		float m_Speed;
-		int m_life;//プレイヤーのHP
+		int m_DefaultLife = 100;//プレイヤーのデフォルトHP
+		int m_Life;//プレイヤーのHP
 
 	public:
 		Player(const shared_ptr<Stage>& StagePtr);
@@ -27,6 +28,15 @@ namespace basecross{
 		virtual void OnUpdate() override;
 		virtual void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 		virtual void OnCollisionExit(shared_ptr<GameObject>& Other) override;
+
+		int GetMaxLife()
+		{
+			return m_DefaultLife;
+		}
+		int GetCurrentLife()
+		{
+			return m_Life;
+		}
 	};
 
 }

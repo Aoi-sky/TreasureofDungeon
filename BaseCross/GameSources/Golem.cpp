@@ -86,7 +86,6 @@ namespace basecross {
 		// ƒ^ƒO‚Ìİ’è
 		AddTag(L"Enemy");
 		AddTag(L"Golem");
-
 	}
 
 	void Golem::OnUpdate() {
@@ -300,7 +299,7 @@ namespace basecross {
 			case eMotion::Death:
 				// ƒS[ƒŒƒ€‚ğÁ‹‚·‚é
 				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
-				GetStage()->RemoveGameObject<Golem>(GetThis<Golem>());
+				//GetStage()->RemoveGameObject<Golem>(GetThis<Golem>());
 				break;
 
 			default:

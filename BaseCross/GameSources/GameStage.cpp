@@ -178,6 +178,8 @@ namespace basecross {
 		auto ptrPlayer = AddGameObject <Player>();
 		SetSharedGameObject(L"Player", ptrPlayer);
 		ptrPlayer->AddTag(L"Player");
+
+		AddGameObject<PlayerHpBar>();
 	}
 
 	//“G‚Ìì¬
@@ -190,6 +192,8 @@ namespace basecross {
 		auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
 		auto ptrGolem = AddGameObject<Golem>(Ptrcellmap, Vec3(0, 2.5f, 20.0f));
 		SetSharedGameObject(L"Golem", ptrGolem);
+
+		AddGameObject<GolemHpBar>();
 	}
 
 	//—Î‚Ìì¬
