@@ -82,6 +82,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ShotEnemy.cpp">
       <Filter>Other\Characters\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyBarrett.cpp">
+      <Filter>Other\Characters\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -163,6 +166,9 @@
       <Filter>Stage\Debug</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ShotEnemy.h">
+      <Filter>Other\Characters\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBarrett.h">
       <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

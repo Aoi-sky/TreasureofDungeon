@@ -38,6 +38,7 @@
 #include "Golem.h"
 #include "FillSprite.h"
 #include "ShotEnemy.h"
+#include "EnemyBarrett.h"
 
 #include "Geuge.h"
 #include "PlayerHpGeuge.h"

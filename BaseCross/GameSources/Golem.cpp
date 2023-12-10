@@ -300,6 +300,7 @@ namespace basecross {
 				// ƒS[ƒŒƒ€‚ğÁ‹‚·‚é
 				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
 				//GetStage()->RemoveGameObject<Golem>(GetThis<Golem>());
+				SetDrawActive(false);
 				break;
 
 			default:

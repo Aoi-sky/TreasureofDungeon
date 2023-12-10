@@ -181,7 +181,10 @@ namespace basecross {
 	void GameStage::CreateEnemy() {
 		//auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
 		//AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 1.0f, 15.0f));
-		AddGameObject<ShotEnemy>();
+		AddGameObject<ShotEnemy>(Vec3(10.0f,2.0f,20.0f));
+		AddGameObject<ShotEnemy>(Vec3(10.0f,2.0f,-20.0f));
+		AddGameObject<ShotEnemy>(Vec3(-10.0f,2.0f,20.0f));
+		AddGameObject<ShotEnemy>(Vec3(-10.0f,2.0f,-20.0f));
 	}
 
 	void GameStage::CreateGolem() {

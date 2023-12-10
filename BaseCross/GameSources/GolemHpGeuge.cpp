@@ -35,6 +35,10 @@ namespace basecross {
 	void GolemHpBar::OnUpdate(){
 		// ゲージサイズの更新
 		auto golem = GetStage()->GetSharedGameObject<Golem>(L"Golem");
+		if (!golem->GetDrawActive()){
+			return;// 処理を停止する
+		}
+
 		m_bar[0]->UpdateGaugeSize(golem->GetGolemMaxLife(), golem->GetGolemCurrentLife());
 		m_bar[1]->UpdateGaugeSize(golem->GetGolemMaxLife(), (float)golem->GetGolemMaxLife());
 	}

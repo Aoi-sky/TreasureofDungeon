@@ -11,16 +11,15 @@ namespace basecross {
 
 		float m_speed;//弾のスピード
 		Vec3 m_forward;//移動方向を表すベクトル
-		Vec3 m_Emitter;
 		Vec3 m_Velocity;
 		std::shared_ptr<GameObject>m_owner;
 
 	public:
 		Wave(const std::shared_ptr<Stage>& stage, const shared_ptr<GameObject>& owner) :
 			GameObject(stage),
+			m_owner(owner),
 			m_time(0),
 			m_speed(5.0f),
-			m_owner(owner),
 			m_forward(Vec3(0))
 		{
 		}

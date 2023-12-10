@@ -21,6 +21,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DebugLog.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Effect.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Enemy.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBarrett.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Field.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FillSprite.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameOverSprite.h" />
@@ -50,6 +51,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DebugLog.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Effect.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Enemy.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyBarrett.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Field.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FillSprite.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameOverSprite.cpp" />

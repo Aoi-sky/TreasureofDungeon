@@ -35,6 +35,10 @@ namespace basecross {
 	void PlayerHpBar::OnUpdate(){
 		// ゲージサイズの更新
 		auto player = GetStage()->GetSharedGameObject<Player>(L"Player");
+		if (!player->GetDrawActive()) {
+			return;// 処理を停止する
+		}
+
 		m_bar[0]->UpdateGaugeSize(player->GetMaxLife(), player->GetCurrentLife());
 		m_bar[1]->UpdateGaugeSize(player->GetMaxLife(), (float)player->GetMaxLife());
 	}
