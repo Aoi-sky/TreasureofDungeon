@@ -67,6 +67,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FillSprite.cpp">
       <Filter>Stage\Sprite\FillSprite</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DebugLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -135,6 +136,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FillSprite.h">
       <Filter>Stage\Sprite\FillSprite</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DebugLog.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Stage">
