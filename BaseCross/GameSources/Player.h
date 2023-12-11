@@ -15,6 +15,21 @@ namespace basecross{
 		const WORD BUTTON_SHOT = XINPUT_GAMEPAD_X;
 		float m_Speed;
 
+		//アニメーション
+	protected:
+		enum eMotion
+		{
+			Wait,//待機モーション
+			Walk, // 歩行開始
+			Attack,// 攻撃(振り下ろす攻撃)
+			Attack2,//攻撃(薙ぎ払い攻撃)
+			Damage,//軽い
+			Damage2//重い
+		};
+		// トランスフォームとモデルの差分行列
+		Mat4x4 m_differenceMatrix;
+
+
 	public:
 		Player(const shared_ptr<Stage>& StagePtr);
 		virtual ~Player() {};
