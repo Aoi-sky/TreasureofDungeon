@@ -11,8 +11,15 @@ namespace basecross{
 		GameObject(StagePtr),
 		m_Speed(5.0f),
 		m_Life(m_DefaultLife)
-	{}
-
+	{
+		m_differenceMatrix.affineTransformation(
+			Vec3(1.0f, 1.0f, 1.0f),
+			Vec3(0.0f),
+			Vec3(0.0f, 0.0f, 0.0f),
+			Vec3(0.0f, 0.0f, 0.0f)
+		);
+	}
+	
 	Vec2 Player::GetInputState() const{
 		Vec2 ret;
 		auto controllerVec = App::GetApp()->GetInputDevice().GetControlerVec();//コントローラ取得
@@ -26,7 +33,7 @@ namespace basecross{
 
 		return ret;
 	}
-
+	//playerの移動
 	Vec3 Player::GetMoveVector() const {
 		Vec3 angle(0, 0, 0);
 		auto inPut = GetInputState();//入力の取得
@@ -81,12 +88,12 @@ namespace basecross{
 	
 	void Player::OnCreate() {
 		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(0.5f, 0.5f, 0.5f);
+		ptr->SetScale(0.2f, 0.2f, 0.2f);
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(0.0f, 0.85f, 0.0f));
 
 		//衝突判定を付ける
-		auto ptrColl = AddComponent<CollisionObb>();
+		auto ptrColl = AddComponent<CollisionCapsule>();
 
 		//各パフォーマンスを得る
 		GetStage()->SetCollisionPerformanceActive(true);
@@ -102,13 +109,24 @@ namespace basecross{
 		//影をつける（シャドウマップを描画する）
 		auto shadowPtr = AddComponent<Shadowmap>();
 		//影の形（メッシュ）を設定
-		//shadowPtr->SetMeshResource(L"DEFAULT_CUBE");
-		shadowPtr->SetMeshResource(L"M_PLAYER");
+		shadowPtr->SetMultiMeshResource(L"M_PLAYER");
 
-		auto  ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();
-		ptrDraw->SetMeshResource(L"M_PLAYER");
-		ptrDraw->SetLightingEnabled(false);
+		//描画コンポーネントの設定
+		auto  ptrDraw = AddComponent<BcPNTBoneModelDraw>();
+		// 新規ドローコンポーネントの設定
+		ptrDraw->SetMultiMeshResource(L"M_PLAYER");
+		ptrDraw->SetMeshToTransformMatrix(m_differenceMatrix);
+		//アニメーション設定
+		ptrDraw->AddAnimation(L"Wait", 0, 1, true, 10);
+		ptrDraw->AddAnimation(L"Walk", 5,40 ,false, 10);
+		ptrDraw->AddAnimation(L"Attack", 50, 60, false,10);
+		ptrDraw->ChangeCurrentAnimation(L"Walk");
+
+
+
+		//透明処理
 		SetAlphaActive(true);
+		SetDrawActive(true);
 
 		// タグの設定
 		AddTag(L"Player");
@@ -129,11 +147,19 @@ namespace basecross{
 		auto& app = App::GetApp();
 		float delta = app->GetElapsedTime(); // 前フレームからの経過時間（60FPS）
 
+		float elapsedTime = App::GetApp()->GetElapsedTime();
+		//アニメーションを更新する
+		auto ptrDraw = GetComponent<BcPNTBoneModelDraw>();
+		ptrDraw->UpdateAnimation(elapsedTime);		
+
+
 		auto device = app->GetInputDevice(); // インプットデバイスオブジェクトを取得する
 		auto& pad = device.GetControlerVec()[0]; // １個目のコントローラーの状態を取得する
 		// Xボタンが押されたら弾を発射する
 		if (pad.wPressedButtons & BUTTON_SHOT)
 		{
+			ptrDraw->ChangeCurrentAnimation(L"Attack");
+
 			// プレイヤーが所属している「ステージ」を取得し、
 			// そこにBulletオブジェクトを追加する
 			GetStage()->AddGameObject<Wave>(GetThis<Player>()); //自分自身のオブジェクトのポインタを取得する
