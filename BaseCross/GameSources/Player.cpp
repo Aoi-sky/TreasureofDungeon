@@ -86,7 +86,7 @@ namespace basecross{
 		ptr->SetPosition(Vec3(0.0f, 0.85f, 0.0f));
 
 		//衝突判定を付ける
-		auto ptrColl = AddComponent<CollisionObb>();
+		auto ptrColl = AddComponent<CollisionCapsule>();
 
 		//各パフォーマンスを得る
 		GetStage()->SetCollisionPerformanceActive(true);
@@ -99,15 +99,16 @@ namespace basecross{
 		GetStage()->SetUpdatePerformanceActive(true);
 		GetStage()->SetDrawPerformanceActive(true);
 
+		// ドローコンポーネント
+		auto  ptrDraw = AddComponent<BcPNTBoneModelDraw>();
+		ptrDraw->SetMultiMeshResource(L"M_PLAYER");
+		ptrDraw->SetLightingEnabled(false);
+
 		//影をつける（シャドウマップを描画する）
 		auto shadowPtr = AddComponent<Shadowmap>();
 		//影の形（メッシュ）を設定
-		//shadowPtr->SetMeshResource(L"DEFAULT_CUBE");
-		shadowPtr->SetMeshResource(L"M_PLAYER");
+		shadowPtr->SetMultiMeshResource(L"M_PLAYER");
 
-		auto  ptrDraw = AddComponent<BcPNTnTBoneModelDraw>();
-		ptrDraw->SetMeshResource(L"M_PLAYER");
-		ptrDraw->SetLightingEnabled(false);
 		SetAlphaActive(true);
 
 		// タグの設定

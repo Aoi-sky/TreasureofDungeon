@@ -73,8 +73,8 @@ namespace basecross{
 		// ゴーレムのモデルの読み込み
 		RegisterMultiMesh(L"GOLEM", modelPath + L"Golem/", L"Golem", true);
 
-		const auto& modelMesh = MeshResource::CreateBoneModelMeshWithTangent(modelPath + L"Player/", L"Player.bmf");
-		app->RegisterResource(L"M_PLAYER", modelMesh);
+		// プレイヤーのモデルの読み込み
+		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player01", true);
 	}
 
 
