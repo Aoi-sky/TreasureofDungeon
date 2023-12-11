@@ -85,6 +85,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)EnemyBarrett.cpp">
       <Filter>Other\Characters\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonUI.cpp">
+      <Filter>Stage\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Character.h">
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBarrett.h">
       <Filter>Other\Characters\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h">
+      <Filter>Stage\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

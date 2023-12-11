@@ -74,6 +74,8 @@ namespace basecross{
 		RoadTexture(L"GREENHPBAR", L"GreenHpBar.png");
 		RoadTexture(L"REDHPBAR", L"RedHpBar.png");
 
+		RoadTexture(L"BPUSH", L"BPush.png");
+
 		//スタティックモデル
 		RoadStaticModelMesh(L"Rock3", L"FALLINGROCKS");
 

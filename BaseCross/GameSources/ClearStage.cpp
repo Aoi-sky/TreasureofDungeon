@@ -23,6 +23,7 @@ namespace basecross {
 	void ClearStage::CreateClearSprite() {
 
 		AddGameObject<ClearSprite>();
+		AddGameObject<ButtonSprite>();
 
 	} // end CreateTitleSprite
 
@@ -37,7 +38,7 @@ namespace basecross {
 		auto device = app->GetInputDevice();
 		auto& pad = device.GetControlerVec()[0];
 
-		if (pad.wPressedButtons & XINPUT_GAMEPAD_Y) {
+		if (pad.wPressedButtons & XINPUT_GAMEPAD_B) {
 
 			PostEvent(0.3f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
 

@@ -23,6 +23,7 @@ namespace basecross {
 	void TitleStage::CreateTitleSprite() {
 
 		AddGameObject<TitleSprite>();
+		AddGameObject<ButtonSprite>();
 		
 	} // end CreateTitleSprite
 
