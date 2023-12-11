@@ -188,10 +188,7 @@ namespace basecross {
 	}
 
 	void GameStage::CreateGolem() {
-		auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
-		auto ptrGolem = AddGameObject<Golem>(Ptrcellmap, Vec3(0, 2.5f, 20.0f));
-		SetSharedGameObject(L"Golem", ptrGolem);
-
+		AddGameObject<Golem>(Vec3(0, 2.5f, 20.0f));
 		AddGameObject<GolemHpBar>();
 	}
 

@@ -10,40 +10,40 @@ namespace basecross {
 	class FillSprite : public GameObject
 	{
 		// 頂点データ
-		vector<VertexPositionColorTexture> m_vertices;
+		vector<VertexPositionColor> m_vertices;
 		// 頂点インデックス
-		vector<uint16_t> m_indices = {
-			0, 1, 2,
-			2, 1, 3
+		std::vector<uint16_t> m_indices;
+		// 表示順を保存するインデックス
+		vector<uint16_t> m_baseIndices = {
+			0, 1, 2
 		};
 		// ドローコンポーネント
 		shared_ptr<PCTStaticDraw> m_drawComp;
 		// 中心座標
-		Vec3 m_pos;
-		// 幅
-		float m_width;
-		// 高さ
-		float m_height;
+		Vec3 m_centerPos;
+		// 半径
+		float m_radius;
 		// 色
 		Col4 m_color;
-		// 透明色を描画するかのフラグ
-		bool m_drawAlpha;
-		// テクスチャキー
-		wstring m_texKey;
+		// 消去されるまでのフレーム数
+		int m_maxCount;
+		// 生成されてから経過したフレーム数
+		int m_count;
+
 
 	public:
 		FillSprite::FillSprite(const shared_ptr<Stage>& stagePtr, // ステージのポインタ
 			const Vec3& position, // 中心座標
-			const float& width, // 幅
-			const float& height, // 高さ
-			const wstring& texKey // テクスチャキー
+			const float& radius, // 半径
+			const int& maxCount // フレーム数
 		) :
 			GameObject(stagePtr), // ステージのポインタ
-			m_pos(position),	 // 中心座標
-			m_width(width),	 // 幅
-			m_height(height), // 高さ
-			m_texKey(texKey) // テクスチャキー
+			m_centerPos(position),	 // 中心座標
+			m_radius(radius), // 半径
+			m_maxCount(maxCount) // フレーム数
 		{
+			m_count = 0;
+
 		}
 
 		/*!

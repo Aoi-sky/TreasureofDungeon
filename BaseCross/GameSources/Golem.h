@@ -41,10 +41,10 @@ namespace basecross {
 	};
 
 	const Attack AttackList[1] = {
-		{6.0f, 8.0f, 20.0f, 4.0f, 3.0f, 0.3f}
+		{5.0f, 8.0f, 20.0f, 4.0f, 3.0f, 0.25f}
 	};
 
-	// 基底クラス
+	// ゴーレムクラス
 	class Golem : public GameObject
 	{
 	protected:
@@ -98,7 +98,7 @@ namespace basecross {
 		Status m_status;
 		// 攻撃の詳細設定を保存するメンバ変数
 		Attack m_attackStatus;
-		// 前回の攻撃から経過したフレーム数
+		// 前回のモーション変更から経過したフレーム数(ループ中はリセットされない)
 		int m_countTime;
 		// スポーン地点
 		Vec3 m_startPos;
@@ -110,8 +110,6 @@ namespace basecross {
 		Vec3 m_velocity;
 		// 移動方向
 		Vec3 m_forward;
-		// 前フレームの座標
-		Vec3 m_currentPos;
 		// 突進攻撃開始時の座標
 		Vec3 m_rammingPos;
 		// 振り下ろし攻撃をするかを判定するフラグ
@@ -128,14 +126,6 @@ namespace basecross {
 		int m_stunTotalTime;
 		// 自分自身のトランスフォームコンポーネント
 		std::shared_ptr<Transform> m_transform;
-		// 通過する経路
-		vector<CellIndex> m_cellIVec;
-		//現在の自分のセルインデックス
-		int m_cellIndex;
-		//目指す(次の)セルインデックス
-		int m_nextCellIndex;
-		//ターゲットのセルインデックス
-		int m_targetCellIndex;
 		// トランスフォームとモデルの差分行列
 		Mat4x4 m_differenceMatrix;
 		// アニメーションのキー
@@ -145,17 +135,17 @@ namespace basecross {
 		// 前フレームのアニメーションのタイプ
 		eMotion m_currentMotion;
 		// プレイヤーのポインタ
-		weak_ptr<GameObject> m_playerPtr;
+		shared_ptr<GameObject> m_playerPtr;
+		// プレイヤーのTransformコンポーネントのポインタ
+		shared_ptr<Transform> m_playerTrans;
 		// 衝突してきた岩の角度(ゴーレムの正面方向を0とする)
 		float m_rockAngle;
 	public:
 		// コンストラクタ
 		Golem::Golem(const shared_ptr<Stage>& stagePtr, // ステージのポインタ
-			const shared_ptr<StageCellMap>& cellMapptr, // セルマップのシェアドポインタ
 			const Vec3 position // 初期座標
 		) :
 			GameObject(stagePtr), // ステージのポインタ
-			m_cellMapPtr(cellMapptr), // セルマップのシェアドポインタ
 			m_startPos(position) // 初期座標
 		{
 			m_status = statusList[0];
@@ -244,11 +234,18 @@ namespace basecross {
 		void AddStun(int StunTime);
 
 		/*!
+		@brief	 水晶を生成する関数
+		@param[in]	 Position 生成する座標
+		*/
+		void CreateClystal(Vec3 Position);
+
+		/*!
 		@brief	 ゴーレムの正面方向を基準として、ターゲットの方向を計算する関数
 		@param[in]	 target ターゲットが所持しているTransformコンポーネントのポインタ
+		@param[in]	 negativeValueFlg ターゲットが左に居た場合に返り値を負の値で返すかのフラグ
 		@return ゴーレムの正面方向を基準とした角度を返す
 		*/
-		float AngleCalculation(shared_ptr<Transform>& target);
+		float AngleCalculation(shared_ptr<Transform>& target, bool negativeValueFlg);
 
 		/*!
 		@brief	 他のコリジョンと衝突した時に実行される関数
