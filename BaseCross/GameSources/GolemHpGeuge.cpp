@@ -35,7 +35,7 @@ namespace basecross {
 	void GolemHpBar::OnUpdate(){
 		// ゲージサイズの更新
 		auto golem = GetStage()->GetSharedGameObject<Golem>(L"Golem");
-		if (!golem->GetDrawActive()){
+		if (!golem->GetDrawActive()|| golem->GetGolemCurrentLife() <=-5){
 			return;// 処理を停止する
 		}
 

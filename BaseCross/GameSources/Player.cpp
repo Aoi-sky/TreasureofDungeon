@@ -82,6 +82,7 @@ namespace basecross{
 
 	void Player::PlayerDead() {
 		if (m_Life <= 0) {
+			SetDrawActive(false);
 			PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 		}
 	}
@@ -158,7 +159,7 @@ namespace basecross{
 		if (pad.wPressedButtons & BUTTON_SHOT)
 		{
 			ptrDraw->ChangeCurrentAnimation(L"Attack");
-
+			AddPlayerDamage(5);
 			// プレイヤーが所属している「ステージ」を取得し、
 			// そこにBulletオブジェクトを追加する
 			GetStage()->AddGameObject<Wave>(GetThis<Player>()); //自分自身のオブジェクトのポインタを取得する
