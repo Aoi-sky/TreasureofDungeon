@@ -159,7 +159,6 @@ namespace basecross{
 		if (pad.wPressedButtons & BUTTON_SHOT)
 		{
 			ptrDraw->ChangeCurrentAnimation(L"Attack");
-			AddPlayerDamage(5);
 			// プレイヤーが所属している「ステージ」を取得し、
 			// そこにBulletオブジェクトを追加する
 			GetStage()->AddGameObject<Wave>(GetThis<Player>()); //自分自身のオブジェクトのポインタを取得する
@@ -167,10 +166,6 @@ namespace basecross{
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
-		if (Other->FindTag(L"Golem"))
-		{
-			AddPlayerDamage(5);
-		}
 	}
 
 	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
