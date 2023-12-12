@@ -35,7 +35,7 @@ namespace basecross {
 	void PlayerHpBar::OnUpdate(){
 		// ゲージサイズの更新
 		auto player = GetStage()->GetSharedGameObject<Player>(L"Player");
-		if (!player->GetDrawActive()) {
+		if (!player->GetDrawActive() || player->GetCurrentLife() <= -5) {
 			return;// 処理を停止する
 		}
 
