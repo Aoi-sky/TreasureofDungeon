@@ -13,10 +13,10 @@ namespace basecross{
 		m_Life(m_DefaultLife)
 	{
 		m_differenceMatrix.affineTransformation(
-			Vec3(1.0f, 1.0f, 1.0f),
+			Vec3(0.5f, 0.5f, 0.5f),
 			Vec3(0.0f),
 			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, 0.0f, 0.0f)
+			Vec3(0.0f, -0.8f, 0.0f)
 		);
 	}
 	
@@ -88,12 +88,13 @@ namespace basecross{
 	
 	void Player::OnCreate() {
 		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(0.2f, 0.2f, 0.2f);
+		ptr->SetScale(0.5f, 0.5f, 0.5f);
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
 		ptr->SetPosition(Vec3(0.0f, 0.85f, 0.0f));
 
 		//衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionCapsule>();
+		ptrColl->SetDrawActive(false);
 
 		//各パフォーマンスを得る
 		GetStage()->SetCollisionPerformanceActive(true);

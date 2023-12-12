@@ -11,13 +11,11 @@
 namespace basecross {
 	class PlayerHpBar : public GameObject{
 		
-		float m_maxHP;// 最大HP
 		shared_ptr<Gauge> m_bar[2];// HPバーの情報を入れる変数
 	public:
 		// コンストラクタ
 		PlayerHpBar(const std::shared_ptr<Stage>& stage) :
-			GameObject(stage),
-			m_maxHP(0)
+			GameObject(stage)
 		{
 		}
 

@@ -84,7 +84,7 @@ namespace basecross{
 		const wstring modelPath = mediaPath + L"Models/";// モデルディレクトリパスの取得
 	
 		// ゴーレムのモデルの読み込み
-		RegisterMultiMesh(L"GOLEM", modelPath, L"Golem", true);
+		RegisterMultiMesh(L"GOLEM", modelPath + L"Golem/", L"Golem", true);
 
 		// プレイヤーのモデルの読み込み
 		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player01", true);

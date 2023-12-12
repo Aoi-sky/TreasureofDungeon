@@ -12,16 +12,12 @@ namespace basecross {
 
 	class GolemHpBar : public GameObject
 	{
-		// 最大HP
-		float m_maxHP;
-
 		// HPバーの情報を入れる変数
 		shared_ptr<Gauge> m_bar[2];
 	public:
 		// コンストラクタ
 		GolemHpBar(const std::shared_ptr<Stage>& stage) :
-			GameObject(stage),
-			m_maxHP(0)
+			GameObject(stage)
 		{
 		}
 
