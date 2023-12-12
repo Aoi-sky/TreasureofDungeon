@@ -65,7 +65,6 @@ namespace basecross{
 		RoadTexture(L"PILLAR", L"pillar2.png");
 		RoadTexture(L"PLAYER", L"Player.png");
 		RoadTexture(L"WALL", L"wall.jpg");
-		RoadTexture(L"ATTACKAREA", L"AttackArea.png");
 
 		RoadTexture(L"TITLE", L"title.png");
 		RoadTexture(L"CLEAR", L"clear.png");
@@ -88,10 +87,6 @@ namespace basecross{
 
 		// プレイヤーのモデルの読み込み
 		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player01", true);
-
-		//const auto& modelMesh = MeshResource::CreateBoneModelMeshWithTangent(modelPath + L"Player/", L"NEOPlayer01.bmf");
-		//app->RegisterResource(L"M_PLAYER", modelMesh);
-
 }
 
 

@@ -135,7 +135,7 @@ namespace basecross {
 		// 前フレームのアニメーションのタイプ
 		eMotion m_currentMotion;
 		// プレイヤーのポインタ
-		shared_ptr<GameObject> m_playerPtr;
+		shared_ptr<Player> m_playerPtr;
 		// プレイヤーのTransformコンポーネントのポインタ
 		shared_ptr<Transform> m_playerTrans;
 		// 衝突してきた岩の角度(ゴーレムの正面方向を0とする)
@@ -249,20 +249,29 @@ namespace basecross {
 
 		/*!
 		@brief	 他のコリジョンと衝突した時に実行される関数
-		@param[in]	Other	衝突したオブジェクトのポインタ
+		@param[in]	Other 衝突したオブジェクトのポインタ
 		*/
 		void OnCollisionEnter(shared_ptr<GameObject>& Other) override;
 
 		/*!
 		@brief	 他のコリジョンとの衝突が解消された時に実行される関数
-		@param[in]	Other	衝突していたオブジェクトのポインタ
+		@param[in]	Other 衝突していたオブジェクトのポインタ
 		*/
 		void OnCollisionExit(shared_ptr<GameObject>& Other) override;
 
+		/*!
+		@brief	 ゴーレムの最大体力を取得する関数
+		@return ゴーレムの最大体力
+		*/
 		int GetGolemMaxLife()
 		{
 			return  statusList[0].life;
 		}
+
+		/*!
+		@brief	 現在のゴーレムの体力を取得する関数
+		@return 現在のゴーレムの体力
+		*/
 		int GetGolemCurrentLife()
 		{
 			return m_status.life;

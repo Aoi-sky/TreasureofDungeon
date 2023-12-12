@@ -105,7 +105,6 @@ namespace basecross {
 			break;
 		}
 
-
 		if (m_status.life <= 0 && m_motion != Death) {
 			// 体力が0以下の場合、モーションを変更
 			m_motion = Death;
@@ -172,6 +171,7 @@ namespace basecross {
 
 					// 攻撃範囲の中心座標を計算
 					areaPos = golemPos + golemForward * m_attackStatus.SwingdownRange;
+					areaPos.y = 0.8f;
 					// 攻撃範囲の描写
 					GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
 					break;
@@ -182,6 +182,7 @@ namespace basecross {
 
 					// 攻撃範囲の中心座標を計算
 					areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
+					areaPos.y = 0.8f;
 					// 攻撃範囲の描写
 					GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
 					break;
@@ -197,6 +198,7 @@ namespace basecross {
 
 						// 攻撃範囲の中心座標を計算
 						areaPos = golemPos + golemForward * m_attackStatus.SwingdownRange;
+						areaPos.y = 0.8f;
 						// 攻撃範囲の描写
 						GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
 						break;
@@ -207,6 +209,7 @@ namespace basecross {
 
 						// 攻撃範囲の中心座標を計算
 						areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
+						areaPos.y = 0.8f;
 						// 攻撃範囲の描写
 						GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
 						break;
@@ -224,7 +227,10 @@ namespace basecross {
 
 			case eMotion::AttackStart_Swingdown:
 				// 攻撃範囲内にプレイヤーが居たらダメージ
-				/////////////////////////////////////////////////////////////////////////////////////////////////////
+				if (CheckAttackArea(SwingDown)) {
+					m_playerPtr->AddPlayerDamage(25);
+
+				}
 				m_motion = AttackFinish_Swingdown;
 				m_countTime = 0;
 				break;
@@ -236,7 +242,9 @@ namespace basecross {
 
 			case eMotion::AttackStart_Punch:
 				// 攻撃範囲内にプレイヤーが居たらダメージ
-				/////////////////////////////////////////////////////////////////////////////////////////////////////
+				if (CheckAttackArea(Punch)) {
+					m_playerPtr->AddPlayerDamage(25);
+				}
 				m_motion = AttackFinish_Punch;
 				m_countTime = 0;
 				break;
@@ -467,7 +475,7 @@ namespace basecross {
 				}
 			}
 			if (Angle < 0.0f) {
-				if (Angle < m_attackStatus.NormalTurningSpeed) {
+				if (Angle < -m_attackStatus.NormalTurningSpeed) {
 					m_rotation.y += -m_attackStatus.NormalTurningSpeed * (XM_PI / 180.0f);
 				}
 				else {
@@ -503,7 +511,7 @@ namespace basecross {
 		}
 		// 減速しながら止まる
 		if (m_motion == AttackFinish_Ramming3) {
-			if ((120 - m_countTime) * 2 / 160 > 0) {
+			if ((120 - m_countTime) * 2 / 120 > 0) {
 				m_velocity *= m_attackStatus.RammingSpeed * float((120 - m_countTime) * 2 / 120 > 0);
 			}
 			else {
@@ -527,12 +535,12 @@ namespace basecross {
 			}
 
 			// 突進攻撃中にプレイヤーの近くにいるかをチェック
-			float DistancetoPlayer = sqrt((golemPos.x - playerPos.x) * (golemPos.x - playerPos.x) + (golemPos.z - playerPos.z) * (golemPos.z - playerPos.z));
+			//float DistancetoPlayer = sqrt((golemPos.x - playerPos.x) * (golemPos.x - playerPos.x) + (golemPos.z - playerPos.z) * (golemPos.z - playerPos.z));
 
-			// プレイヤーが近くにいた場合は突進を中止する
-			if (DistancetoPlayer < 3.0f) {
-				m_stopRammingFlg = true;
-			}
+			//// プレイヤーが近くにいた場合は突進を中止する
+			//if (DistancetoPlayer < 3.0f) {
+			//	m_stopRammingFlg = true;
+			//}
 		}
 	}
 
@@ -631,6 +639,12 @@ namespace basecross {
 		{
 			auto ptrColl =GetComponent<CollisionCapsule>();
 			ptrColl->SetFixed(true);
+			if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+				if (!m_stopRammingFlg) {
+					m_playerPtr->AddPlayerDamage(30);
+					m_stopRammingFlg = true;
+				}
+			}
 			return;
 		}
 
@@ -671,9 +685,9 @@ namespace basecross {
 	void Golem::OnCollisionExit(shared_ptr<GameObject>& Other) {
 		if (Other->FindTag(L"Player"))
 		{
-			//auto ptrColl = GetComponent<CollisionCapsule>();
-			//ptrColl->SetFixed(false);
-			//return;
+			auto ptrColl = GetComponent<CollisionCapsule>();
+			ptrColl->SetFixed(false);
+			return;
 		}
 
 	}
