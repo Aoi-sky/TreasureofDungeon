@@ -87,6 +87,13 @@ namespace basecross {
 		@return	なし
 		*/
 		void AddLocation(const bsm::Vec3& Location);
+
+		/**
+		@brief	エフェクトを回転
+		@param[in]	Location	回転ベクトル
+		@return	なし
+		*/
+		void AddRotation(const bsm::Vec3& Rotation);
 	};
 
 

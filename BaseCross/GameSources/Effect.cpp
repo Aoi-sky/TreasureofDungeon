@@ -68,6 +68,13 @@ namespace basecross {
 		}
 	}
 
+	void EfkPlay::AddRotation(const bsm::Vec3& Rotation) {
+		auto shptr = m_EfkInterface.lock();
+		if (shptr && m_Handle != -1) {
+			shptr->m_Manager->SetRotation(m_Handle, Rotation.x, Rotation.y, Rotation.z);
+		}
+	}
+
 	void EfkPlay::StopEffect() {
 		auto shptr = m_EfkInterface.lock();
 		if (shptr && m_Handle != -1) {
