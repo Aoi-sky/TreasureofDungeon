@@ -21,12 +21,6 @@ namespace basecross {
 		m_transform->SetRotation(Vec3(0.0f));
 		m_transform->SetPosition(m_startPos);
 
-		// PathSearchコンポーネントの取得
-		auto MapPtr = m_cellMapPtr.lock();
-		if (MapPtr)
-		{
-			AddComponent<PathSearch>(MapPtr);
-		}
 		//CollisionSphere衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionCapsule>();
 		ptrColl->SetDrawActive(false);
@@ -517,7 +511,7 @@ namespace basecross {
 			else {
 				m_velocity = Vec3(0.0f);
 			}
-		}
+		}        
 
 		// 座標を更新
 		golemPos -= m_velocity;
