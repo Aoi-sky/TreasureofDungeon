@@ -12,11 +12,10 @@ namespace basecross {
 
 		std::shared_ptr<Transform> m_transform;
 
-		Vec3 m_positone;
+		Vec3 m_position;
 
 		const float m_RecastCount; // ’e”­ŽËŠÔŠu
 		float m_recastFlame;
-
 	public:
 		ShotEnemy(const shared_ptr<Stage>& stage,const Vec3& Position);
 		virtual ~ShotEnemy();
