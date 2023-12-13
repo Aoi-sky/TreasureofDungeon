@@ -19,12 +19,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Enemy.cpp">
       <Filter>Other\Characters\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyBarrett.cpp">
-      <Filter>Other\Characters\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ShotEnemy.cpp">
-      <Filter>Other\Characters\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Golem.cpp">
       <Filter>Other\Characters\Golem</Filter>
     </ClCompile>
@@ -55,9 +49,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FillSprite.cpp">
       <Filter>Stage\Sprite\FillSprite</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonUI.cpp">
-      <Filter>Stage\Button</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ClearSprite.cpp">
       <Filter>Stage\Sprite\ClearSprite</Filter>
     </ClCompile>
@@ -70,15 +61,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleSprite.cpp">
       <Filter>Stage\Sprite\TitleSprite</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Geuge.cpp">
-      <Filter>Stage\Geuge\Geuges</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)GolemHpGeuge.cpp">
-      <Filter>Stage\Geuge\GolemHpGeuge</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.cpp">
-      <Filter>Stage\Geuge\PlayerHpGeuge</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TitleStage.cpp">
       <Filter>Stage\GameStages\TitleStage</Filter>
     </ClCompile>
@@ -88,6 +70,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ClearStage.cpp">
       <Filter>Stage\GameStages\ClearStage</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ShotEnemy.cpp">
+      <Filter>Other\Characters\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyBarrett.cpp">
+      <Filter>Other\Characters\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GolemHpGeuge.cpp">
+      <Filter>Stage\Geuge\GolemHpGeuge</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonUI.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Geuge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h">
@@ -106,12 +100,6 @@
       <Filter>Other\Characters\Character</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Enemy.h">
-      <Filter>Other\Characters\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBarrett.h">
-      <Filter>Other\Characters\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ShotEnemy.h">
       <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Golem.h">
@@ -144,9 +132,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FillSprite.h">
       <Filter>Stage\Sprite\FillSprite</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h">
-      <Filter>Stage\Button</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ClearSprite.h">
       <Filter>Stage\Sprite\ClearSprite</Filter>
     </ClInclude>
@@ -159,15 +144,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleSprite.h">
       <Filter>Stage\Sprite\TitleSprite</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Geuge.h">
-      <Filter>Stage\Geuge\Geuges</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)GolemHpGeuge.h">
-      <Filter>Stage\Geuge\GolemHpGeuge</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.h">
-      <Filter>Stage\Geuge\PlayerHpGeuge</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TitleStage.h">
       <Filter>Stage\GameStages\TitleStage</Filter>
     </ClInclude>
@@ -177,6 +153,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ClearStage.h">
       <Filter>Stage\GameStages\ClearStage</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ShotEnemy.h">
+      <Filter>Other\Characters\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBarrett.h">
+      <Filter>Other\Characters\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Geuge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GolemHpGeuge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Function">

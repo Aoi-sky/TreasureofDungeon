@@ -66,6 +66,7 @@ namespace basecross{
 		RoadTexture(L"PLAYER", L"Player.png");
 		RoadTexture(L"WALL", L"wall.jpg");
 
+
 		RoadTexture(L"TITLE", L"title.png");
 		RoadTexture(L"CLEAR", L"clear.png");
 		RoadTexture(L"GAMEOVER", L"gameover.png");
@@ -77,6 +78,8 @@ namespace basecross{
 
 		//スタティックモデル
 		RoadStaticModelMesh(L"Rock3", L"FALLINGROCKS");
+		//RoadStaticModelMesh(L"ShootEnemy_Test", L"ShootEnemy");
+
 
 		const auto& app = App::GetApp();
 		const wstring mediaPath = app->GetDataDirWString();// ディレクトリパスの設定
@@ -84,6 +87,8 @@ namespace basecross{
 	
 		// ゴーレムのモデルの読み込み
 		RegisterMultiMesh(L"GOLEM", modelPath + L"Golem/", L"Golem", true);
+		//ShotEnemyの読み込み
+		RoadBoneModel(L"ShootEnemy", modelPath , L"ShootEnemy");
 
 		// プレイヤーのモデルの読み込み
 		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player01", true);

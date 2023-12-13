@@ -9,22 +9,26 @@
 namespace basecross {
 	ShotEnemy::ShotEnemy(const shared_ptr<Stage>& stage, const Vec3& Position):
 		GameObject(stage),
-		m_positone(Position),
+		m_position(Position),
 		m_RecastCount(120),
 		m_recastFlame(0)
 	{
 	}
+	
+
 	ShotEnemy::~ShotEnemy() {}
 
 	void ShotEnemy::OnCreate() {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		//drawComp->SetMeshResource(L"DEFAULT_SPHERE");
-		drawComp->SetMeshResource(L"DEFAULT_CUBE");
+		//描画処理
+		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
+
+		drawComp->SetMeshResource(L"ShootEnemy");
 
 		m_transform = GetComponent<Transform>();//コンポーネントの取得
-		m_transform->SetPosition(m_positone);//座標設定
-		m_transform->SetRotation(Vec3(90,90,90));//角度設定
-		m_transform->SetScale(Vec3(1.2f, 1.2f, 1.2f));//サイズ調整
+		m_transform->SetPosition(m_position);//座標設定
+		m_transform->SetScale(Vec3(0.8f, 0.8f, 0.8f));//サイズ調整
 
 		auto ptrColl = AddComponent<CollisionSphere>();
 		ptrColl->SetAfterCollision(AfterCollision::None);
