@@ -10,6 +10,8 @@ namespace basecross {
 	ShotEnemy::ShotEnemy(const shared_ptr<Stage>& stage, const Vec3& Position):
 		GameObject(stage),
 		m_position(Position),
+		m_rot(0),
+		m_speed(2),
 		m_RecastCount(120),
 		m_recastFlame(0)
 	{
@@ -36,6 +38,10 @@ namespace basecross {
 	}
 
 	void ShotEnemy::OnUpdate() {
+
+		auto delta = App::GetApp()->GetElapsedTime();
+		m_rot.y = m_rot.y + delta * m_speed;
+		m_transform->SetRotation(Vec3(0.0f,m_rot.y, 0.0f ));
 
 		m_recastFlame--;
 

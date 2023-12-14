@@ -13,6 +13,9 @@ namespace basecross {
 		std::shared_ptr<Transform> m_transform;
 
 		Vec3 m_position;
+		Vec3 m_rot;
+		float m_speed;
+
 
 		const float m_RecastCount; // ’e”­ŽËŠÔŠu
 		float m_recastFlame;
