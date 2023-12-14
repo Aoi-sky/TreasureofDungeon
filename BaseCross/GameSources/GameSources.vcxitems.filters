@@ -79,9 +79,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GolemHpGeuge.cpp">
       <Filter>Stage\Geuge\GolemHpGeuge</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonUI.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Geuge.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonUI.cpp">
+      <Filter>Stage\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Geuge.cpp">
+      <Filter>Stage\Geuge\Geuges</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.cpp">
+      <Filter>Stage\Geuge\PlayerHpGeuge</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h">
@@ -159,10 +165,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBarrett.h">
       <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Geuge.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GolemHpGeuge.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h">
+      <Filter>Stage\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Geuge.h">
+      <Filter>Stage\Geuge\Geuges</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.h">
+      <Filter>Stage\Geuge\PlayerHpGeuge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GolemHpGeuge.h">
+      <Filter>Stage\Geuge\GolemHpGeuge</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Function">

@@ -92,7 +92,14 @@ namespace basecross{
 
 		// プレイヤーのモデルの読み込み
 		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player01", true);
-}
+
+		
+		//音楽
+		RoadSound(L"TITLESTAGE_BGM", L"TitleBGM.wav");
+		RoadSound(L"GAMESTAGE_BGM", L"TitleBGM.wav");
+		RoadSound(L"CLEARSTAGE_BGM", L"TitleBGM.wav");
+		RoadSound(L"GAMEOVERSTAGE_BGM", L"TitleBGM.wav");
+	}
 
 
 	void Scene::OnCreate(){

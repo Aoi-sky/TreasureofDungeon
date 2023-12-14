@@ -8,10 +8,11 @@
 
 namespace basecross {
 	class ClearStage :public Stage {
+		shared_ptr<SoundItem> m_bgm; // サウンドアイテム
 
 		void CreateViewLight();
 		void CreateClearSprite();
-
+		void PlayBGM();
 	public:
 		ClearStage():
 			Stage()
@@ -21,6 +22,8 @@ namespace basecross {
 
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
+		virtual void OnDestroy()override;
+
 	};
 }
 //end basecross

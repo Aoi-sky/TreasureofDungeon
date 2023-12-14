@@ -72,10 +72,8 @@ namespace basecross {
 		//エフェクトの初期化
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
+		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
 		m_damageEffectStr = DataDir + L"Effects\\" + L"damage.efk";
-		auto& app = App::GetApp();
-		auto scene = app->GetScene<Scene>();
-		auto ShEfkInterface = scene->GetEfkInterface();
 		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
 
 	}

@@ -200,7 +200,18 @@ namespace basecross {
 	void GameStage::CreateFallingRocks() {
 		AddGameObject<FallingRocks>();
 	}
-	
+
+	void GameStage::PlayBGM() {
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		m_bgm = XAPtr->Start(L"GAMESTAGE_BGM", XAUDIO2_LOOP_INFINITE, 0.1f);
+	}
+
+	void GameStage::OnDestroy()
+	{
+		//BGMのストップ
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_bgm);
+	}
 
 	void GameStage::OnCreate() {
 		try {
@@ -222,6 +233,8 @@ namespace basecross {
 			CreateGolem();
 			//落石の作成
 			CreateFallingRocks();
+			//BGMの生成
+			PlayBGM();
 		}
 		catch (...) {
 			throw;

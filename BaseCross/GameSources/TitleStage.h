@@ -11,8 +11,11 @@ namespace basecross {
 
 		bool stage = false;
 
+		shared_ptr<SoundItem> m_bgm; // サウンドアイテム
+
 		void CreateViewLight();//ビューの作成
 		void CreateTitleSprite();//スプライトの作成
+		void PlayBGM();//BGMの作成
 
 	public:
 		TitleStage():
@@ -23,6 +26,7 @@ namespace basecross {
 
 		virtual void OnCreate()override;
 		virtual void OnUpdate()override;
+		virtual void OnDestroy()override;
 
 	};
 
