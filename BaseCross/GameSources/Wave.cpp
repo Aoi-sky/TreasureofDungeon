@@ -18,6 +18,15 @@ namespace basecross {
 		ptrColl->SetAfterCollision(AfterCollision::None);
 		ptrColl->SetSleepActive(true);
 		AddTag(L"Wave");//タグの設定
+
+		//エフェクトの初期化
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
+		m_sparkEffectStr = DataDir + L"Effects\\" + L"damege.efk";
+		m_sparkEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_sparkEffectStr);
+
+
 	}
 
 	void Wave::OnUpdate() {
@@ -49,7 +58,7 @@ namespace basecross {
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
 		}
-		if (Other->FindTag(L"Enemy"))//敵
+		if (Other->FindTag(L"Golem"))//敵
 		{
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			GetStage()->GetSharedGameObject<Golem>(L"Golem")->AddDamage(100);
@@ -59,6 +68,8 @@ namespace basecross {
 		if (Other->FindTag(L"ShotEnemy"))//敵
 		{
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			auto pos = m_transform->GetPosition();
+			m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_sparkEffect, pos, Vec3(1.0f));
 			return;
 		}
 		if (Other->FindTag(L"FallingRocks"))//落石

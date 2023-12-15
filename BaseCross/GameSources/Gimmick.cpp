@@ -73,7 +73,7 @@ namespace basecross {
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
 		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
-		m_damageEffectStr = DataDir + L"Effects\\" + L"damage.efk";
+		m_damageEffectStr = DataDir + L"Effects\\" + L"spark.efk";
 		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
 
 	}
@@ -94,6 +94,7 @@ namespace basecross {
 		pos.z = m_StartPos.z;
 		// À•W‚ð’n–Êã‚ÉÝ’è
 		ptrTransform->SetPosition(pos);
+
 	}
 
 	void FallingRocks::OnCollisionEnter(shared_ptr<GameObject>& Other) {
@@ -122,6 +123,8 @@ namespace basecross {
 		if (Other->FindTag(L"Floor"))//“G
 		{
 			m_fallenFlg = true;
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"STONE_SE", 0, 0.5f);
 			return;
 		}
 
