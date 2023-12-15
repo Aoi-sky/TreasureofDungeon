@@ -62,7 +62,7 @@ namespace basecross {
 		ptrDraw->AddAnimation(L"STUN1", 970, 1, false);
 		ptrDraw->AddAnimation(L"STUN2", 970, 1, false);
 		ptrDraw->AddAnimation(L"STUN_RECOVERY", 980, 120, false);
-		ptrDraw->AddAnimation(L"DEATH", 600, 1, false);
+		ptrDraw->AddAnimation(L"DEATH", 880, 50, false);
 
 		// 最初のアニメーションを指定
 		ptrDraw->ChangeCurrentAnimation(L"BOOTING");
@@ -78,7 +78,6 @@ namespace basecross {
 
 
 		// タグの設定
-		AddTag(L"Enemy");
 		AddTag(L"Golem");
 	}
 
@@ -222,7 +221,7 @@ namespace basecross {
 			case eMotion::AttackStart_Swingdown:
 				// 攻撃範囲内にプレイヤーが居たらダメージ
 				if (CheckAttackArea(SwingDown)) {
-					m_playerPtr->AddPlayerDamage(25);
+					m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
 
 				}
 				m_motion = AttackFinish_Swingdown;
@@ -237,7 +236,7 @@ namespace basecross {
 			case eMotion::AttackStart_Punch:
 				// 攻撃範囲内にプレイヤーが居たらダメージ
 				if (CheckAttackArea(Punch)) {
-					m_playerPtr->AddPlayerDamage(25);
+					m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
 				}
 				m_motion = AttackFinish_Punch;
 				m_countTime = 0;
@@ -527,14 +526,6 @@ namespace basecross {
 			if (golemMomentum > playerMomentum) {
 				m_stopRammingFlg = true;
 			}
-
-			// 突進攻撃中にプレイヤーの近くにいるかをチェック
-			//float DistancetoPlayer = sqrt((golemPos.x - playerPos.x) * (golemPos.x - playerPos.x) + (golemPos.z - playerPos.z) * (golemPos.z - playerPos.z));
-
-			//// プレイヤーが近くにいた場合は突進を中止する
-			//if (DistancetoPlayer < 3.0f) {
-			//	m_stopRammingFlg = true;
-			//}
 		}
 	}
 
@@ -635,7 +626,7 @@ namespace basecross {
 			ptrColl->SetFixed(true);
 			if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
 				if (!m_stopRammingFlg) {
-					m_playerPtr->AddPlayerDamage(30);
+					m_playerPtr->AddPlayerDamage(30, Player::eMotion::Damage2);
 					m_stopRammingFlg = true;
 				}
 			}

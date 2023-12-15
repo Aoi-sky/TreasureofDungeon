@@ -86,7 +86,7 @@ namespace basecross{
 		RegisterMultiMesh(L"GOLEM", modelPath + L"Golem/", L"Golem", true);
 
 		// プレイヤーのモデルの読み込み
-		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player01", true);
+		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player", true);
 }
 
 
@@ -160,8 +160,5 @@ namespace basecross{
 		const auto& app = App::GetApp();
 		app->RegisterResource(registerKey, modelMesh);
 	}
-
-
-
 }
 //end basecross

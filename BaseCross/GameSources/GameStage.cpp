@@ -31,14 +31,14 @@ namespace basecross {
 	// セルマップの生成
 	void GameStage::CreateStageCellMap()
 	{
-		//セルマップを生成
-		auto Ptr = AddGameObject<StageCellMap>(Vec3(0.0f, 0.0f, 0.0f), 1.0f, 50, 80);
+		////セルマップを生成
+		//auto Ptr = AddGameObject<StageCellMap>(Vec3(0.0f, 0.0f, 0.0f), 1.0f, 50, 80);
 
-		//セルマップの区画を表示
-		Ptr->SetDrawActive(false);
+		////セルマップの区画を表示
+		//Ptr->SetDrawActive(false);
 
-		//シェアオブジェクトに登録
-		SetSharedGameObject(L"StageCellMap", Ptr);
+		////シェアオブジェクトに登録
+		//SetSharedGameObject(L"StageCellMap", Ptr);
 	}
 
 	// セルマップ内のセルにコストを設定
@@ -98,7 +98,7 @@ namespace basecross {
 			}
 		};
 		for (auto v : vec) {
-			AddGameObject<FixedBox>(v[0], v[1], v[2]);
+			AddGameObject<Wall>(v[0], v[1], v[2]);
 		}
 
 		vector<vector<Vec3>> vec2 = {
