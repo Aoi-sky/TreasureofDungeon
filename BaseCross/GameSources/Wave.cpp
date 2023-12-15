@@ -5,7 +5,7 @@ namespace basecross {
 	void Wave::OnCreate() {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_SPHERE");//’e‚ÌŒ`
-		drawComp->SetDrawActive(true);
+		drawComp->SetDrawActive(false);
 
 		//Œü‚«‚ðƒxƒNƒgƒ‹‚ÅŠ“¾
 		auto ownerTrans = m_owner->GetComponent<Transform>();
@@ -55,11 +55,6 @@ namespace basecross {
 			return;
 		}
 		if (Other->FindTag(L"Wall"))//•Ç
-		{
-			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
-			return;
-		}
-		if (Other->FindTag(L"Golem"))//“G
 		{
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;

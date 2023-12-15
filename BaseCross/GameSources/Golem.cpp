@@ -637,7 +637,7 @@ namespace basecross {
 		if (Other->FindTag(L"MoveFallingRocks"))
 		{
 			// ƒXƒ^ƒ“UŒ‚‚ğó‚¯‚½
-			AddStun(300);
+			AddStun(80);
 			m_rockAngle = AngleCalculation(Other->GetComponent<Transform>(), false);
 			return;
 		}
