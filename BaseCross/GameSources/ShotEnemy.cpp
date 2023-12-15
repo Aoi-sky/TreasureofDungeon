@@ -25,6 +25,7 @@ namespace basecross {
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 
 		drawComp->SetMeshResource(L"ShootEnemy");
+		ptrDraw->SetSpecularColor(Col4(1.0f, 0, 0, 1.0f));
 
 		m_transform = GetComponent<Transform>();//コンポーネントの取得
 		m_transform->SetPosition(m_position);//座標設定

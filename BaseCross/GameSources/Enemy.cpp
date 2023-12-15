@@ -10,15 +10,15 @@ namespace basecross {
 		m_StartPosition(Position),
 		m_Force(0),
 		m_Velocity(0),
-		m_Speed(0.05f)
+		m_Speed(10.0f)
 	{}
 	Enemy::~Enemy(){}
 	//初期化
 	void Enemy::OnCreate() {
-		auto ptr = GetComponent<Transform>();
-		ptr->SetScale(Vec3(0.5f));
+		auto ptr = GetComponent<Transform>();//コンポーネントの取得
+		ptr->SetScale(Vec3(0.5f));//サイズ調整
 		ptr->SetRotation(0.0f, 0.0f, 0.0f);
-		ptr->SetPosition(m_StartPosition);
+		ptr->SetPosition(m_StartPosition);//座標設定
 		AddComponent<CollisionSphere>();
 		auto MapPtr = m_CelMap.lock();
 		if (MapPtr) {
@@ -26,10 +26,10 @@ namespace basecross {
 		}
 		//描画コンポーネントの設定
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
-		ptrDraw->SetFogEnabled(true);
+		//ptrDraw->SetFogEnabled(true);
 		//描画するメッシュを設定
-		ptrDraw->SetMeshResource(L"GOLRM");
-		ptrDraw->SetDiffuse(Col4(1.0f, 0, 0, 1.0f));
+		//ptrDraw->SetMeshResource(L"DEFAULT_CUBE");
+		//ptrDraw->SetMeshResource(L"M_ENEMY");
 
 		AddTag(L"Enemy");
 	}

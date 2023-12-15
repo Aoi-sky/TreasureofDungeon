@@ -10,10 +10,22 @@ namespace basecross {
 		Seek,
 		Arrived
 	};
+
 	//--------------------------------------------------------------------------------------
-	//　敵(Enemy)
+	//　敵(Enemy)クラス
 	//--------------------------------------------------------------------------------------
 	class Enemy : public GameObject {
+		// アニメーション定数
+		enum eMotion
+		{
+			WalkStart, // 歩行開始
+			Death, // 死亡
+			AttackStart,// 攻撃開始
+		};
+
+
+
+
 		Vec3 m_StartPosition;
 		Vec3 m_Force;
 		Vec3 m_Velocity;

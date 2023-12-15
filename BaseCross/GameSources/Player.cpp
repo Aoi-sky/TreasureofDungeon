@@ -124,7 +124,6 @@ namespace basecross{
 		ptrDraw->AddAnimation(L"Attack", 50, 60, false,10);
 		ptrDraw->ChangeCurrentAnimation(L"Walk");
 
-		//“§–¾ˆ—
 		SetAlphaActive(true);
 		SetDrawActive(true);
 
