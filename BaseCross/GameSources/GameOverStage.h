@@ -8,9 +8,11 @@
 
 namespace basecross {
 	class GameOverStage :public Stage {
+		shared_ptr<SoundItem> m_bgm; // サウンドアイテム
 
 		void CreateViewLight();
 		void CreateGameOverSprite();
+		void PlayBGM();
 
 	public:
 		GameOverStage() :
@@ -21,6 +23,7 @@ namespace basecross {
 
 		virtual void OnCreate() override;
 		virtual void OnUpdate() override;
+		virtual void OnDestroy()override;
 	};
 
 }

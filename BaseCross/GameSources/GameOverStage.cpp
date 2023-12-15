@@ -27,10 +27,24 @@ namespace basecross {
 
 	} // end CreateTitleSprite
 
+	void GameOverStage::PlayBGM() {
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		m_bgm = XAPtr->Start(L"GAMEOVERSTAGE_BGM", XAUDIO2_LOOP_INFINITE, 0.1f);
+	}
+
+	void GameOverStage::OnDestroy()
+	{
+		//BGMのストップ
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_bgm);
+	}
+
+
 
 	void GameOverStage::OnCreate() {
 		CreateViewLight();
 		CreateGameOverSprite();
+		PlayBGM();
 	}
 
 	void GameOverStage::OnUpdate() {
@@ -40,6 +54,8 @@ namespace basecross {
 
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B) {
 			PostEvent(0.3f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"SELECT_SE", 0, 0.5f);
 		}
 	}
 

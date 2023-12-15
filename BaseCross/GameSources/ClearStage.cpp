@@ -27,10 +27,21 @@ namespace basecross {
 
 	} // end CreateTitleSprite
 
+	void ClearStage::PlayBGM() {
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		m_bgm = XAPtr->Start(L"CLEARSTAGE_BGM", XAUDIO2_LOOP_INFINITE, 0.1f);
+	}
+
+	void ClearStage::OnDestroy(){
+		//BGMのストップ
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Stop(m_bgm);
+	}
 
 	void ClearStage::OnCreate() {
 		CreateViewLight();
 		CreateClearSprite();
+		PlayBGM();
 	}
 
 	void ClearStage::OnUpdate() {
@@ -41,7 +52,8 @@ namespace basecross {
 		if (pad.wPressedButtons & XINPUT_GAMEPAD_B) {
 
 			PostEvent(0.3f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToTitleStage");
-
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"SELECT_SE", 0, 0.5f);
 		}
 
 

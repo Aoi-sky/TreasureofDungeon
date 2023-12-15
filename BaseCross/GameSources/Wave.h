@@ -7,6 +7,10 @@ namespace basecross {
 		// 自分自身のトランスフォームコンポーネント（Update処理の最適化のために宣言）
 		std::shared_ptr<Transform> m_transform;
 
+		shared_ptr<EfkEffect> m_sparkEffect;
+		shared_ptr<EfkPlay> m_EfkPlay; // エフェクト実行オブジェクト
+		wstring m_sparkEffectStr;
+
 		float m_time;
 
 		float m_speed;//弾のスピード

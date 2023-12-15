@@ -72,10 +72,8 @@ namespace basecross {
 		//エフェクトの初期化
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
-		m_damageEffectStr = DataDir + L"Effects\\" + L"damage.efk";
-		auto& app = App::GetApp();
-		auto scene = app->GetScene<Scene>();
-		auto ShEfkInterface = scene->GetEfkInterface();
+		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
+		m_damageEffectStr = DataDir + L"Effects\\" + L"spark.efk";
 		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
 
 	}
@@ -96,6 +94,7 @@ namespace basecross {
 		pos.z = m_StartPos.z;
 		// 座標を地面上に設定
 		ptrTransform->SetPosition(pos);
+
 	}
 
 	void FallingRocks::OnCollisionEnter(shared_ptr<GameObject>& Other) {
@@ -124,6 +123,8 @@ namespace basecross {
 		if (Other->FindTag(L"Floor"))//敵
 		{
 			m_fallenFlg = true;
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"STONE_SE", 0, 0.5f);
 			return;
 		}
 
