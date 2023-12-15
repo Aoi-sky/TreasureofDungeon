@@ -88,7 +88,9 @@ namespace basecross{
 		// ゴーレムのモデルの読み込み
 		RegisterMultiMesh(L"GOLEM", modelPath + L"Golem/", L"Golem", true);
 		//ShotEnemyの読み込み
-		RoadBoneModel(L"ShootEnemy", modelPath , L"ShootEnemy");
+		//RoadBoneModel(L"ShootEnemy", L"ShootEnemy/", L"ShootEnemy");
+		App::GetApp()->RegisterResource(L"ShootEnemy",
+			MeshResource::CreateBoneModelMesh(modelPath, L"ShootEnemy/ShootEnemy.bmf"));
 
 		// プレイヤーのモデルの読み込み
 		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player", true);

@@ -11,7 +11,7 @@ namespace basecross {
 		GameObject(stage),
 		m_position(Position),
 		m_rot(0),
-		m_speed(2),
+		m_speed(0),
 		m_RecastCount(120),
 		m_recastFlame(0)
 	{
