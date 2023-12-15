@@ -8,15 +8,6 @@
 #include "stdafx.h"
 
 namespace basecross {
-	//--------------------------------------------------------------------------------------
-	//	セル検索を使った行動クラスのフラグ
-	//--------------------------------------------------------------------------------------
-	enum class CellSearchedFlg {
-		Failed, // 失敗
-		Seek, // 追跡
-		Arrived // 到着
-	};
-
 	// ステータスを設定
 	struct Status {
 		int life; // 体力
@@ -92,8 +83,6 @@ namespace basecross {
 			Behind
 		};
 
-		// セルマップのポインタ
-		weak_ptr<StageCellMap> m_cellMapPtr;
 		// ステータスを保存するメンバ変数
 		Status m_status;
 		// 攻撃の詳細設定を保存するメンバ変数
@@ -234,12 +223,6 @@ namespace basecross {
 		void AddStun(int StunTime);
 
 		/*!
-		@brief	 水晶を生成する関数
-		@param[in]	 Position 生成する座標
-		*/
-		void CreateClystal(Vec3 Position);
-
-		/*!
 		@brief	 ゴーレムの正面方向を基準として、ターゲットの方向を計算する関数
 		@param[in]	 target ターゲットが所持しているTransformコンポーネントのポインタ
 		@param[in]	 negativeValueFlg ターゲットが左に居た場合に返り値を負の値で返すかのフラグ
@@ -278,5 +261,65 @@ namespace basecross {
 		}
 
 	};
+
+
+	// クリスタルクラス
+	class Crystal : public GameObject
+	{
+	protected:
+		//// アニメーション定数
+		//enum eState
+		//{
+		//	Create,
+
+		//}
+		// 初期座標
+		Vec3 m_startPos;
+		// 水晶の持続時間
+		int m_duration;
+		// トランスフォームとモデルの差分行列
+		Mat4x4 m_differenceMatrix;
+
+
+	public:
+		// コンストラクタ
+		Crystal::Crystal(const shared_ptr<Stage>& stagePtr, // ステージのポインタ
+			const Vec3 position, // 初期座標
+			const int duration // 水晶の持続時間
+		) :
+			GameObject(stagePtr), // ステージのポインタ
+			m_startPos(position), // 初期座標
+			m_duration(duration) // 持続時間
+		{
+			m_differenceMatrix.affineTransformation(
+				Vec3(0.25f, 0.25f, 0.25f),
+				Vec3(0.0f),
+				Vec3(0.0f, XM_PIDIV2, 0.0f),
+				Vec3(0.0f, -0.6f, 0.0f)
+			);
+
+		}
+
+		// デストラクタ
+		virtual ~Crystal() {};
+
+		/*!
+		@brief	 クラスが最初に作成される時に実行される関数
+		*/
+		void OnCreate();
+
+		/*!
+		@brief	 毎フレーム実行される関数
+		*/
+		void OnUpdate();
+
+
+
+
+	};
+
+
+
+
 
 }

@@ -91,7 +91,7 @@ namespace basecross{
 		RoadBoneModel(L"ShootEnemy", modelPath , L"ShootEnemy");
 
 		// プレイヤーのモデルの読み込み
-		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player01", true);
+		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player", true);
 }
 
 
@@ -165,8 +165,5 @@ namespace basecross{
 		const auto& app = App::GetApp();
 		app->RegisterResource(registerKey, modelMesh);
 	}
-
-
-
 }
 //end basecross
