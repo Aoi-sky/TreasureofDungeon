@@ -23,8 +23,8 @@ namespace basecross {
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
 		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
-		m_sparkEffectStr = DataDir + L"Effects\\" + L"damege.efk";
-		m_sparkEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_sparkEffectStr);
+		m_damageEffectStr = DataDir + L"Effects\\" + L"damage.efk";
+		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
 
 
 	}
@@ -38,7 +38,7 @@ namespace basecross {
 		pos += m_forward * m_speed * delta;
 		m_transform->SetPosition(pos.x, 1,pos.z);
 
-		GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+		//GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 
 		//m_time += delta * 0.1f;
 		//if (m_time >= 1.0f)
@@ -61,19 +61,27 @@ namespace basecross {
 		}
 		if (Other->FindTag(L"Golem"))//“G
 		{
+			auto pos = m_transform->GetPosition();
+			m_DamageEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(0.1f));
+
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			GetStage()->GetSharedGameObject<Golem>(L"Golem")->AddDamage(70);
 			return;
 		}
 		if (Other->FindTag(L"ShotEnemy"))//“G
 		{
-			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			auto pos = m_transform->GetPosition();
-			m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_sparkEffect, pos, Vec3(1.0f));
+			m_DamageEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(5.0f));
+			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+
 			return;
 		}
 		if (Other->FindTag(L"FallingRocks"))//—ŽÎ
 		{
+			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			return;
+		}
+		else {
 			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
 		}

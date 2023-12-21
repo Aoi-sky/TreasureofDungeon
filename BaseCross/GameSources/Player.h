@@ -8,6 +8,11 @@
 
 namespace basecross{
 	class Player :public GameObject {
+
+		shared_ptr<EfkEffect> m_damageEffect;
+		shared_ptr<EfkPlay> m_DamegeEfkPlay;
+		wstring m_damageEffectStr;
+
 		//アニメーション
 	public:
 		enum eMotion

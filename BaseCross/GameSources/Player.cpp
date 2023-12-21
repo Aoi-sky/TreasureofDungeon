@@ -80,6 +80,14 @@ namespace basecross{
 			ptrCamera->SetTargetObject(GetThis<GameObject>());
 			ptrCamera->SetTargetToAt(Vec3(0, 0.25f, 0));
 		}
+
+		//エフェクトの初期化
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
+		m_damageEffectStr = DataDir + L"Effects\\" + L"damage.efk";
+		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
+
 	}
 
 	void Player::OnUpdate() {
@@ -230,6 +238,8 @@ namespace basecross{
 			m_Life = 0;
 		}
 
+		Vec3 pos = GetComponent<Transform>()->GetPosition();
+		m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(0.5f));
 	}
 
 	void Player::PlayerDead() {
