@@ -76,6 +76,12 @@ namespace basecross {
 		m_playerPtr = GetStage()->GetSharedGameObject<Player>(L"Player");
 		m_playerTrans = m_playerPtr->GetComponent<Transform>();
 
+		//エフェクトの初期化
+		wstring DataDir;
+		App::GetApp()->GetDataDirectory(DataDir);
+		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
+		m_damageEffectStr = DataDir + L"Effects\\" + L"damage2.efk";
+		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
 
 		// タグの設定
 		AddTag(L"Golem");
@@ -566,6 +572,10 @@ namespace basecross {
 	}
 
 	void Golem::AddDamage(int Damage) {
+
+		Vec3 pos = GetComponent<Transform>()->GetPosition();
+		m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(1.0f, 0.8f, 1.0f));
+
 		m_status.life -= Damage;
 	}
 

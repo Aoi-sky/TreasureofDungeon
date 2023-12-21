@@ -8,6 +8,7 @@
 #include "stdafx.h"
 
 namespace basecross {
+
 	// ステータスを設定
 	struct Status {
 		int life; // 体力
@@ -38,6 +39,9 @@ namespace basecross {
 	// ゴーレムクラス
 	class Golem : public GameObject
 	{
+		shared_ptr<EfkEffect> m_damageEffect;
+		shared_ptr<EfkPlay> m_DamegeEfkPlay;
+		wstring m_damageEffectStr;
 	protected:
 
 		// アニメーション定数
