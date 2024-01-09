@@ -182,12 +182,7 @@ namespace basecross {
 		//auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
 		//AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 1.0f, 15.0f));
 		
-
-		AddGameObject<ShotEnemy>(Vec3(10.0f,1.0f,20.0f));
-		AddGameObject<ShotEnemy>(Vec3(10.0f,1.0f,-20.0f));
-		AddGameObject<ShotEnemy>(Vec3(-10.0f,1.0f,20.0f));
-		AddGameObject<ShotEnemy>(Vec3(-10.0f,1.0f,-20.0f));
-
+		AddGameObject<EnemySpawn>();
 	}
 
 	void GameStage::CreateGolem() {
@@ -203,7 +198,7 @@ namespace basecross {
 
 	void GameStage::PlayBGM() {
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_bgm = XAPtr->Start(L"GAMESTAGE_BGM", XAUDIO2_LOOP_INFINITE, 0.1f);
+		m_bgm = XAPtr->Start(L"GAMESTAGE_BGM", XAUDIO2_LOOP_INFINITE, 1.0f);
 	}
 
 	void GameStage::OnDestroy()

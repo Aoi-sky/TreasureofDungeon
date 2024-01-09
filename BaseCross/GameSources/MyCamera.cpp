@@ -273,6 +273,9 @@ namespace basecross {
 				m_ArmLen = m_MinArm;//m_MinArm以下近づかないようにする
 			}
 		}
+		if (wButtons & XINPUT_GAMEPAD_DPAD_LEFT || keyData.m_bPushKeyTbl[VK_LEFT]) {
+			CameraShake();
+		}
 
 		////目指したい場所にアームの値と腕ベクトルでEyeを調整
 		Vec3 toEye = newAt + armVec * m_ArmLen;
@@ -293,6 +296,32 @@ namespace basecross {
 		m_ArmLen -= m_ZoomSpeed;//カメラ位置を寄る
 		if (m_ArmLen <= m_MinArm) {
 			m_ArmLen = m_MinArm;//m_MinArm以下近づかないようにする
+		}
+
+		Vec3 toEye = m_newAt + m_ArmVec * m_ArmLen;
+		m_newEye = Lerp::CalculateLerp(GetEye(), toEye, 0, 1.0f, m_ToTargetLerp, Lerp::Linear);
+
+		SetAt(m_newAt);
+		SetEye(m_newEye);
+		UpdateArmLengh();
+		Camera::OnUpdate();
+
+	}
+	void MyCamera::CameraShake(){
+		m_count++;
+		m_count = m_count % 2;
+
+		if (m_count == 0) {
+			m_ArmLen = m_ArmLen + 0.2f;
+			if (m_ArmLen <= m_MinArm) {
+				m_ArmLen = m_MinArm;//m_MinArm以下近づかないようにする
+			}
+		}
+		else if (m_count == 1) {
+			m_ArmLen = m_ArmLen - 0.2f;
+			if (m_ArmLen >= m_MaxArm) {
+				m_ArmLen = m_MaxArm;//m_MaxArm以上離れないようにする
+			}
 		}
 
 		Vec3 toEye = m_newAt + m_ArmVec * m_ArmLen;

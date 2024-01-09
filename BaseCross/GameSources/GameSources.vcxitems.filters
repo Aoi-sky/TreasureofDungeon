@@ -88,6 +88,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.cpp">
       <Filter>Stage\Geuge\PlayerHpGeuge</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemySpawn.cpp">
+      <Filter>Other\Characters\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h">
@@ -176,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GolemHpGeuge.h">
       <Filter>Stage\Geuge\GolemHpGeuge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemySpawn.h">
+      <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

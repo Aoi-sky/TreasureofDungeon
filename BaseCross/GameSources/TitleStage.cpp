@@ -29,7 +29,7 @@ namespace basecross {
 
 	void TitleStage::PlayBGM() {
 		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		m_bgm = XAPtr->Start(L"TITLESTAGE_BGM", XAUDIO2_LOOP_INFINITE, 0.1f);
+		m_bgm = XAPtr->Start(L"TITLESTAGE_BGM", XAUDIO2_LOOP_INFINITE, 1.0f);
 	}
 
 
