@@ -77,22 +77,26 @@ namespace basecross{
 		RoadTexture(L"BPUSH", L"BPush.png");
 
 		//スタティックモデル
-		RoadStaticModelMesh(L"Rock3", L"FALLINGROCKS");
-		//RoadStaticModelMesh(L"ShootEnemy_Test", L"ShootEnemy");
-
+		RoadStaticModelMesh(L"Rock/Rock3", L"FALLINGROCKS");
 
 		const auto& app = App::GetApp();
 		const wstring mediaPath = app->GetDataDirWString();// ディレクトリパスの設定
 		const wstring modelPath = mediaPath + L"Models/";// モデルディレクトリパスの取得
 	
-		// ゴーレムのモデルの読み込み
+		// ゴーレムのモデルの読込
 		RegisterMultiMesh(L"GOLEM", modelPath + L"Golem/", L"Golem", true);
-		//ShotEnemyの読み込み
-		//RoadBoneModel(L"ShootEnemy", L"ShootEnemy/", L"ShootEnemy");
+
+		// 水晶のモデルの読込
+		RegisterMultiMesh(L"CRYSTAL", modelPath + L"Crystal/", L"Crystal", false);
+		RegisterSingleMesh(L"CRYSTAL_R", modelPath + L"Crystal/", L"Crystal_R", false);
+		RegisterSingleMesh(L"CRYSTAL_G", modelPath + L"Crystal/", L"Crystal_G", false);
+		RegisterSingleMesh(L"CRYSTAL_B", modelPath + L"Crystal/", L"Crystal_B", false);
+
+		//ShotEnemyの読込
 		App::GetApp()->RegisterResource(L"ShootEnemy",
 			MeshResource::CreateBoneModelMesh(modelPath, L"ShootEnemy/ShootEnemy.bmf"));
 
-		// プレイヤーのモデルの読み込み
+		// プレイヤーのモデルの読込
 		RegisterMultiMesh(L"M_PLAYER", modelPath + L"Player/", L"Player", true);
 		
 		//BGM
@@ -159,6 +163,21 @@ namespace basecross{
 			ResetActiveStage<GameOverStage>();
 		}
 
+	}
+
+	void Scene::RegisterSingleMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse)
+	{
+		shared_ptr<MeshResource> modelMesh;
+		if (boneUse)
+		{
+			modelMesh = MeshResource::CreateBoneModelMesh(path, fileName + L".bmf");
+		}
+		else
+		{
+			modelMesh = MeshResource::CreateStaticModelMesh(path, fileName + L".bmf");
+		}
+		const auto& app = App::GetApp();
+		app->RegisterResource(registerKey, modelMesh);
 	}
 
 	void Scene::RegisterMultiMesh(const wstring& registerKey, const wstring& path, const wstring& fileName, bool boneUse)
