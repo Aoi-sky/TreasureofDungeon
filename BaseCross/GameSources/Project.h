@@ -36,8 +36,11 @@
 #include "Wave.h"
 #include "Gimmick.h"
 #include "GimmickMove.h"
+
 #include "Golem.h"
 #include "FillSprite.h"
+#include "Crystal.h"
+
 #include "ShotEnemy.h"
 #include "EnemyBarrett.h"
 
