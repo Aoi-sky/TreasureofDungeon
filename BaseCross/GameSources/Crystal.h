@@ -26,10 +26,12 @@ namespace basecross {
 		Vec3 m_startPos;
 		// Attack状態になるまでの待機時間
 		int m_standbyTime;
-		// Attack状態の持続時間
+		// Move・Attack状態を合計した持続時間
 		int m_duration;
-		// Attack状態に変更されてからの経過時間
+		// 水晶が生成されてからの経過時間
 		int m_elapsedTime;
+		// 水晶が突き出てくる速度
+		float m_speed;
 		// 現在のフレームの状態を保存する変数
 		eState m_currentState;
 		// 前フレームの状態を保存する変数

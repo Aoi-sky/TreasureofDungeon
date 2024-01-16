@@ -28,7 +28,7 @@ namespace basecross {
 
 		// 新規ドローコンポーネントの設定
 		auto ptrDraw = AddComponent<BcPNStaticDraw>();
-		ptrDraw->SetMeshResource(L"CRYSTAL_R");
+		ptrDraw->SetMeshResource(L"CRYSTAL");
 		ptrDraw->SetMeshToTransformMatrix(m_differenceMatrix);
 		ptrDraw->SetSpecularColor(Col4(1, 1, 1, 1));
 		ptrDraw->SetOwnShadowActive(true);
@@ -36,7 +36,7 @@ namespace basecross {
 
 		// 影を追加
 		auto ptrShadow = AddComponent<Shadowmap>();
-		ptrShadow->SetMeshResource(L"CRYSTAL_R");
+		ptrShadow->SetMeshResource(L"CRYSTAL");
 		ptrShadow->SetMeshToTransformMatrix(m_differenceMatrix);
 
 		// タグの設定
@@ -58,10 +58,33 @@ namespace basecross {
 	}
 
 	void Crystal::CheckState() {
-		// 経過時間が待機時間を経過した場合の処理
-		if (m_standbyTime <= m_elapsedTime && m_pastState == Wait) {
-			m_currentState = Move;
+		switch (m_pastState)
+		{
+		case Wait:
+			// 経過時間が待機時間を経過した場合の処理
+			if (m_standbyTime <= m_elapsedTime) {
+				m_currentState = Move;
+			}
+			break;
+		case Move:
+			//if () {
+
+			//}
+			break;
+		case Attack:
+			// 経過時間がAttackの持続時間を経過した場合の処理
+			if (m_duration <= m_elapsedTime - m_standbyTime) {
+				m_currentState = Finish;
+			}
+			break;
+		case Finish:
+
+			break;
+		default:
+			m_pastState = Wait;
+			break;
 		}
+
 
 
 
