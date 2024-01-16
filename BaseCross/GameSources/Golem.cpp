@@ -500,9 +500,6 @@ namespace basecross {
 			areaPos.y = 0.8f;
 			// UŒ‚”ÍˆÍ‚Ì•`ŽÊ
 			GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
-
-			GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
-
 			return motion;
 		}
 		if (!m_canSwingDown && m_canPunch) {
@@ -513,9 +510,6 @@ namespace basecross {
 			areaPos.y = 0.8f;
 			// UŒ‚”ÍˆÍ‚Ì•`ŽÊ
 			GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
-
-			GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
-
 			return motion;
 		}
 		// ‚Ç‚¿‚ç‚ÌUŒ‚‚à‰Â”\‚Èê‡‚Íƒ‰ƒ“ƒ_ƒ€‚É‘I‘ð‚³‚ê‚é
@@ -531,9 +525,6 @@ namespace basecross {
 				areaPos.y = 0.8f;
 				// UŒ‚”ÍˆÍ‚Ì•`ŽÊ
 				GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
-
-				GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
-
 				break;
 
 			case 1:
@@ -544,9 +535,6 @@ namespace basecross {
 				areaPos.y = 0.8f;
 				// UŒ‚”ÍˆÍ‚Ì•`ŽÊ
 				GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
-
-				GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
-
 				break;
 
 			default:
