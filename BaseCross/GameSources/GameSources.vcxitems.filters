@@ -90,6 +90,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Crystal.cpp">
       <Filter>Other\GameGimmick\Crystal</Filter>
+	</ClCompile>
+	<ClCompile Include="$(MSBuildThisFileDirectory)EnemySpawn.cpp">
+      <Filter>Other\Characters\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Crystal.h">
       <Filter>Other\GameGimmick\Crystal</Filter>
+	</ClInclude>
+	<ClInclude Include="$(MSBuildThisFileDirectory)EnemySpawn.h">
+      <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

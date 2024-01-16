@@ -43,6 +43,7 @@
 
 #include "ShotEnemy.h"
 #include "EnemyBarrett.h"
+#include "EnemySpawn.h"
 
 #include "Geuge.h"
 #include "PlayerHpGeuge.h"

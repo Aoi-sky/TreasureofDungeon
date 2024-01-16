@@ -109,7 +109,7 @@ namespace basecross {
 			return;
 
 		}
-		if (Other->FindTag(L"Enemy"))//“G
+		if (Other->FindTag(L"Enemy") || Other->FindTag(L"Golem"))//“G
 		{
 			GetStage()->RemoveGameObject<GameObject>(GetThis<GameObject>());
 			return;

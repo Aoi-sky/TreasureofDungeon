@@ -29,6 +29,7 @@ namespace basecross {
 		bool m_LRBaseMode;//左右スティック変更のモード
 		bool m_UDBaseMode;//上下スティック変更のモード
 
+		int m_count;
 	public:
 		MyCamera();//コンストラクタ
 		MyCamera(float ArmLen);//コンストラクタ（初期のarmの長さ）
@@ -58,6 +59,7 @@ namespace basecross {
 		bool IsUDBaseMode() const;
 		void SetUDBaseMode(bool b);
 		void CameraCollisionEnter();
+		void CameraShake();
 		virtual void SetAt(const bsm::Vec3& At)override;
 		virtual void SetAt(float x, float y, float z)override;
 		virtual void OnUpdate()override;
