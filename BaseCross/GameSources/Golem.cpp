@@ -21,7 +21,7 @@ namespace basecross {
 		m_transform->SetRotation(Vec3(0.0f));
 		m_transform->SetPosition(m_startPos);
 
-		//CollisionSphere衝突判定を付ける
+		//CollisionCapsule衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionCapsule>();
 		ptrColl->SetDrawActive(false);
 		ptrColl->SetFixed(false);
@@ -37,6 +37,11 @@ namespace basecross {
 		ptrDraw->SetSpecularColor(Col4(1, 1, 1, 1));
 		ptrDraw->SetOwnShadowActive(true);
 		ptrDraw->SetLightingEnabled(false);
+
+		// 影を追加
+		auto ptrShadow = AddComponent<Shadowmap>();
+		ptrShadow->SetMultiMeshResource(L"GOLEM");
+		ptrShadow->SetMeshToTransformMatrix(m_differenceMatrix);
 
 		// アニメーションの設定
 		ptrDraw->AddAnimation(L"WAIT", 0, 1, true);
@@ -67,12 +72,7 @@ namespace basecross {
 		// 最初のアニメーションを指定
 		ptrDraw->ChangeCurrentAnimation(L"BOOTING");
 
-		// 影を追加
-		auto ptrShadow = AddComponent<Shadowmap>();
-		ptrShadow->SetMultiMeshResource(L"GOLEM");
-		ptrShadow->SetMeshToTransformMatrix(m_differenceMatrix);
-
-		// プレイヤー関連ののポインタを取得
+		// プレイヤー関連のポインタを取得
 		m_playerPtr = GetStage()->GetSharedGameObject<Player>(L"Player");
 		m_playerTrans = m_playerPtr->GetComponent<Transform>();
 
@@ -85,22 +85,24 @@ namespace basecross {
 		// カウントを加算
 		m_countTime++;
 
-		switch (m_motion) {
-		case Walking1:
-		case Walking2:
-		case Attacking_Ramming1:
-		case Attacking_Ramming2:
-		case AttackFinish_Ramming3:
-			MoveGolem();
-			break;
+		if (m_playerPtr->GetCurrentLife() > 0) {
+			switch (m_currentMotion) {
+			case Walking1:
+			case Walking2:
+			case Attacking_Ramming1:
+			case Attacking_Ramming2:
+			case AttackFinish_Ramming3:
+				MoveGolem();
+				break;
 
-		default:
-			break;
+			default:
+				break;
+			}
 		}
 
-		if (m_status.life <= 0 && m_motion != Death) {
-			// 体力が0以下の場合、モーションを変更
-			m_motion = Death;
+		if (m_status.life <= 0 && m_currentMotion != Death) {
+			// 体力が0以下の場合、死亡モーションに変更
+			m_currentMotion = Death;
 		}
 
 		// アニメーションを更新
@@ -112,269 +114,209 @@ namespace basecross {
 		golemForward *= -1.0f / golemForward.length();
 		auto areaPos = Vec3(0.0f);
 
-		// アニメーションが終了しているかをチェック
-		auto ptrDraw = GetComponent<BcPNTBoneModelDraw>();
-		if (ptrDraw->IsTargetAnimeEnd()) {
-			switch (m_currentMotion) {
-			case eMotion::Booting:
-				m_motion = WalkStart;
-				m_countTime = 0;
-				break;
-
-			case eMotion::WalkStart:
-				m_motion = Walking1;
-				m_countTime = 0;
-				break;
-
-			case eMotion::Walking1:
-				// カウントが攻撃間隔に達したかをチェック
-				if (m_countTime > m_status.attackInterspace) {
-					// プレイヤーが正面方向に居るかをチェック
-					if (AngleCalculation(m_playerTrans, false) <= 15) {
- 						m_motion = WalkFinish;
-						m_countTime = 0;
-						break;
-					}
-				}
-				m_motion = Walking2;
-				break;
-
-			case eMotion::Walking2:
-				// カウントが攻撃間隔に達したかをチェック
-				if (m_countTime > m_status.attackInterspace) {
-					// プレイヤーが正面方向に居るかをチェック
-					if (AngleCalculation(m_playerTrans, false) <= 15) {
-						m_motion = WalkFinish;
-						m_countTime = 0;
-						break;
-					}
-				}
-				m_motion = Walking1;
-				break;
-
-			case eMotion::WalkFinish:
-				// 攻撃範囲内にプレイヤーが居るかをチェック
-				m_canSwingDown = CheckAttackArea(eAttack::SwingDown);
-				m_canPunch = CheckAttackArea(eAttack::Punch);
-
-				// 現在の状況に応じて攻撃モーションを決定する
-				if (m_canSwingDown && !m_canPunch) {
-					m_motion = AttackStart_Swingdown;
+		if (m_playerPtr->GetCurrentLife() > 0) {
+			// アニメーションが終了しているかをチェック
+			auto ptrDraw = GetComponent<BcPNTBoneModelDraw>();
+			if (ptrDraw->IsTargetAnimeEnd()) {
+				switch (m_pastMotion) {
+				case eMotion::Booting:
+					m_currentMotion = WalkStart;
 					m_countTime = 0;
-
-					// 攻撃範囲の中心座標を計算
-					areaPos = golemPos + golemForward * m_attackStatus.SwingdownRange;
-					areaPos.y = 0.8f;
-					// 攻撃範囲の描写
-					GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
 					break;
-				}
-				if (!m_canSwingDown && m_canPunch) {
-					m_motion = AttackStart_Punch;
+
+				case eMotion::WalkStart:
+					m_currentMotion = Walking1;
 					m_countTime = 0;
-
-					// 攻撃範囲の中心座標を計算
-					areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
-					areaPos.y = 0.8f;
-					// 攻撃範囲の描写
-					GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
 					break;
-				}
-				// どちらの攻撃も可能な場合はランダムに選択される
-				if (m_canSwingDown && m_canPunch) {
-					int random = rand() % 2;
-					switch (random)
-					{
-					case 0:
-						m_motion = AttackStart_Swingdown;
+
+				case eMotion::Walking1:
+					// カウントが攻撃間隔に達したかをチェック
+					if (m_countTime > m_status.attackInterspace) {
+						// プレイヤーが正面方向に居るかをチェック
+						if (AngleCalculation(m_playerTrans, false) <= 15) {
+							m_currentMotion = WalkFinish;
+							m_countTime = 0;
+							break;
+						}
+					}
+					m_currentMotion = Walking2;
+					break;
+
+				case eMotion::Walking2:
+					// カウントが攻撃間隔に達したかをチェック
+					if (m_countTime > m_status.attackInterspace) {
+						// プレイヤーが正面方向に居るかをチェック
+						m_currentMotion = WalkFinish;
 						m_countTime = 0;
-
-						// 攻撃範囲の中心座標を計算
-						areaPos = golemPos + golemForward * m_attackStatus.SwingdownRange;
-						areaPos.y = 0.8f;
-						// 攻撃範囲の描写
-						GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
-						break;
-
-					case 1:
-						m_motion = AttackStart_Punch;
-						m_countTime = 0;
-
-						// 攻撃範囲の中心座標を計算
-						areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
-						areaPos.y = 0.8f;
-						// 攻撃範囲の描写
-						GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
-						break;
-
-					default:
 						break;
 					}
+					m_currentMotion = Walking1;
 					break;
-				}
 
-				// 上記の攻撃範囲内にもいない場合はプレイヤーに向かって突進攻撃をする
-				m_motion = AttackStart_Ramming;
-				m_countTime = 0;
-				break;
+				case eMotion::WalkFinish:
+					if (m_playerPtr->GetCurrentLife() > 0) {
+						m_currentMotion = ChooseAttack();
+						m_countTime = 0;
+					}
+					break;
 
-			case eMotion::AttackStart_Swingdown:
-				// 攻撃範囲内にプレイヤーが居たらダメージ
-				if (CheckAttackArea(SwingDown)) {
-					m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
+				case eMotion::AttackStart_Swingdown:
+					// 攻撃範囲内にプレイヤーが居たらダメージ
+					if (CheckAttackArea(SwingDown)) {
+						m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
 
-				}
-				m_motion = AttackFinish_Swingdown;
-				m_countTime = 0;
-				break;
+					}
+					m_currentMotion = AttackFinish_Swingdown;
+					m_countTime = 0;
+					break;
 
-			case eMotion::AttackFinish_Swingdown:
-				m_motion = WalkStart;
-				m_countTime = 0;
-				break;
+				case eMotion::AttackFinish_Swingdown:
+					m_currentMotion = WalkStart;
+					m_countTime = 0;
+					break;
 
-			case eMotion::AttackStart_Punch:
-				// 攻撃範囲内にプレイヤーが居たらダメージ
-				if (CheckAttackArea(Punch)) {
-					m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
-				}
-				m_motion = AttackFinish_Punch;
-				m_countTime = 0;
-				break;
+				case eMotion::AttackStart_Punch:
+					// 攻撃範囲内にプレイヤーが居たらダメージ
+					if (CheckAttackArea(Punch)) {
+						m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
+					}
+					m_currentMotion = AttackFinish_Punch;
+					m_countTime = 0;
+					break;
 
-			case eMotion::AttackFinish_Punch:
-				m_motion = WalkStart;
-				m_countTime = 0;
-				break;
+				case eMotion::AttackFinish_Punch:
+					m_currentMotion = WalkStart;
+					m_countTime = 0;
+					break;
 
-			case eMotion::AttackStart_Ramming:
-				if (m_stopRammingFlg) {
-					m_motion = AttackFinish_Ramming1;
+				case eMotion::AttackStart_Ramming:
+					if (m_stopRammingFlg) {
+						m_currentMotion = AttackFinish_Ramming1;
+						m_stopRammingFlg = false;
+						m_countTime = 0;
+						break;
+					}
+					else {
+						m_currentMotion = Attacking_Ramming1;
+						m_rammingPos = m_transform->GetPosition();
+						m_countTime = 0;
+						break;
+					}
+
+				case eMotion::Attacking_Ramming1:
+					// カウントが攻撃間隔に達したなら
+					if (m_countTime > m_status.attackInterspace) {
+						m_currentMotion = AttackFinish_Ramming1;
+						m_countTime = 0;
+						break;
+					}
+					// 突進攻撃を中止するフラグがtrueなら
+					if (m_stopRammingFlg) {
+						m_currentMotion = AttackFinish_Ramming1;
+						m_countTime = 0;
+						break;
+					}
+					m_currentMotion = Attacking_Ramming2;
+					break;
+
+				case eMotion::Attacking_Ramming2:
+					// カウントが攻撃間隔に達したなら
+					if (m_countTime > m_status.attackInterspace) {
+						m_currentMotion = AttackFinish_Ramming1;
+						m_countTime = 0;
+						break;
+					}
+					// 突進攻撃を中止するフラグがtrueなら
+					if (m_stopRammingFlg) {
+						m_currentMotion = AttackFinish_Ramming1;
+						m_countTime = 0;
+						break;
+					}
+					m_currentMotion = Attacking_Ramming1;
+					break;
+
+				case eMotion::AttackFinish_Ramming1:
+					m_currentMotion = AttackFinish_Ramming2;
 					m_stopRammingFlg = false;
 					m_countTime = 0;
 					break;
-				}
-				else {
-					m_motion = Attacking_Ramming1;
-					m_rammingPos = m_transform->GetPosition();
+
+				case eMotion::AttackFinish_Ramming2:
+					m_currentMotion = WalkStart;
 					m_countTime = 0;
 					break;
-				}
 
-			case eMotion::Attacking_Ramming1:
-				// カウントが攻撃間隔に達したなら
-				if (m_countTime > m_status.attackInterspace) {
-					m_motion = AttackFinish_Ramming1;
+				case eMotion::AttackFinish_Ramming3:
+					m_currentMotion = WalkStart;
 					m_countTime = 0;
 					break;
-				}
-				// 突進攻撃を中止するフラグがtrueなら
-				if (m_stopRammingFlg) {
-					m_motion = AttackFinish_Ramming1;
+
+				case eMotion::Stun_Ramming_Forward:
+					m_currentMotion = Stun1;
 					m_countTime = 0;
 					break;
-				}
-				m_motion = Attacking_Ramming2;
-				break;
 
-			case eMotion::Attacking_Ramming2:
-				// カウントが攻撃間隔に達したなら
-				if (m_countTime > m_status.attackInterspace) {
-					m_motion = AttackFinish_Ramming1;
+				case eMotion::Stun_Ramming_Behind:
+					m_currentMotion = Stun1;
 					m_countTime = 0;
 					break;
-				}
-				// 突進攻撃を中止するフラグがtrueなら
-				if (m_stopRammingFlg) {
-					m_motion = AttackFinish_Ramming1;
+
+				case eMotion::Stun_Normal_Forward:
+					m_currentMotion = Stun1;
 					m_countTime = 0;
 					break;
+
+				case eMotion::Stun_Normal_Behind:
+					m_currentMotion = Stun1;
+					m_countTime = 0;
+					break;
+
+				case eMotion::Stun1:
+					if (m_stunTotalTime < m_stunDuration) {
+						m_currentMotion = Stun2;
+					}
+					else {
+						m_currentMotion = Stun_Recovery;
+					}
+
+					m_stunTotalTime++;
+					m_countTime = 0;
+					break;
+
+				case eMotion::Stun2:
+					if (m_stunTotalTime < m_stunDuration) {
+						m_currentMotion = Stun1;
+					}
+					else {
+						m_currentMotion = Stun_Recovery;
+					}
+
+					m_stunTotalTime++;
+					m_countTime = 0;
+					break;
+
+				case eMotion::Stun_Recovery:
+					m_currentMotion = WalkStart;
+					m_stunDuration = 0;
+					m_stunTotalTime = 0;
+					m_countTime = 0;
+					break;
+
+				case eMotion::Death:
+					// ゴーレムを消去する
+					PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
+					//GetStage()->RemoveGameObject<Golem>(GetThis<Golem>());
+					SetDrawActive(false);
+					break;
+
+				default:
+					break;
 				}
-				m_motion = Attacking_Ramming1;
-				break;
-
-			case eMotion::AttackFinish_Ramming1:
-				m_motion = AttackFinish_Ramming2;
-				m_stopRammingFlg = false;
-				m_countTime = 0;
-				break;
-
-			case eMotion::AttackFinish_Ramming2:
-				m_motion = WalkStart;
-				m_countTime = 0;
-				break;
-
-			case eMotion::AttackFinish_Ramming3:
-				m_motion = WalkStart;
-				m_countTime = 0;
-				break;
-
-			case eMotion::Stun_Ramming_Forward:
-				m_motion = Stun1;
-				m_countTime = 0;
-				break;
-
-			case eMotion::Stun_Ramming_Behind:
-				m_motion = Stun1;
-				m_countTime = 0;
-				break;
-
-			case eMotion::Stun_Normal_Forward:
-				m_motion = Stun1;
-				m_countTime = 0;
-				break;
-
-			case eMotion::Stun_Normal_Behind:
-				m_motion = Stun1;
-				m_countTime = 0;
-				break;
-
-			case eMotion::Stun1:
-				if (m_stunTotalTime < m_stunDuration) {
-					m_motion = Stun2;
-				}
-				else {
-					m_motion = Stun_Recovery;
-				}
-
-				m_stunTotalTime++;
-				m_countTime = 0;
-				break;
-
-			case eMotion::Stun2:
-				if (m_stunTotalTime < m_stunDuration) {
-					m_motion = Stun1;
-				}
-				else {
-					m_motion = Stun_Recovery;
-				}
-
-				m_stunTotalTime++;
-				m_countTime = 0;
-				break;
-
-			case eMotion::Stun_Recovery:
-				m_motion = WalkStart;
-				m_stunDuration = 0;
-				m_stunTotalTime = 0;
-				m_countTime = 0;
-				break;
-
-			case eMotion::Death:
-				// ゴーレムを消去する
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToClearStage");
-				//GetStage()->RemoveGameObject<Golem>(GetThis<Golem>());
-				SetDrawActive(false);
-				break;
-
-			default:
-				break;
 			}
 		}
-
 		// スタン攻撃を受けていて、現在のモーションが条件を満たしている場合、スタン状態に移行
 		if (m_stunAttackFlg) {
-			switch (m_motion)
+			switch (m_currentMotion)
 			{
 			case WalkStart:
 			case Walking1:
@@ -387,19 +329,19 @@ namespace basecross {
 			case Stun_Recovery:
 				// プレイヤーが前方に居た場合
 				if (m_rockAngle <= 60.0f) {
-					m_motion = Stun_Normal_Forward;
+					m_currentMotion = Stun_Normal_Forward;
 				}
 				else {
-					m_motion = Stun_Normal_Behind;
+					m_currentMotion = Stun_Normal_Behind;
 				}
 				break;
 
 			case AttackFinish_Ramming1:
 				if (m_rockAngle <= 60.0f) {
-					m_motion = Stun_Ramming_Forward;
+					m_currentMotion = Stun_Ramming_Forward;
 				}
 				else {
-					m_motion = Stun_Ramming_Behind;
+					m_currentMotion = Stun_Ramming_Behind;
 				}
 				break;
 
@@ -421,18 +363,18 @@ namespace basecross {
 		// アニメーションの再生
 		auto ptrDraw = GetComponent<BcPNTBoneModelDraw>();
 		// アニメーションのタイプが変わっていたら
-		if (m_motion != m_currentMotion || ptrDraw->GetCurrentAnimation() != m_motionKey.at(m_motion))
+		if (m_currentMotion != m_pastMotion || ptrDraw->GetCurrentAnimation() != m_motionKey.at(m_currentMotion))
 		{
 			// タイプに応じてアニメーションを変更する
-			ptrDraw->ChangeCurrentAnimation(m_motionKey.at(m_motion));
-			m_currentMotion = m_motion;
+			ptrDraw->ChangeCurrentAnimation(m_motionKey.at(m_currentMotion));
+			m_pastMotion = m_currentMotion;
 		}
 
 		// 前フレームからのデルタタイムを取得
 		float deltaTime = App::GetApp()->GetElapsedTime();
 
 		// モーションに応じて再生する
-		switch (m_motion)
+		switch (m_currentMotion)
 		{
 		case AttackStart_Punch:
 			ptrDraw->UpdateAnimation(deltaTime * 1.5f);
@@ -457,7 +399,7 @@ namespace basecross {
 		// デルタタイムを取得
 		float deltaTime = App::GetApp()->GetElapsedTime();
 
-		if (m_motion == Walking1 || m_motion == Walking2) {
+		if (m_currentMotion == Walking1 || m_currentMotion == Walking2) {
 			// プレイヤーへの角度に応じてゴーレムをプレイヤー方向へ回転させる
 			if (Angle > 0.0f) {
 				if (Angle > m_attackStatus.NormalTurningSpeed) {
@@ -480,7 +422,7 @@ namespace basecross {
 			m_forward = m_transform->GetForward();
 		}
 
-		if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+		if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
 			if (Angle > 0) {
 				m_rotation.y += m_attackStatus.RammingTurningSpeed * (XM_PI / 180.0f);
 			}
@@ -499,17 +441,17 @@ namespace basecross {
 		m_velocity *= m_status.speed / m_velocity.length();
 
 		// 突進中は移動量を増加させる
-		if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+		if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
 			m_velocity *= m_attackStatus.RammingSpeed;
 		}
 		// 減速しながら止まる
-		if (m_motion == AttackFinish_Ramming3) {
-			if ((120 - m_countTime) * 2 / 120 > 0) {
-				m_velocity *= m_attackStatus.RammingSpeed * float((120 - m_countTime) * 2 / 120 > 0);
-			}
-			else {
-				m_velocity = Vec3(0.0f);
-			}
+		if (m_currentMotion == AttackFinish_Ramming3) {
+			//if ((120 - m_countTime) * 2 / 120 > 0) {
+			//	m_velocity *= m_attackStatus.RammingSpeed * float((120 - m_countTime) * 2 / 120 > 0);
+			//}
+			//else {
+			//	m_velocity = Vec3(0.0f);
+			//}
 		}        
 
 		// 座標を更新
@@ -517,7 +459,7 @@ namespace basecross {
 		m_transform->SetPosition(golemPos);
 
 		// 突進を中止するかをチェック
-		if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+		if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
 			// 突進攻撃がプレイヤーを通り過ぎているかをチェック
 			float golemMomentum = sqrt((golemPos.x - m_rammingPos.x) * (golemPos.x - m_rammingPos.x) + (golemPos.z - m_rammingPos.z) * (golemPos.z - m_rammingPos.z));
 			float playerMomentum = sqrt((playerPos.x - m_rammingPos.x) * (playerPos.x - m_rammingPos.x) + (playerPos.z - m_rammingPos.z) * (playerPos.z - m_rammingPos.z));
@@ -529,10 +471,92 @@ namespace basecross {
 		}
 	}
 
+	Golem::eMotion Golem::ChooseAttack() {
+		// 自身の座標と向きを取得
+		auto golemPos = m_transform->GetPosition();
+		auto golemForward = m_transform->GetForward();
+		golemForward *= -1.0f / golemForward.length();
+		auto areaPos = Vec3(0.0f);
+
+		// 攻撃範囲内にプレイヤーが居るかをチェック
+		m_canSwingDown = CheckAttackArea(eAttack::SwingDown);
+		m_canPunch = CheckAttackArea(eAttack::Punch);
+
+		// 返り値を入れる変数を初期化
+		eMotion motion = Wait;
+
+		// 現在の状況に応じて攻撃モーションを決定する
+		if (m_canSwingDown && !m_canPunch) {
+			motion = AttackStart_Swingdown;
+
+			// 攻撃範囲の中心座標を計算
+			areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
+			areaPos.y = 0.8f;
+			// 攻撃範囲の描写
+			GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
+
+			GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
+
+			return motion;
+		}
+		if (!m_canSwingDown && m_canPunch) {
+			motion = AttackStart_Punch;
+
+			// 攻撃範囲の中心座標を計算
+			areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
+			areaPos.y = 0.8f;
+			// 攻撃範囲の描写
+			GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
+
+			GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
+
+			return motion;
+		}
+		// どちらの攻撃も可能な場合はランダムに選択される
+		if (m_canSwingDown && m_canPunch) {
+			int random = rand() % 2;
+			switch (random)
+			{
+			case 0:
+				motion = AttackStart_Swingdown;
+
+				// 攻撃範囲の中心座標を計算
+				areaPos = golemPos + golemForward * m_attackStatus.SwingdownRange;
+				areaPos.y = 0.8f;
+				// 攻撃範囲の描写
+				GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
+
+				GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
+
+				break;
+
+			case 1:
+				motion = AttackStart_Punch;
+
+				// 攻撃範囲の中心座標を計算
+				areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
+				areaPos.y = 0.8f;
+				// 攻撃範囲の描写
+				GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
+
+				GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
+
+				break;
+
+			default:
+				break;
+			}
+			return motion;
+		}
+
+		// 上記の攻撃範囲内にもいない場合はプレイヤーに向かって突進攻撃をする
+		motion = AttackStart_Ramming;
+		return motion;
+	}
+
 	bool Golem::CheckAttackArea(eAttack attack) {
 		// 攻撃範囲
 		float attackRange = 0.0f;
-
 		// 攻撃に応じて攻撃範囲を代入
 		if (attack == SwingDown) {
 			attackRange = m_attackStatus.SwingdownRange;
@@ -624,7 +648,7 @@ namespace basecross {
 		{
 			auto ptrColl =GetComponent<CollisionCapsule>();
 			ptrColl->SetFixed(true);
-			if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+			if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
 				if (!m_stopRammingFlg) {
 					m_playerPtr->AddPlayerDamage(30, Player::eMotion::Damage2);
 					m_stopRammingFlg = true;
@@ -637,12 +661,12 @@ namespace basecross {
 		if (Other->FindTag(L"MoveFallingRocks"))
 		{
 			// スタン攻撃を受けた
-			AddStun(300);
+			AddStun(90);
 			m_rockAngle = AngleCalculation(Other->GetComponent<Transform>(), false);
 			return;
 		}
 
-		if (m_motion == Attacking_Ramming1 || m_motion == Attacking_Ramming2) {
+		if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
 			// 壁との衝突
 			if (Other->FindTag(L"Wall"))
 			{
@@ -676,5 +700,4 @@ namespace basecross {
 		}
 
 	}
-
 }

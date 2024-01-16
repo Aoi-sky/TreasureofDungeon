@@ -58,7 +58,7 @@ namespace basecross {
 			Attacking_Ramming2, // 攻撃中(突進)(ループ可)
 			AttackFinish_Ramming1, // 攻撃終了(突進)(スタンモーションの為に2分割)
 			AttackFinish_Ramming2, // 攻撃終了(突進)(スタンモーションの為に2分割)
-			AttackFinish_Ramming3, // 攻撃終了(突進)(減速しながら停止)
+			AttackFinish_Ramming3, // 攻撃終了(突進)(減速しながら停止) 
 			Stun_Ramming_Forward, // スタン(突進後に前から岩)
 			Stun_Ramming_Behind, // スタン(突進後に後ろから岩)
 			Stun_Normal_Forward, // スタン(前から岩)
@@ -120,9 +120,9 @@ namespace basecross {
 		// アニメーションのキー
 		vector<wstring> m_motionKey;
 		// アニメーションのタイプ
-		eMotion m_motion;
-		// 前フレームのアニメーションのタイプ
 		eMotion m_currentMotion;
+		// 前フレームのアニメーションのタイプ(current)
+		eMotion m_pastMotion;
 		// プレイヤーのポインタ
 		shared_ptr<Player> m_playerPtr;
 		// プレイヤーのTransformコンポーネントのポインタ
@@ -176,8 +176,8 @@ namespace basecross {
 				L"DEATH" // 死亡
 			};
 
-			m_motion = Booting;
 			m_currentMotion = Booting;
+			m_pastMotion = Booting;
 
 		}
 
@@ -203,6 +203,12 @@ namespace basecross {
 		@brief	 移動をする関数
 		*/
 		void MoveGolem();
+
+		/*!
+		@brief	 現在の状態に応じて攻撃モーションを選択する関数
+		@return 繰り出される攻撃モーション
+		*/
+		eMotion ChooseAttack();
 
 		/*!
 		@brief	 指定された攻撃の範囲内にプレイヤーが居るかを確認する関数
@@ -261,65 +267,4 @@ namespace basecross {
 		}
 
 	};
-
-
-	// クリスタルクラス
-	class Crystal : public GameObject
-	{
-	protected:
-		//// アニメーション定数
-		//enum eState
-		//{
-		//	Create,
-
-		//}
-		// 初期座標
-		Vec3 m_startPos;
-		// 水晶の持続時間
-		int m_duration;
-		// トランスフォームとモデルの差分行列
-		Mat4x4 m_differenceMatrix;
-
-
-	public:
-		// コンストラクタ
-		Crystal::Crystal(const shared_ptr<Stage>& stagePtr, // ステージのポインタ
-			const Vec3 position, // 初期座標
-			const int duration // 水晶の持続時間
-		) :
-			GameObject(stagePtr), // ステージのポインタ
-			m_startPos(position), // 初期座標
-			m_duration(duration) // 持続時間
-		{
-			m_differenceMatrix.affineTransformation(
-				Vec3(0.25f, 0.25f, 0.25f),
-				Vec3(0.0f),
-				Vec3(0.0f, XM_PIDIV2, 0.0f),
-				Vec3(0.0f, -0.6f, 0.0f)
-			);
-
-		}
-
-		// デストラクタ
-		virtual ~Crystal() {};
-
-		/*!
-		@brief	 クラスが最初に作成される時に実行される関数
-		*/
-		void OnCreate();
-
-		/*!
-		@brief	 毎フレーム実行される関数
-		*/
-		void OnUpdate();
-
-
-
-
-	};
-
-
-
-
-
 }
