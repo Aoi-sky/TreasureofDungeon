@@ -42,7 +42,7 @@
 #include "Crystal.h"
 
 #include "ShotEnemy.h"
-#include "EnemyBarrett.h"
+#include "EnemyBullet.h"
 #include "EnemySpawn.h"
 
 #include "Geuge.h"

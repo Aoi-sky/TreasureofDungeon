@@ -73,7 +73,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ShotEnemy.cpp">
       <Filter>Other\Characters\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyBarrett.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyBullet.cpp">
       <Filter>Other\Characters\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GolemHpGeuge.cpp">
@@ -90,8 +90,8 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Crystal.cpp">
       <Filter>Other\GameGimmick\Crystal</Filter>
-	</ClCompile>
-	<ClCompile Include="$(MSBuildThisFileDirectory)EnemySpawn.cpp">
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemySpawn.cpp">
       <Filter>Other\Characters\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -168,7 +168,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ShotEnemy.h">
       <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBarrett.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBullet.h">
       <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h">
@@ -185,8 +185,8 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Crystal.h">
       <Filter>Other\GameGimmick\Crystal</Filter>
-	</ClInclude>
-	<ClInclude Include="$(MSBuildThisFileDirectory)EnemySpawn.h">
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemySpawn.h">
       <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
