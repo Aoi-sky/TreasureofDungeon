@@ -56,8 +56,8 @@ namespace basecross{
 		int m_DefaultLife = 100;//プレイヤーのデフォルトHP
 		int m_Life;//プレイヤーのHP
 		// モーションキーの初期設定
-		eMotion m_motion = Wait;
 		eMotion m_currentMotion = Wait;
+		eMotion m_pastMotion = Wait;
 		// 敵と接触しているかを判定するフラグ
 		bool HitFlg = false;
 		// 無敵時間

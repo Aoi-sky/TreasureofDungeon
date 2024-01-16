@@ -98,7 +98,7 @@ namespace basecross{
 		auto& app = App::GetApp();
 		auto device = app->GetInputDevice(); // インプットデバイスオブジェクトを取得する
 		auto& pad = device.GetControlerVec()[0]; // １個目のコントローラーの状態を取得する
-		switch (m_motion)
+		switch (m_currentMotion)
 		{
 		case Wait:
 		case WalkStart:
@@ -109,7 +109,7 @@ namespace basecross{
 			// Xボタンが押されたら攻撃モーションに変更
 			if (pad.wPressedButtons & BUTTON_SHOT)
 			{
-				m_motion = AttackStart;
+				m_currentMotion = AttackStart;
 			}
 			break;
 		default:
@@ -162,10 +162,10 @@ namespace basecross{
 	void Player::MovePlayer() {
 		float elapsedTime = App::GetApp()->GetElapsedTime();
 		auto angle = GetMoveVector();
-		if (angle.length() > 0.0f && m_motion == Wait) {
-			m_motion = WalkStart;
+		if (angle.length() > 0.0f && m_currentMotion == Wait) {
+			m_currentMotion = WalkStart;
 		}
-		switch (m_motion)
+		switch (m_currentMotion)
 		{
 		case Wait:
 		case WalkStart:
@@ -212,7 +212,7 @@ namespace basecross{
 
 	//ダメージ関数
 	void Player::AddPlayerDamage(int damage, eMotion Motion) {
-		switch (m_motion)
+		switch (m_currentMotion)
 		{
 		case Wait:
 		case WalkStart:
@@ -220,12 +220,12 @@ namespace basecross{
 		case Walking2:
 		case WalkEnd1:
 		case WalkEnd2:
-			m_motion = Motion;
+			m_currentMotion = Motion;
 			break;
 		case AttackStart:
 		case AttackEnd:
 			if (Motion == Damage2) {
-				m_motion = Motion;
+				m_currentMotion = Motion;
 			}
 			break;
 
@@ -244,7 +244,7 @@ namespace basecross{
 
 	void Player::PlayerDead() {
 		if (m_Life <= 0) {
-			m_motion = Dead;
+			m_currentMotion = Dead;
 		}
 	}
 
@@ -253,18 +253,18 @@ namespace basecross{
 		// アニメーションの再生
 		auto ptrDraw = GetComponent<BcPNTBoneModelDraw>();
 		// アニメーションのタイプが変わっていたら
-		if (m_motion != m_currentMotion || ptrDraw->GetCurrentAnimation() != m_motionKey.at(m_motion))
+		if (m_currentMotion != m_pastMotion || ptrDraw->GetCurrentAnimation() != m_motionKey.at(m_currentMotion))
 		{
 			// タイプに応じてアニメーションを変更する
-			ptrDraw->ChangeCurrentAnimation(m_motionKey.at(m_motion));
-			m_currentMotion = m_motion;
+			ptrDraw->ChangeCurrentAnimation(m_motionKey.at(m_currentMotion));
+			m_pastMotion = m_currentMotion;
 		}
 
 		// 前フレームからのデルタタイムを取得
 		float deltaTime = App::GetApp()->GetElapsedTime();
 
 		// モーションに応じて再生する
-		switch (m_motion)
+		switch (m_currentMotion)
 		{
 		case Wait:
 			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
@@ -308,46 +308,46 @@ namespace basecross{
 		if (ptrDraw->IsTargetAnimeEnd()) {
 			auto angle = GetMoveVector();
 
-			switch (m_currentMotion)
+			switch (m_pastMotion)
 			{
 			case Wait:
 				break;
 			case WalkStart:
 				if (angle.length() > 0.0f) {
-					m_motion = Walking1;
+					m_currentMotion = Walking1;
 				}
 				else {
-					m_motion = WalkEnd1;
+					m_currentMotion = WalkEnd1;
 				}
 				break;
 			case Walking1:
 				if (angle.length() > 0.0f) {
-					m_motion = Walking2;
+					m_currentMotion = Walking2;
 				}
 				else {
-					m_motion = WalkEnd2;
+					m_currentMotion = WalkEnd2;
 				}
 				break;
 			case Walking2:
 				if (angle.length() > 0.0f) {
-					m_motion = Walking1;
+					m_currentMotion = Walking1;
 				}
 				else {
-					m_motion = WalkEnd1;
+					m_currentMotion = WalkEnd1;
 				}
 				break;
 			case AttackStart:
 				OnAttack();
-				m_motion = AttackEnd;
+				m_currentMotion = AttackEnd;
 				break;
 			case AttackEnd:
 			case Damage1:
 			case Damage2:
 				if (angle.length() > 0.0f) {
-					m_motion = WalkStart;
+					m_currentMotion = WalkStart;
 				}
 				else {
-					m_motion = Wait;
+					m_currentMotion = Wait;
 				}
 				break;
 			case Dead:
@@ -355,11 +355,10 @@ namespace basecross{
 				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
 				break;
 			default:
-				m_motion = Wait;
+				m_currentMotion = Wait;
 				break;
 			}
 		}
-
 	}
 
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {

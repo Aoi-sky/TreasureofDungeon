@@ -88,6 +88,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PlayerHpGeuge.cpp">
       <Filter>Stage\Geuge\PlayerHpGeuge</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Crystal.cpp">
+      <Filter>Other\GameGimmick\Crystal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h">
@@ -176,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GolemHpGeuge.h">
       <Filter>Stage\Geuge\GolemHpGeuge</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Crystal.h">
+      <Filter>Other\GameGimmick\Crystal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +283,9 @@
     </Filter>
     <Filter Include="Other\Characters\Enemy\Golem">
       <UniqueIdentifier>{a2579657-9638-4db5-9230-223a19249c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\GameGimmick\Crystal">
+      <UniqueIdentifier>{d0d50999-a83a-4df6-a4ca-26014351e2c5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
