@@ -42,6 +42,9 @@ namespace basecross {
 		shared_ptr<EfkEffect> m_damageEffect;
 		shared_ptr<EfkPlay> m_DamegeEfkPlay;
 		wstring m_damageEffectStr;
+		shared_ptr<EfkEffect> m_hitEffect;
+		shared_ptr<EfkPlay> m_HitEfkPlay;
+		wstring m_hitEffectStr;
 	protected:
 
 		// アニメーション定数

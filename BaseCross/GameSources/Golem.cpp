@@ -82,6 +82,8 @@ namespace basecross {
 		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
 		m_damageEffectStr = DataDir + L"Effects\\" + L"damage2.efk";
 		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
+		m_hitEffectStr = DataDir + L"Effects\\" + L"Hit.efk";
+		m_hitEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_hitEffectStr);
 
 		// É^ÉOÇÃê›íË
 		AddTag(L"Golem");
