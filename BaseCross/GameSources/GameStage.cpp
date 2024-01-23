@@ -182,12 +182,16 @@ namespace basecross {
 		//auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
 		//AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 1.0f, 15.0f));
 		
-
 		AddGameObject<ShotEnemy>(Vec3(10.0f,1.0f,20.0f));
 		AddGameObject<ShotEnemy>(Vec3(10.0f,1.0f,-20.0f));
 		AddGameObject<ShotEnemy>(Vec3(-10.0f,1.0f,20.0f));
 		AddGameObject<ShotEnemy>(Vec3(-10.0f,1.0f,-20.0f));
 
+	}
+	//’Ç‚¢‚©‚¯‚é“G‚Ìì¬
+	void GameStage::CreatemoveEnemy() {
+		auto ptrEnemy = AddGameObject<Enemy>(Vec3(0, 2.0f, 10.0f));
+		SetSharedGameObject(L"Enemy", ptrEnemy);
 	}
 
 	void GameStage::CreateGolem() {
@@ -229,6 +233,8 @@ namespace basecross {
 			CreatePlayer();
 			//“G‚Ì¶¬
 			CreateEnemy();
+			//’Ç‚¢‚©‚¯‚é“G‚Ìì¬
+			CreatemoveEnemy();
 			// ƒS[ƒŒƒ€‚Ì¶¬
 			CreateGolem();
 			//—Î‚Ìì¬

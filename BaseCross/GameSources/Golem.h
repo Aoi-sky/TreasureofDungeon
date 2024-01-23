@@ -38,6 +38,7 @@ namespace basecross {
 	// ゴーレムクラス
 	class Golem : public GameObject
 	{
+
 	protected:
 
 		// アニメーション定数
@@ -129,6 +130,10 @@ namespace basecross {
 		shared_ptr<Transform> m_playerTrans;
 		// 衝突してきた岩の角度(ゴーレムの正面方向を0とする)
 		float m_rockAngle;
+		//エフェクトの初期化
+		shared_ptr<EfkEffect>m_damageEffect;
+		shared_ptr<EfkPlay>m_EfkPlay;
+		wstring m_damageEffectStr;
 	public:
 		// コンストラクタ
 		Golem::Golem(const shared_ptr<Stage>& stagePtr, // ステージのポインタ
