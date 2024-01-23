@@ -237,9 +237,10 @@ namespace basecross{
 		if (m_Life < 0) {
 			m_Life = 0;
 		}
-
-		Vec3 pos = GetComponent<Transform>()->GetPosition();
-		m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(0.5f));
+		if (damage != 0) {
+			Vec3 pos = GetComponent<Transform>()->GetPosition();
+			m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(0.5f));
+		}
 	}
 
 	void Player::PlayerDead() {

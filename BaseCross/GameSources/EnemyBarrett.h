@@ -17,7 +17,7 @@ namespace basecross {
 			GameObject(stage),
 			m_owner(owner),
 			m_speed(5.0f),
-			m_damege(3),
+			m_damege(0),
 			m_forward(Vec3(0))
 		{
 		}

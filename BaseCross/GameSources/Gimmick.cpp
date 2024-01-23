@@ -39,8 +39,10 @@ namespace basecross {
 			xp = -1;
 			zm = -1;
 		}
-		m_StartPos.x = float(rand() % 15) * xp;
-		m_StartPos.z = float(rand() % 30) * zm;
+		auto playerPos = GetStage()->GetSharedGameObject<Player>(L"Player")->GetComponent<Transform>()->GetPosition();
+
+		m_StartPos.x = playerPos.x + float(rand() % 10) * xp;
+		m_StartPos.z = playerPos.z + float(rand() % 10) * zm;
 		m_StartPos.y = 15.0f;
 
 		auto ptrTransform = GetComponent<Transform>();
