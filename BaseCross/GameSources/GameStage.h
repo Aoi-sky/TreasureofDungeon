@@ -25,6 +25,8 @@ namespace basecross {
 		void CreatePlayer();
 		//敵の作成
 		void CreateEnemy();
+		//追いかける敵の作成
+		void CreatemoveEnemy();
 		//セルマップの生成
 		void CreateStageCellMap();
 		// セルマップのコストを設定

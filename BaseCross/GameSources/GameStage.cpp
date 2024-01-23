@@ -224,6 +224,8 @@ namespace basecross {
 			CreatePlayer();
 			//“G‚Ì¶¬
 			CreateEnemy();
+			//’Ç‚¢‚©‚¯‚é“G‚Ìì¬
+			CreatemoveEnemy();
 			// ƒS[ƒŒƒ€‚Ì¶¬
 			CreateGolem();
 			//—Î‚Ìì¬
