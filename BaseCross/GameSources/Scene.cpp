@@ -107,10 +107,6 @@ namespace basecross{
 		//SE
 		RoadSound(L"SELECT_SE", L"SelectSE.wav");
 		RoadSound(L"STONE_SE", L"StoneSE.wav");
-		RoadSound(L"GOLEM_SE", L"GolemSE.wav");
-		RoadSound(L"HIT_SE", L"attack4.wav");
-		RoadSound(L"ATTACK_SE", L"AttackSE.wav");
-		RoadSound(L"Walk_SE", L"boss.wav");
 	}
 
 	void Scene::OnCreate(){

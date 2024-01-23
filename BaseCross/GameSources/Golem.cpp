@@ -85,13 +85,6 @@ namespace basecross {
 
 		// タグの設定
 		AddTag(L"Golem");
-		//エフェクトの初期化
-		wstring DataDir;
-		App::GetApp()->GetDataDirectory(DataDir);
-		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
-		m_damageEffectStr = DataDir + L"Effects\\" + L"Hit2.efkefc";
-		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
-
 	}
 
 	void Golem::OnUpdate() {
@@ -433,8 +426,6 @@ namespace basecross {
 
 			m_transform->SetRotation(m_rotation);
 			m_forward = m_transform->GetForward();
-
-
 		}
 
 		if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
@@ -604,15 +595,12 @@ namespace basecross {
 		return false;
 	}
 
-	//ゴーレムダメージ
 	void Golem::AddDamage(int Damage) {
 
 		Vec3 pos = GetComponent<Transform>()->GetPosition();
 		m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(1.0f, 0.8f, 1.0f));
 
 		m_status.life -= Damage;
-		auto XAPtr = App::GetApp()->GetXAudio2Manager();
-		XAPtr->Start(L"HIT_SE", 0, 10.0f);
 	}
 
 	void Golem::AddStun(int StunTime) {
@@ -679,33 +667,12 @@ namespace basecross {
 			return;
 		}
 
-
-		if (m_motion == Walking1 || m_motion == Walking2)
-		{
-			if (Other->FindTag(L"Golem"))
-			{
-				auto XAPtr = App::GetApp()->GetXAudio2Manager();
-				XAPtr->Start(L"Walk_SE", 0, 10.0f);
-				return;
-			}
-
-		}
-
-	
-
-
 		// 発射された岩石との衝突
 		if (Other->FindTag(L"MoveFallingRocks"))
 		{
 			// スタン攻撃を受けた
 			AddStun(90);
 			m_rockAngle = AngleCalculation(Other->GetComponent<Transform>(), false);
-			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"GOLEM_SE", 0, 1.0f);
-
-			auto pos = GetComponent<Transform>()->GetPosition();
-			m_EfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(3.0f));
-
 			return;
 		}
 
@@ -722,8 +689,6 @@ namespace basecross {
 			{
 				m_stopRammingFlg = true;
 				GetStage()->AddGameObject<FallingRocks>();
-				auto XAPtr = App::GetApp()->GetXAudio2Manager();
-				XAPtr->Start(L"ATTACK_SE", 0, 1.0f);
 				return;
 			}
 
@@ -745,5 +710,4 @@ namespace basecross {
 		}
 
 	}
-
 }
