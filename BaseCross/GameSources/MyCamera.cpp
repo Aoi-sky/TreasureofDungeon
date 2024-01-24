@@ -293,7 +293,7 @@ namespace basecross {
 	}
 
 	void MyCamera::CameraCollisionEnter(){
-		m_ArmLen -= m_ZoomSpeed;//カメラ位置を寄る
+		m_ArmLen -= m_ZoomSpeed/4;//カメラ位置を寄る
 		if (m_ArmLen <= m_MinArm) {
 			m_ArmLen = m_MinArm;//m_MinArm以下近づかないようにする
 		}

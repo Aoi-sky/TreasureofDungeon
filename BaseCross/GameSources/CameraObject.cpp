@@ -11,7 +11,7 @@ namespace basecross {
 		auto ownerTrans = m_owner->GetEye();
 		m_transform = GetComponent<Transform>();//コンポーネントの取得
 		m_transform->SetPosition(ownerTrans);//座標設定
-		m_transform->SetScale(Vec3(0.01f));//サイズ調整
+		m_transform->SetScale(Vec3(0.1f));//サイズ調整
 		auto ptrColl = AddComponent<CollisionSphere>();//コリジョンをつける
 		ptrColl->SetAfterCollision(AfterCollision::None);//衝突判定
 		ptrColl->SetSleepActive(true);
