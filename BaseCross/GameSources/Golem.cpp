@@ -80,11 +80,12 @@ namespace basecross {
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
 		auto ShEfkInterface = App::GetApp()->GetScene<Scene>()->GetEfkInterface();
-		m_damageEffectStr = DataDir + L"Effects\\" + L"damage2.efk";
+		m_damageEffectStr = DataDir + L"Effects\\" + L"damage2.efkefc";
 		m_damageEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_damageEffectStr);
 		m_hitEffectStr = DataDir + L"Effects\\" + L"Hit.efk";
 		m_hitEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_hitEffectStr);
-
+		m_attackEffectStr = DataDir + L"Effects\\" + L"attack.efk";
+		m_attackEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_attackEffectStr);
 		// タグの設定
 		AddTag(L"Golem");
 	}
@@ -600,9 +601,10 @@ namespace basecross {
 	void Golem::AddDamage(int Damage) {
 
 		Vec3 pos = GetComponent<Transform>()->GetPosition();
-		m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(1.0f, 0.8f, 1.0f));
-
+		m_AttackEfkPlay = ObjectFactory::Create<EfkPlay>(m_attackEffect, pos, Vec3(3.0,1.0,2.0));
 		m_status.life -= Damage;
+		auto XAPtr = App::GetApp()->GetXAudio2Manager();
+		XAPtr->Start(L"HIT_SE", 0, 5.0f);
 	}
 
 	void Golem::AddStun(int StunTime) {
@@ -669,12 +671,28 @@ namespace basecross {
 			return;
 		}
 
+		if (m_pastMotion == Walking1 || m_pastMotion == Walking2)
+		{
+			if (Other->FindTag(L"Golem"))
+			{
+				
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"Walk_SE", 0, 8.0f);
+				return;
+			}
+		}
+
 		// 発射された岩石との衝突
 		if (Other->FindTag(L"MoveFallingRocks"))
 		{
 			// スタン攻撃を受けた
 			AddStun(90);
 			m_rockAngle = AngleCalculation(Other->GetComponent<Transform>(), false);
+			auto XAPtr = App::GetApp()->GetXAudio2Manager();
+			XAPtr->Start(L"GOLEM_SE", 0, 2.0f);
+
+			auto pos = GetComponent<Transform>()->GetPosition();
+			m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(3.0f));
 			return;
 		}
 
@@ -691,6 +709,8 @@ namespace basecross {
 			{
 				m_stopRammingFlg = true;
 				GetStage()->AddGameObject<FallingRocks>();
+				auto XAPtr = App::GetApp()->GetXAudio2Manager();
+				XAPtr->Start(L"ATTACK_SE", 0, 8.0f);
 				return;
 			}
 

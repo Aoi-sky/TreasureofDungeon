@@ -102,7 +102,7 @@ namespace basecross{
 		//BGM
 		RoadSound(L"TITLESTAGE_BGM", L"TitleBGM.wav");
 		RoadSound(L"GAMESTAGE_BGM", L"GameStageBGM.wav");
-		RoadSound(L"CLEARSTAGE_BGM", L"ClearStageBGMwav.wav");
+		RoadSound(L"CLEARSTAGE_BGM", L"ClearStageBGM.wav");
 		RoadSound(L"GAMEOVERSTAGE_BGM", L"GameOverStage.wav");
 		//SE
 		RoadSound(L"SELECT_SE", L"SelectSE.wav");
