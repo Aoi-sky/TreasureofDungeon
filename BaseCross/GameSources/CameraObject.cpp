@@ -23,6 +23,11 @@ namespace basecross {
 	void CameraObject::OnUpdate() {
 		auto ownerTrans = m_owner->GetEye();
 		m_transform->SetPosition(ownerTrans);
+
+		auto pos = m_transform->GetPosition();
+		if (pos.x < -25.0f - 2.0f || pos.x > 25.0f - 2.0f || pos.z < -40.0f - 2.0f || pos.z > 40.0f - 2.0f) {
+			m_owner->CameraCollisionEnter();
+		}		
 	}
 
 
