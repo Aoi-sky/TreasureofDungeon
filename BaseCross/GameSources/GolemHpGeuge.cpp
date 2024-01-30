@@ -36,7 +36,9 @@ namespace basecross {
 		// ゲージサイズの更新
 		auto golem = GetStage()->GetSharedGameObject<Golem>(L"Golem");
 		if (!golem->GetDrawActive()|| golem->GetGolemCurrentLife() <=-5){
+			m_bar[0]->UpdateGaugeSize(golem->GetGolemMaxLife(), 0.0f);
 			return;// 処理を停止する
+
 		}
 
 		m_bar[0]->UpdateGaugeSize(golem->GetGolemMaxLife(), (float)golem->GetGolemCurrentLife());

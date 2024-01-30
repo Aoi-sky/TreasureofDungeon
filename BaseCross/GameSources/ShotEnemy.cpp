@@ -23,10 +23,9 @@ namespace basecross {
 	void ShotEnemy::OnCreate() {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		//drawComp->SetMeshResource(L"DEFAULT_SPHERE");
-		//描画処理
-		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
-
 		drawComp->SetMeshResource(L"ShootEnemy");
+
+		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 
 		m_transform = GetComponent<Transform>();//コンポーネントの取得
 		m_transform->SetPosition(m_position);//座標設定

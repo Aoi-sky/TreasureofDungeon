@@ -41,8 +41,8 @@ namespace basecross {
 		}
 		auto playerPos = GetStage()->GetSharedGameObject<Player>(L"Player")->GetComponent<Transform>()->GetPosition();
 
-		m_StartPos.x = playerPos.x + float(rand() % 10) * xp;
-		m_StartPos.z = playerPos.z + float(rand() % 10) * zm;
+		m_StartPos.x = playerPos.x + float(rand() % 10) * xp + 2.0f;
+		m_StartPos.z = playerPos.z + float(rand() % 10) * zm + 2.0f;
 		m_StartPos.y = 15.0f;
 
 		auto ptrTransform = GetComponent<Transform>();
@@ -131,7 +131,7 @@ namespace basecross {
 		{
 			m_fallenFlg = true;
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
-			XAPtr->Start(L"STONE_SE", 0, 0.5f);
+			XAPtr->Start(L"STONE_SE", 0, 2.0f);
 			return;
 		}
 

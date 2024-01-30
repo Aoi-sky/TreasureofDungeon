@@ -5,7 +5,7 @@ namespace basecross {
 	void EnemyBullet::OnCreate() {
 		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"DEFAULT_SPHERE");//弾の形
-
+		
 		//向きをベクトルで所得
 		auto ownerTrans = m_owner->GetComponent<Transform>();
 		m_transform = GetComponent<Transform>();//コンポーネントの取得
