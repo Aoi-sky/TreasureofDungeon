@@ -6,40 +6,24 @@
 #include "stdafx.h"
 #include "Project.h"
 
-namespace basecross{
-	Player::Player(const shared_ptr<Stage>& StagePtr) :
-		GameObject(StagePtr),
-		m_Speed(5.0f),
-		m_Life(m_DefaultLife)
-	{
-		m_differenceMatrix.affineTransformation(
-			Vec3(0.5f, 0.5f, 0.5f),
-			Vec3(0.0f),
-			Vec3(0.0f, 0.0f, 0.0f),
-			Vec3(0.0f, -0.8f, 0.0f)
-		);
-	}
-	
+namespace basecross{	
 	void Player::OnCreate() {
-		auto ptr = AddComponent<Transform>();
-		ptr->SetScale(0.5f, 0.5f, 0.5f);
-		ptr->SetRotation(0.0f, 0.0f, 0.0f);
-		ptr->SetPosition(Vec3(0.0f, 0.85f, 0.0f));
+		m_ptrTrans = GetComponent<Transform>();
+		m_ptrTrans->SetScale(0.5f, 0.5f, 0.5f);
+		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
+		m_ptrTrans->SetPosition(Vec3(0.0f, 3.0f, 0.0f));
 
 		//衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionCapsule>();
-		ptrColl->SetDrawActive(false);
+		ptrColl->SetMakedHeight(3.0f);
+		ptrColl->SetDrawActive(true);
 
 		//各パフォーマンスを得る
 		GetStage()->SetCollisionPerformanceActive(true);
 		GetStage()->SetUpdatePerformanceActive(true);
 		GetStage()->SetDrawPerformanceActive(true);
-
+		// 重力を設定
 		auto ptrGracity = AddComponent<Gravity>();
-
-		GetStage()->SetCollisionPerformanceActive(true);
-		GetStage()->SetUpdatePerformanceActive(true);
-		GetStage()->SetDrawPerformanceActive(true);
 
 		//影をつける（シャドウマップを描画する）
 		auto shadowPtr = AddComponent<Shadowmap>();
@@ -63,6 +47,10 @@ namespace basecross{
 		ptrDraw->AddAnimation(L"Damage1", 190, 10, false);
 		ptrDraw->AddAnimation(L"Damage2", 210, 90, false);
 		ptrDraw->AddAnimation(L"Dead", 210, 30, false);
+		ptrDraw->AddAnimation(L"Dash1", 310, 5, false);
+		ptrDraw->AddAnimation(L"Dash2", 315, 25, false);
+		ptrDraw->AddAnimation(L"Dash3", 340, 5, false);
+		ptrDraw->AddAnimation(L"Dash4", 345, 15, false);
 		ptrDraw->ChangeCurrentAnimation(L"Wait");
 
 		//透明処理
@@ -91,31 +79,17 @@ namespace basecross{
 	}
 
 	void Player::OnUpdate() {
-		MovePlayer();
-		PlayerDead();
+		// 移動処理
+		OnMove();
+		// プレイヤーの生死確認
+		PlayerDeadCheck();
+		// スタミナ回復
+		StaminaRecovery();
+		// 敵と接触しているかをチェック
 		HitCheck();
-
-		auto& app = App::GetApp();
-		auto device = app->GetInputDevice(); // インプットデバイスオブジェクトを取得する
-		auto& pad = device.GetControlerVec()[0]; // １個目のコントローラーの状態を取得する
-		switch (m_currentMotion)
-		{
-		case Wait:
-		case WalkStart:
-		case Walking1:
-		case Walking2:
-		case WalkEnd1:
-		case WalkEnd2:
-			// Xボタンが押されたら攻撃モーションに変更
-			if (pad.wPressedButtons & BUTTON_SHOT)
-			{
-				m_currentMotion = AttackStart;
-			}
-			break;
-		default:
-			break;
-		}
-
+		// 入力があるかチェック
+		GamepadInputCheck();
+		// プレイヤーのアニメーションをアップデートする
 		AnimationUpdate();
 	}
 
@@ -159,37 +133,92 @@ namespace basecross{
 		return angle;
 	}
 
-	void Player::MovePlayer() {
+	float Player::GetMoveAngle()
+	{
+		Vec3 angle(0, 0, 0);
+		auto inPut = GetInputState();//入力の取得
+		float moveX = inPut.x;
+		float moveZ = inPut.y;
+		if (moveX != 0 || moveZ != 0) {
+			float moveLength = 0;	//動いた時のスピード
+			auto ptrTransform = GetComponent<Transform>();
+			auto ptrCamera = OnGetDrawCamera();
+			auto front = ptrTransform->GetPosition() - ptrCamera->GetEye();//進行方向の向きを計算
+			front.y = 0;
+			front.normalize();
+			float frontAngle = atan2(front.z, front.x);//進行方向向きからの角度を算出
+			//コントローラの向き計算
+			Vec2 moveVec(moveX, moveZ);
+			float moveSize = moveVec.length();
+			float cntlAngle = atan2(moveX, moveZ);//コントローラの向きから角度を計算
+			float cameraAngle = -dynamic_pointer_cast<MyCamera>(ptrCamera)->GetRadRX();
+			return cntlAngle + cameraAngle;//トータルの角度を算出
+		}
+		return 0.0f;
+	}
+
+	void Player::OnMove() {
 		float elapsedTime = App::GetApp()->GetElapsedTime();
-		auto angle = GetMoveVector();
-		if (angle.length() > 0.0f && m_currentMotion == Wait) {
+		m_currentAngle = GetMoveVector();
+		float rotY = GetMoveAngle();
+		auto ptrTrans = GetComponent<Transform>();
+		auto pos = GetComponent<Transform>()->GetPosition();
+		auto forward = GetComponent<Transform>()->GetForward();
+
+		if (m_currentAngle.length() > 0.0f && m_currentMotion == Wait) {
+			// Wait中に入力があった場合、歩行モーションに変更
 			m_currentMotion = WalkStart;
 		}
 		switch (m_currentMotion)
 		{
 		case Wait:
+			if (m_currentAngle.length() > 0.0f)
+			{
+				ptrTrans->SetRotation(0.0f, rotY, 0.0f);
+			}
+			else
+			{
+				auto currentRotY = ptrTrans->GetQuaternion().toRotVec().y;
+				ptrTrans->SetRotation(0.0f, currentRotY, 0.0f);
+			}
+			break;
+
 		case WalkStart:
 		case Walking1:
 		case Walking2:
 		case WalkEnd1:
 		case WalkEnd2:
-			if (angle.length() > 0.0f) {
-				auto pos = GetComponent<Transform>()->GetPosition();
-				pos += angle * elapsedTime * m_Speed;
-				GetComponent<Transform>()->SetPosition(pos);
+			if (m_currentAngle.length() > 0.0f) {
+				pos += m_currentAngle * elapsedTime * m_status.at(WalkSpeed);
+				ptrTrans->SetPosition(pos);
 			}
 			//回転の計算
-			if (angle.length() > 0.0f) {
-				auto utilPtr = GetBehavior<UtilBehavior>();
-				utilPtr->RotToHead(angle, 1.0f);
+			if (m_currentAngle.length() > 0.0f) {
+				ptrTrans->SetRotation(0.0f, rotY, 0.0f);
 			}
 			break;
 		case AttackStart:
 			//回転の計算
-			if (angle.length() > 0.0f) {
+			if (m_currentAngle.length() > 0.0f) {
 				auto utilPtr = GetBehavior<UtilBehavior>();
-				utilPtr->RotToHead(angle, 1.0f);
+				utilPtr->RotToHead(m_currentAngle, 1.0f);
 			}
+			break;
+		case Dash1:
+			if (m_currentAngle.length() > 0.0f) {
+				ptrTrans->SetRotation(0.0f, rotY, 0.0f);
+			}
+
+			pos += forward * elapsedTime * m_status.at(StepSpeed);
+			ptrTrans->SetPosition(pos);
+			break;
+		case Dash2:
+			pos += forward * elapsedTime * m_status.at(DashSpeed);
+			ptrTrans->SetPosition(pos);
+			break;
+		case Dash4:
+			pos -= forward * elapsedTime * m_status.at(StepSpeed);
+			ptrTrans->SetPosition(pos);
 			break;
 		default:
 			break;
@@ -203,15 +232,17 @@ namespace basecross{
 	}
 
 	void Player::HitCheck() {
-		totalTime += totalTime < invincibleTime;
-		if (HitFlg && totalTime >= invincibleTime) {
-			AddPlayerDamage(10, Damage1);
-			totalTime = 0;
+		m_totalTime += m_totalTime < m_invincibleTime;
+		if (m_hitFlg && m_totalTime >= m_invincibleTime) {
+			AddDamage(10, Damage1);
+			m_totalTime = 0;
 		}
 	}
 
-	//ダメージ関数
-	void Player::AddPlayerDamage(int damage, eMotion Motion) {
+	void Player::GamepadInputCheck() {
+		auto& app = App::GetApp();
+		auto device = app->GetInputDevice(); // インプットデバイスオブジェクトを取得する
+		auto& pad = device.GetControlerVec()[0]; // １個目のコントローラーの状態を取得する
 		switch (m_currentMotion)
 		{
 		case Wait:
@@ -220,11 +251,51 @@ namespace basecross{
 		case Walking2:
 		case WalkEnd1:
 		case WalkEnd2:
+			// 指定されたボタンが押された場合
+			if (pad.wPressedButtons & BUTTON_ATTACK)
+			{
+				// 攻撃モーションに変更
+				m_currentMotion = AttackStart;
+			}
+		case AttackStart:
+		case AttackEnd:
+		case Dash3:
+		case Dash4:
+			// 指定されたボタンが押されていた場合
+			if (pad.wPressedButtons & BUTTON_DASH)
+			{
+				// スタミナが足りていた場合
+				if (m_stamina >= m_status.at(StaminaConsumption)) {
+					// ダッシュモーションに変更
+					m_currentMotion = Dash1;
+					// スタミナ減少
+					m_stamina -= m_status.at(StaminaConsumption);
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	//ダメージ関数
+	void Player::AddDamage(int damage, eMotion Motion) {
+		switch (m_currentMotion)
+		{
+		case Wait:
+		case WalkStart:
+		case Walking1:
+		case Walking2:
+		case WalkEnd1:
+		case WalkEnd2:
+		case Damage1:
+			// モーションを変更する
 			m_currentMotion = Motion;
 			break;
 		case AttackStart:
 		case AttackEnd:
 			if (Motion == Damage2) {
+				// 攻撃中は重度の被弾時のみモーションを変更する
 				m_currentMotion = Motion;
 			}
 			break;
@@ -233,29 +304,55 @@ namespace basecross{
 			break;
 		}
 
-		m_Life -= damage;
-		if (m_Life < 0) {
-			m_Life = 0;
+		// 体力を減少させる
+		m_life -= damage;
+		if (m_life < 0) {
+			m_life = 0;
 		}
 
 		Vec3 pos = GetComponent<Transform>()->GetPosition();
-		m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(0.5f));
+		m_damageEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(0.5f));
 	}
 
-	void Player::PlayerDead() {
-		if (m_Life <= 0) {
+	void Player::PlayerDeadCheck() {
+		if (m_life <= 0) {
 			m_currentMotion = Dead;
+		}
+	}
+
+	void Player::StaminaRecovery() {
+		// ダッシュ中と死亡時以外のモーションのみスタミナ回復
+		switch (m_currentMotion)
+		{
+		case Wait:
+		case WalkStart:
+		case Walking1:
+		case Walking2:
+		case WalkEnd1:
+		case WalkEnd2:
+		case AttackStart:
+		case AttackEnd:
+		case Damage1:
+		case Damage2:
+			// 前フレームからの経過時間に応じてスタミナ回復
+			m_stamina += m_status.at(StaminaRecoverySpeed) * App::GetApp()->GetElapsedTime();
+			if (m_stamina > m_status.at(MaxStamina)) {
+				m_stamina = m_status.at(MaxStamina);
+			}
+			break;
+		default:
+			break;
 		}
 	}
 
 	void Player::AnimationUpdate()
 	{
-		// アニメーションの再生
+		// モーションを再生
 		auto ptrDraw = GetComponent<BcPNTBoneModelDraw>();
-		// アニメーションのタイプが変わっていたら
+		// モーションのタイプが変わっていたら
 		if (m_currentMotion != m_pastMotion || ptrDraw->GetCurrentAnimation() != m_motionKey.at(m_currentMotion))
 		{
-			// タイプに応じてアニメーションを変更する
+			// タイプに応じてモーションを変更する
 			ptrDraw->ChangeCurrentAnimation(m_motionKey.at(m_currentMotion));
 			m_pastMotion = m_currentMotion;
 		}
@@ -285,10 +382,10 @@ namespace basecross{
 			ptrDraw->UpdateAnimation(deltaTime * 2.0f);
 			break;
 		case AttackStart:
-			ptrDraw->UpdateAnimation(deltaTime * 2.0f);
+			ptrDraw->UpdateAnimation(deltaTime * m_status.at(AttackSpeed));
 			break;
 		case AttackEnd:
-			ptrDraw->UpdateAnimation(deltaTime * 2.0f);
+			ptrDraw->UpdateAnimation(deltaTime * m_status.at(AttackSpeed));
 			break;
 		case Damage1:
 			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
@@ -299,12 +396,24 @@ namespace basecross{
 		case Dead:
 			ptrDraw->UpdateAnimation(deltaTime * 0.5f);
 			break;
+		case Dash1:
+			ptrDraw->UpdateAnimation(deltaTime * 2.0f);
+			break;
+		case Dash2:
+			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
+			break;
+		case Dash3:
+			ptrDraw->UpdateAnimation(deltaTime * 2.0f);
+			break;
+		case Dash4:
+			ptrDraw->UpdateAnimation(deltaTime * 2.0f);
+			break;
 		default:
 			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
 			break;
 		}
 
-		// アニメーションが終了しているかをチェック
+		// モーションが終了しているかをチェック
 		if (ptrDraw->IsTargetAnimeEnd()) {
 			auto angle = GetMoveVector();
 
@@ -352,7 +461,20 @@ namespace basecross{
 				break;
 			case Dead:
 				SetDrawActive(false);
-				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(), L"ToGameOverStage");
+				PostEvent(1.0f, GetThis<ObjectInterface>(), App::GetApp()->GetScene<Scene>(),
+					L"ToGameOverStage");
+				break;
+			case Dash1:
+				m_currentMotion = Dash2;
+				break;
+			case Dash2:
+				m_currentMotion = Dash3;
+				break;
+			case Dash3:
+				m_currentMotion = Dash4;
+				break;
+			case Dash4:
+				m_currentMotion = Wait;
 				break;
 			default:
 				m_currentMotion = Wait;
@@ -364,17 +486,18 @@ namespace basecross{
 	void Player::OnCollisionEnter(shared_ptr<GameObject>& Other) {
 		if (Other->FindTag(L"Golem"))
 		{
-			HitFlg = true;
+			Golem::eMotion motion = GetStage()->GetSharedGameObject<Golem>(L"Golem")->GetGolemCurrentMotion();
+			if (motion != Golem::eMotion::Death && motion != Golem::eMotion::Stun1 && motion != Golem::eMotion::Stun2) {
+				m_hitFlg = true;
+			}
 		}
 	}
 
 	void Player::OnCollisionExit(shared_ptr<GameObject>& Other) {
 		if (Other->FindTag(L"Golem"))
 		{
-			HitFlg = false;
+			m_hitFlg = false;
 		}
 	}
-
 }
 //end basecross
-

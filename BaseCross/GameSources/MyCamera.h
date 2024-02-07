@@ -63,6 +63,10 @@ namespace basecross {
 		virtual void SetAt(const bsm::Vec3& At)override;
 		virtual void SetAt(float x, float y, float z)override;
 		virtual void OnUpdate()override;
+		float GetRadRX() const
+		{
+			return m_RadXZ;
+		}
 	};
 
 }

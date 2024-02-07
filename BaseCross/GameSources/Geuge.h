@@ -38,7 +38,7 @@ namespace basecross {
 		}
 		// ‰Šú‰» 
 		void OnCreate() override;
-		void UpdateGaugeSize(int gaugeSizeLimit, float currentGaugeSize);
+		void UpdateGaugeSize(float gaugeSizeLimit, float currentGaugeSize);
 		void SetVartices();
 		virtual void SetPosition(const Vec3& pos, float h);
 		virtual void SetPosition(const Vec2& pos, float h){
