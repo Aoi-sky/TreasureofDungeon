@@ -57,7 +57,7 @@ namespace basecross {
 		if (Other->FindTag(L"Player"))//ƒvƒŒƒCƒ„[
 		{
 			GetStage()->RemoveGameObject<EnemyBullet>(GetThis<EnemyBullet>());
-			GetStage()->GetSharedGameObject<Player>(L"Player")->AddPlayerDamage(m_damege, Player::eMotion::Damage1);
+			GetStage()->GetSharedGameObject<Player>(L"Player")->AddDamage(m_damege, Player::eMotion::Damage1);
 			return;
 		}
 	}

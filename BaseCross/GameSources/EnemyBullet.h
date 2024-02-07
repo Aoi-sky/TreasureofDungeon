@@ -16,8 +16,8 @@ namespace basecross {
 		EnemyBullet(const std::shared_ptr<Stage>& stage, const shared_ptr<GameObject>& owner) :
 			GameObject(stage),
 			m_owner(owner),
-			m_speed(5.0f),
-			m_damege(3),
+			m_speed(8.0f),
+			m_damege(0),
 			m_forward(Vec3(0))
 		{
 		}
