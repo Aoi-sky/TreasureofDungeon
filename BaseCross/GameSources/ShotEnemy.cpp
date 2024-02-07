@@ -16,16 +16,12 @@ namespace basecross {
 		m_recastFlame(0)
 	{
 	}
-	
 
 	ShotEnemy::~ShotEnemy() {}
 
 	void ShotEnemy::OnCreate() {
-		auto drawComp = AddComponent<PNTStaticDraw>();
-		//drawComp->SetMeshResource(L"DEFAULT_SPHERE");
 		//描画処理
-		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
-
+		auto drawComp = AddComponent<PNTStaticDraw>();
 		drawComp->SetMeshResource(L"ShootEnemy");
 
 		m_transform = GetComponent<Transform>();//コンポーネントの取得

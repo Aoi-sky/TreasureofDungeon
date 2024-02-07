@@ -38,25 +38,19 @@ namespace basecross {
 		pos += m_forward * m_speed * delta;
 		m_transform->SetPosition(pos.x, 1,pos.z);
 
-		//GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
-
-		//m_time += delta * 0.1f;
-		//if (m_time >= 1.0f)
-		//{
-		//	GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
-		//	m_time = 0;
-		//}
-
 	}
 	void Wave::OnCollisionEnter(shared_ptr<GameObject>& Other) {
+
+		const auto& stage = GetStage();
+
 		if (Other->FindTag(L"FixedCylinder"))//’Œ
 		{
-			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			stage->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
 		}
 		if (Other->FindTag(L"Wall"))//•Ç
 		{
-			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			stage->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
 		}
 		if (Other->FindTag(L"Golem"))//“G
@@ -64,25 +58,27 @@ namespace basecross {
 			auto pos = m_transform->GetPosition();
 			m_DamageEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(0.1f));
 
-			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
-			GetStage()->GetSharedGameObject<Golem>(L"Golem")->AddDamage(70);
+			const auto& player = stage->GetSharedGameObject<Player>(L"Player");
+
+			stage->RemoveGameObject<Wave>(GetThis<Wave>());
+			stage->GetSharedGameObject<Golem>(L"Golem")->AddDamage(player->GetOffensiveAbility());
 			return;
 		}
 		if (Other->FindTag(L"ShotEnemy"))//“G
 		{
 			auto pos = m_transform->GetPosition();
 			m_DamageEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(5.0f));
-			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			stage->RemoveGameObject<Wave>(GetThis<Wave>());
 
 			return;
 		}
 		if (Other->FindTag(L"FallingRocks"))//—ŽÎ
 		{
-			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			stage->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
 		}
 		else {
-			GetStage()->RemoveGameObject<Wave>(GetThis<Wave>());
+			stage->RemoveGameObject<Wave>(GetThis<Wave>());
 			return;
 		}
 		

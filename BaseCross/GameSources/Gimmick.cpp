@@ -109,7 +109,15 @@ namespace basecross {
 			return;
 
 		}
-		if (Other->FindTag(L"Enemy"))//“G
+		if (Other->FindTag(L"ShootEnemy"))//“G
+		{
+			Golem::eMotion motion = GetStage()->GetSharedGameObject<Golem>(L"Golem")->GetGolemCurrentMotion();
+			if (motion == Golem::eMotion::Attacking_Ramming1 || motion == Golem::eMotion::Attacking_Ramming1) {
+				GetStage()->RemoveGameObject<MoveFallingRocks>(GetThis<MoveFallingRocks>());
+				return;
+			}
+		}
+		if (Other->FindTag(L"ShootEnemy"))//“G
 		{
 			GetStage()->RemoveGameObject<GameObject>(GetThis<GameObject>());
 			return;
