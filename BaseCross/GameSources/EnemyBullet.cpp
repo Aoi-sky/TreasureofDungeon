@@ -20,6 +20,12 @@ namespace basecross {
 	}
 
 	void EnemyBullet::OnUpdate() {
+		// ゴーレムが死亡している場合、弾を消去する
+		if (GetStage()->GetSharedGameObject<Golem>(L"Golem")->GetGolemCurrentLife() <= 0) {
+			GetStage()->RemoveGameObject<EnemyBullet>(GetThis<EnemyBullet>());
+			return;
+		}
+
 		float delta = App::GetApp()->GetElapsedTime();//デルタタイムを取得
 
 		//移動処理
@@ -51,7 +57,7 @@ namespace basecross {
 		if (Other->FindTag(L"Player"))//プレイヤー
 		{
 			GetStage()->RemoveGameObject<EnemyBullet>(GetThis<EnemyBullet>());
-			GetStage()->GetSharedGameObject<Player>(L"Player")->AddPlayerDamage(m_damege, Player::eMotion::Damage1);
+			GetStage()->GetSharedGameObject<Player>(L"Player")->AddDamage(m_damege, Player::eMotion::Damage1);
 			return;
 		}
 	}

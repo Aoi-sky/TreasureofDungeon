@@ -11,18 +11,17 @@ namespace basecross {
 		GameObject(stage),
 		m_position(Position),
 		m_rot(0),
-		m_speed(0),
+		m_speed(1.0f),
 		m_RecastCount(120),
 		m_recastFlame(0)
 	{
 	}
-	
 
 	ShotEnemy::~ShotEnemy() {}
 
 	void ShotEnemy::OnCreate() {
+		//ï`âÊèàóù
 		auto drawComp = AddComponent<PNTStaticDraw>();
-		//drawComp->SetMeshResource(L"DEFAULT_SPHERE");
 		drawComp->SetMeshResource(L"ShootEnemy");
 
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
@@ -46,11 +45,12 @@ namespace basecross {
 
 		if (m_recastFlame <= 0)
 		{
-			GetStage()->AddGameObject<EnemyBullet>(GetThis<ShotEnemy>());
-
-			m_recastFlame = m_RecastCount;
+			// ÉSÅ[ÉåÉÄÇ™éÄñSÇµÇƒÇ¢ÇÈèÍçáÅAíeÇè¡ãéÇ∑ÇÈ
+			if (GetStage()->GetSharedGameObject<Golem>(L"Golem")->GetGolemCurrentLife() > 0) {
+				GetStage()->AddGameObject<EnemyBullet>(GetThis<ShotEnemy>());
+				m_recastFlame = m_RecastCount;
+			}
 		}
-
 	}
 
 	void ShotEnemy::OnCollisionEnter(shared_ptr<GameObject>& Other) {

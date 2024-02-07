@@ -73,7 +73,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ShotEnemy.cpp">
       <Filter>Other\Characters\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyBarrett.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemyBullet.cpp">
       <Filter>Other\Characters\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GolemHpGeuge.cpp">
@@ -90,9 +90,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Crystal.cpp">
       <Filter>Other\GameGimmick\Crystal</Filter>
-	</ClCompile>
-	<ClCompile Include="$(MSBuildThisFileDirectory)EnemySpawn.cpp">
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EnemySpawn.cpp">
       <Filter>Other\Characters\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Utility.cpp">
+      <Filter>Function\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CSVLoader.cpp">
+      <Filter>Function\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +174,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ShotEnemy.h">
       <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBarrett.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemyBullet.h">
       <Filter>Other\Characters\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonUI.h">
@@ -185,9 +191,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Crystal.h">
       <Filter>Other\GameGimmick\Crystal</Filter>
-	</ClInclude>
-	<ClInclude Include="$(MSBuildThisFileDirectory)EnemySpawn.h">
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EnemySpawn.h">
       <Filter>Other\Characters\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Utility.h">
+      <Filter>Function\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CSVLoader.h">
+      <Filter>Function\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +304,9 @@
     </Filter>
     <Filter Include="Other\GameGimmick\Crystal">
       <UniqueIdentifier>{d0d50999-a83a-4df6-a4ca-26014351e2c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function\Utility">
+      <UniqueIdentifier>{b192ecf5-96f4-44be-a5d0-71d940c39a7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

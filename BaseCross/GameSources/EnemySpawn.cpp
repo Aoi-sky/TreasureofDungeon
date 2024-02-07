@@ -11,7 +11,7 @@ namespace basecross {
 	}
 
 	void EnemySpawn::OnUpdate() {
-		m_golemHp = GetStage()->GetSharedGameObject<Golem>(L"Golem")->GetGolemCurrentLife();
+		m_golemHp = float(GetStage()->GetSharedGameObject<Golem>(L"Golem")->GetGolemCurrentLife());
 		
 		if (spawnTrigger) {//70%
 			if (m_golemHp < 700) {

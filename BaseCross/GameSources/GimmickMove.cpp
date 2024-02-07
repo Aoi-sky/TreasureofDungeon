@@ -52,7 +52,12 @@ namespace basecross {
 			GetStage()->RemoveGameObject<MoveFallingRocks>(GetThis<MoveFallingRocks>());
 			return;
 		}
-		if (Other->FindTag(L"Enemy"))
+		if (Other->FindTag(L"Golem"))
+		{
+			GetStage()->RemoveGameObject<MoveFallingRocks>(GetThis<MoveFallingRocks>());
+			return;
+		}
+		if (Other->FindTag(L"ShootEnemy"))
 		{
 			GetStage()->RemoveGameObject<MoveFallingRocks>(GetThis<MoveFallingRocks>());
 			return;

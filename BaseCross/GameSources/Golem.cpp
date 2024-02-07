@@ -72,10 +72,6 @@ namespace basecross {
 		// 最初のアニメーションを指定
 		ptrDraw->ChangeCurrentAnimation(L"BOOTING");
 
-		// プレイヤー関連のポインタを取得
-		m_playerPtr = GetStage()->GetSharedGameObject<Player>(L"Player");
-		m_playerTrans = m_playerPtr->GetComponent<Transform>();
-
 		//エフェクトの初期化
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
@@ -88,6 +84,7 @@ namespace basecross {
 		m_attackEffect = ObjectFactory::Create<EfkEffect>(ShEfkInterface, m_attackEffectStr);
 		// タグの設定
 		AddTag(L"Golem");
+		AddTag(L"Enemy");
 	}
 
 	void Golem::OnUpdate() {
@@ -172,7 +169,7 @@ namespace basecross {
 				case eMotion::AttackStart_Swingdown:
 					// 攻撃範囲内にプレイヤーが居たらダメージ
 					if (CheckAttackArea(SwingDown)) {
-						m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
+						m_playerPtr->AddDamage(25, Player::eMotion::Damage2);
 
 					}
 					m_currentMotion = AttackFinish_Swingdown;
@@ -187,7 +184,7 @@ namespace basecross {
 				case eMotion::AttackStart_Punch:
 					// 攻撃範囲内にプレイヤーが居たらダメージ
 					if (CheckAttackArea(Punch)) {
-						m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
+						m_playerPtr->AddDamage(25, Player::eMotion::Damage2);
 					}
 					m_currentMotion = AttackFinish_Punch;
 					m_countTime = 0;
@@ -503,9 +500,6 @@ namespace basecross {
 			areaPos.y = 0.8f;
 			// 攻撃範囲の描写
 			GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
-
-			GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
-
 			return motion;
 		}
 		if (!m_canSwingDown && m_canPunch) {
@@ -516,9 +510,6 @@ namespace basecross {
 			areaPos.y = 0.8f;
 			// 攻撃範囲の描写
 			GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
-
-			GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
-
 			return motion;
 		}
 		// どちらの攻撃も可能な場合はランダムに選択される
@@ -534,9 +525,6 @@ namespace basecross {
 				areaPos.y = 0.8f;
 				// 攻撃範囲の描写
 				GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
-
-				GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
-
 				break;
 
 			case 1:
@@ -547,9 +535,6 @@ namespace basecross {
 				areaPos.y = 0.8f;
 				// 攻撃範囲の描写
 				GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
-
-				GetStage()->AddGameObject<Crystal>(areaPos, 0, 0);
-
 				break;
 
 			default:
@@ -598,7 +583,7 @@ namespace basecross {
 		return false;
 	}
 
-	void Golem::AddDamage(int Damage) {
+	void Golem::AddDamage(float Damage) {
 
 		Vec3 pos = GetComponent<Transform>()->GetPosition();
 		m_AttackEfkPlay = ObjectFactory::Create<EfkPlay>(m_attackEffect, pos, Vec3(3.0,1.0,2.0));
@@ -664,7 +649,7 @@ namespace basecross {
 			ptrColl->SetFixed(true);
 			if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
 				if (!m_stopRammingFlg) {
-					m_playerPtr->AddPlayerDamage(30, Player::eMotion::Damage2);
+					m_playerPtr->AddDamage(30, Player::eMotion::Damage2);
 					m_stopRammingFlg = true;
 				}
 			}
@@ -688,11 +673,17 @@ namespace basecross {
 			// スタン攻撃を受けた
 			AddStun(90);
 			m_rockAngle = AngleCalculation(Other->GetComponent<Transform>(), false);
+<<<<<<< HEAD
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"GOLEM_SE", 0, 2.0f);
 
 			auto pos = GetComponent<Transform>()->GetPosition();
 			m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(3.0f));
+=======
+			if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
+				m_stopRammingFlg = true;
+			}
+>>>>>>> oyake9
 			return;
 		}
 

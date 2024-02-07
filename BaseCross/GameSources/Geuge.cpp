@@ -36,7 +36,7 @@ namespace basecross {
 		};
 	}
 
-	void Gauge::UpdateGaugeSize(int gaugeSizeLimit, float currentGaugeSize){
+	void Gauge::UpdateGaugeSize(float gaugeSizeLimit, float currentGaugeSize){
 		float gaugeSizeDiff = m_DefaultSize.x / gaugeSizeLimit;// 1ごとのゲージのサイズを計算
 
 		for (int i = 0; i < m_SquareVartex; i++)// 頂点データを更新

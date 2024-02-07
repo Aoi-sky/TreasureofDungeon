@@ -15,8 +15,8 @@ namespace basecross {
 		m_bar[1] = ObjectFactory::Create<Gauge>(GetStage(), 400.0f, L"REDHPBAR");
 
 		// ゲージサイズの設定
-		m_bar[0]->UpdateGaugeSize(player->GetMaxLife(), (float)player->GetCurrentLife());
-		m_bar[1]->UpdateGaugeSize(player->GetMaxLife(), (float)player->GetMaxLife());
+		m_bar[0]->UpdateGaugeSize(player->GetMaxLife(), player->GetCurrentLife());
+		m_bar[1]->UpdateGaugeSize(player->GetMaxLife(), player->GetMaxLife());
 
 		// 画面の左上に表示
 		m_bar[0]->SetPosition((float)App::GetApp()->GetGameWidth() / 2 + 200.0f, App::GetApp()->GetGameHeight()-100.0f, 0.49f);

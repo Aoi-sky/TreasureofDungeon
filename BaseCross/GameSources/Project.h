@@ -11,7 +11,8 @@
 #include "Effect.h"
 
 #include "DebugLog.h"
-
+#include "Utility.h"
+#include "CSVLoader.h"
 #include "ProjectShader.h"
 #include "ProjectBehavior.h"
 #include "Scene.h"
@@ -42,7 +43,7 @@
 #include "Crystal.h"
 
 #include "ShotEnemy.h"
-#include "EnemyBarrett.h"
+#include "EnemyBullet.h"
 #include "EnemySpawn.h"
 
 #include "Geuge.h"

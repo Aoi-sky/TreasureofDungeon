@@ -27,52 +27,6 @@ namespace basecross {
 		AddGameObject<CameraObject>(ptrMyCamera);
 	}
 
-	
-	// セルマップの生成
-	void GameStage::CreateStageCellMap()
-	{
-		////セルマップを生成
-		//auto Ptr = AddGameObject<StageCellMap>(Vec3(0.0f, 0.0f, 0.0f), 1.0f, 50, 80);
-
-		////セルマップの区画を表示
-		//Ptr->SetDrawActive(false);
-
-		////シェアオブジェクトに登録
-		//SetSharedGameObject(L"StageCellMap", Ptr);
-	}
-
-	// セルマップ内のセルにコストを設定
-	void GameStage::SetCellMapCost() {
-		////セルマップ内にFixedBoxの情報をセット
-		//auto PtrCellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
-		//auto BoxGroup = GetSharedObjectGroup(L"CellMap");
-		////セルマップからセルの配列を取得
-		//auto& CellVec = PtrCellmap->GetCellVec();
-		////ボックスグループからボックスの配列を取得
-		//auto& BoxVec = BoxGroup->GetGroupVector();
-		//vector<AABB> ObjectsAABBVec;
-		//for (auto& v : BoxVec) {
-		//	auto FixedBoxPtr = dynamic_pointer_cast<FixedBox>(v.lock());
-		//	if (FixedBoxPtr) {
-		//		auto ColPtr = FixedBoxPtr->GetComponent<CollisionObb>();
-		//		//ボックスの衝突判定かラッピングするAABBを取得して保存
-		//		ObjectsAABBVec.push_back(ColPtr->GetObb().GetWrappedAABB());
-		//	}
-		//}
-		////セル配列からセルをスキャン
-		//for (auto& v : CellVec) {
-		//	for (auto& v2 : v) {
-		//		for (auto& vObj : ObjectsAABBVec) {
-		//			if (HitTest::AABB_AABB_NOT_EQUAL(v2.m_PieceRange, vObj)) {
-		//				//ボックスのABBとNOT_EQUALで衝突判定
-		//				v2.m_Cost = -1;
-		//				break;
-		//			}
-		//		}
-		//	}
-		//}
-	}
-
 	// 壁の生成
 	void GameStage::CreateWall() {
 		vector<vector<Vec3>> vec = {
@@ -179,9 +133,6 @@ namespace basecross {
 
 	//敵の作成
 	void GameStage::CreateEnemy() {
-		//auto Ptrcellmap = GetSharedGameObject<StageCellMap>(L"StageCellMap");
-		//AddGameObject<Enemy>(Ptrcellmap, Vec3(0, 1.0f, 15.0f));
-		
 		AddGameObject<EnemySpawn>();
 	}
 
@@ -218,8 +169,6 @@ namespace basecross {
 			CreateFloor();
 			//柱の生成
 			CreatePiller();
-			//セルマップの生成
-			CreateStageCellMap();
 			//プレイヤーの生成
 			CreatePlayer();
 			//敵の生成
