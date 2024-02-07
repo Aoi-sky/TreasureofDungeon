@@ -39,7 +39,7 @@ namespace basecross {
 
 		auto ptrDraw = AddComponent<BcPNTStaticDraw>();
 		ptrDraw->SetMeshResource(m_mesh);
-		ptrDraw->SetTextureResource(L"FIELD");//テクスチャを反映する
+		ptrDraw->SetTextureResource(L"FLOOR");//テクスチャを反映する
 		ptrDraw->SetSamplerState(SamplerState::AnisotropicWrap); 
 
 		auto vertices = m_mesh->GetBackupVerteces<VertexPositionNormalTexture>();
