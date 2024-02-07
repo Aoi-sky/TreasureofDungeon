@@ -132,9 +132,6 @@ namespace basecross {
 
 		// エフェクト関連の変数
 		shared_ptr<EfkEffect> m_damageEffect;
-		shared_ptr<EfkPlay> m_damageEfkPlay;
-		wstring m_damageEffectStr;
-		shared_ptr<EfkEffect> m_damageEffect;
 		shared_ptr<EfkPlay> m_DamegeEfkPlay;
 		wstring m_damageEffectStr;
 		shared_ptr<EfkEffect> m_hitEffect;

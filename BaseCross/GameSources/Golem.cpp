@@ -673,17 +673,14 @@ namespace basecross {
 			// ƒXƒ^ƒ“UŒ‚‚ðŽó‚¯‚½
 			AddStun(90);
 			m_rockAngle = AngleCalculation(Other->GetComponent<Transform>(), false);
-<<<<<<< HEAD
 			auto XAPtr = App::GetApp()->GetXAudio2Manager();
 			XAPtr->Start(L"GOLEM_SE", 0, 2.0f);
 
 			auto pos = GetComponent<Transform>()->GetPosition();
 			m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(3.0f));
-=======
 			if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
 				m_stopRammingFlg = true;
 			}
->>>>>>> oyake9
 			return;
 		}
 

@@ -84,7 +84,7 @@ namespace basecross {
 			break;
 		case Move:
 			// ˆÚ“®ˆ—
-			OnMove;
+			Crystal::OnMove();
 
 			// Œo‰ßŽžŠÔ‚ª‘Ò‹@ŽžŠÔ‚ðŒo‰ß‚µ‚½ê‡‚Ìˆ—
 			if (m_equiredTime > m_progressTime - m_standbyTime) {
