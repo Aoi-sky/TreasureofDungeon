@@ -15,8 +15,8 @@ namespace basecross {
 		m_bar[1] = ObjectFactory::Create<Gauge>(GetStage(), 400.0f, L"REDHPBAR");
 
 		// ゲージサイズの設定
-		m_bar[0]->UpdateGaugeSize(golem->GetGolemMaxLife(), (float)golem->GetGolemCurrentLife());
-		m_bar[1]->UpdateGaugeSize(golem->GetGolemMaxLife(), (float)golem->GetGolemMaxLife());
+		m_bar[0]->UpdateGaugeSize(golem->GetGolemMaxLife(), golem->GetGolemCurrentLife());
+		m_bar[1]->UpdateGaugeSize(golem->GetGolemMaxLife(), golem->GetGolemMaxLife());
 
 		// 画面の左上に表示
 		m_bar[0]->SetPosition((float)App::GetApp()->GetGameWidth() / 2 + 250, 0.0f, 0.49f);

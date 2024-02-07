@@ -10,16 +10,16 @@
 namespace basecross {
 
 	// ステータスを設定
-	struct Status {
-		int life; // 体力
+	struct GolemStatus {
+		float life; // 体力
 		float speed; // 移動速度
 		int attackInterspace; // 敵の攻撃間隔
 	};
 
 	// ステータスを設定
 	// 体力, 移動速度, 攻撃頻度(フレーム)
-	const Status statusList[1] = {
-			{1000, 0.05f, 180}
+	const GolemStatus statusList[1] = {
+			{1000.0f, 0.05f, 180}
 	};
 
 	// 攻撃の詳細設定
@@ -39,11 +39,7 @@ namespace basecross {
 	// ゴーレムクラス
 	class Golem : public GameObject
 	{
-		shared_ptr<EfkEffect> m_damageEffect;
-		shared_ptr<EfkPlay> m_DamegeEfkPlay;
-		wstring m_damageEffectStr;
-	protected:
-
+	public:
 		// アニメーション定数
 		enum eMotion
 		{
@@ -72,7 +68,7 @@ namespace basecross {
 			Stun_Recovery, // スタン復帰
 			Death // 死亡
 		};
-
+	protected:
 		// 攻撃定数
 		enum eAttack
 		{
@@ -88,7 +84,7 @@ namespace basecross {
 		};
 
 		// ステータスを保存するメンバ変数
-		Status m_status;
+		GolemStatus m_status;
 		// 攻撃の詳細設定を保存するメンバ変数
 		Attack m_attackStatus;
 		// 前回のモーション変更から経過したフレーム数(ループ中はリセットされない)
@@ -118,7 +114,7 @@ namespace basecross {
 		// スタン開始からの合計時間(スタンから復帰で0にリセット)
 		int m_stunTotalTime;
 		// 自分自身のトランスフォームコンポーネント
-		std::shared_ptr<Transform> m_transform;
+		shared_ptr<Transform> m_transform;
 		// トランスフォームとモデルの差分行列
 		Mat4x4 m_differenceMatrix;
 		// アニメーションのキー
@@ -133,6 +129,12 @@ namespace basecross {
 		shared_ptr<Transform> m_playerTrans;
 		// 衝突してきた岩の角度(ゴーレムの正面方向を0とする)
 		float m_rockAngle;
+
+		// エフェクト関連の変数
+		shared_ptr<EfkEffect> m_damageEffect;
+		shared_ptr<EfkPlay> m_damageEfkPlay;
+		wstring m_damageEffectStr;
+
 	public:
 		// コンストラクタ
 		Golem::Golem(const shared_ptr<Stage>& stagePtr, // ステージのポインタ
@@ -180,8 +182,22 @@ namespace basecross {
 				L"DEATH" // 死亡
 			};
 
+			// 変数の初期化
 			m_currentMotion = Booting;
 			m_pastMotion = Booting;
+			m_canSwingDown = false;
+			m_canPunch = false;
+			m_stopRammingFlg = false;
+			m_stunAttackFlg = false;
+			m_countTime = 0;
+			m_stunDuration = 0;
+			m_stunTotalTime = 0;
+			m_rockAngle = 0.0f;
+
+
+			// プレイヤー関連のポインタを取得
+			m_playerPtr = GetStage()->GetSharedGameObject<Player>(L"Player");
+			m_playerTrans = m_playerPtr->GetComponent<Transform>();
 
 		}
 
@@ -224,7 +240,7 @@ namespace basecross {
 		/*!
 		@brief	 ゴーレムにダメージを与える関数
 		*/
-		void AddDamage(int damage);
+		void AddDamage(float damage);
 
 		/*!
 		@brief	 ゴーレムがスタン攻撃を受けたフラグを立て、スタンの合計時間をリセットする関数
@@ -256,7 +272,7 @@ namespace basecross {
 		@brief	 ゴーレムの最大体力を取得する関数
 		@return ゴーレムの最大体力
 		*/
-		int GetGolemMaxLife()
+		float GetGolemMaxLife() const
 		{
 			return  statusList[0].life;
 		}
@@ -265,9 +281,18 @@ namespace basecross {
 		@brief	 現在のゴーレムの体力を取得する関数
 		@return 現在のゴーレムの体力
 		*/
-		int GetGolemCurrentLife()
+		float GetGolemCurrentLife() const
 		{
 			return m_status.life;
+		}
+
+		/*!
+		@brief	 現在のゴーレムの体力を取得する関数
+		@return 現在のゴーレムの体力
+		*/
+		eMotion GetGolemCurrentMotion() const
+		{
+			return m_currentMotion;
 		}
 
 	};

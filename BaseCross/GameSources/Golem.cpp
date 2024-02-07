@@ -72,10 +72,6 @@ namespace basecross {
 		// 最初のアニメーションを指定
 		ptrDraw->ChangeCurrentAnimation(L"BOOTING");
 
-		// プレイヤー関連のポインタを取得
-		m_playerPtr = GetStage()->GetSharedGameObject<Player>(L"Player");
-		m_playerTrans = m_playerPtr->GetComponent<Transform>();
-
 		//エフェクトの初期化
 		wstring DataDir;
 		App::GetApp()->GetDataDirectory(DataDir);
@@ -85,6 +81,7 @@ namespace basecross {
 
 		// タグの設定
 		AddTag(L"Golem");
+		AddTag(L"Enemy");
 	}
 
 	void Golem::OnUpdate() {
@@ -169,7 +166,7 @@ namespace basecross {
 				case eMotion::AttackStart_Swingdown:
 					// 攻撃範囲内にプレイヤーが居たらダメージ
 					if (CheckAttackArea(SwingDown)) {
-						m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
+						m_playerPtr->AddDamage(25, Player::eMotion::Damage2);
 
 					}
 					m_currentMotion = AttackFinish_Swingdown;
@@ -184,7 +181,7 @@ namespace basecross {
 				case eMotion::AttackStart_Punch:
 					// 攻撃範囲内にプレイヤーが居たらダメージ
 					if (CheckAttackArea(Punch)) {
-						m_playerPtr->AddPlayerDamage(25, Player::eMotion::Damage2);
+						m_playerPtr->AddDamage(25, Player::eMotion::Damage2);
 					}
 					m_currentMotion = AttackFinish_Punch;
 					m_countTime = 0;
@@ -583,10 +580,10 @@ namespace basecross {
 		return false;
 	}
 
-	void Golem::AddDamage(int Damage) {
+	void Golem::AddDamage(float Damage) {
 
 		Vec3 pos = GetComponent<Transform>()->GetPosition();
-		m_DamegeEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(1.0f, 0.8f, 1.0f));
+		m_damageEfkPlay = ObjectFactory::Create<EfkPlay>(m_damageEffect, pos, Vec3(1.0f, 0.8f, 1.0f));
 
 		m_status.life -= Damage;
 	}
@@ -648,7 +645,7 @@ namespace basecross {
 			ptrColl->SetFixed(true);
 			if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
 				if (!m_stopRammingFlg) {
-					m_playerPtr->AddPlayerDamage(30, Player::eMotion::Damage2);
+					m_playerPtr->AddDamage(30, Player::eMotion::Damage2);
 					m_stopRammingFlg = true;
 				}
 			}
@@ -661,6 +658,9 @@ namespace basecross {
 			// スタン攻撃を受けた
 			AddStun(90);
 			m_rockAngle = AngleCalculation(Other->GetComponent<Transform>(), false);
+			if (m_currentMotion == Attacking_Ramming1 || m_currentMotion == Attacking_Ramming2) {
+				m_stopRammingFlg = true;
+			}
 			return;
 		}
 
