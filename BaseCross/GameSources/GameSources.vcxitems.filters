@@ -100,6 +100,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CSVLoader.cpp">
       <Filter>Function\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PlayerStaminaGauge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Project.h">
@@ -201,6 +202,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CSVLoader.h">
       <Filter>Function\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PlayerStaminaGauge.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Function">
