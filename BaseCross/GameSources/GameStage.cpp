@@ -129,6 +129,7 @@ namespace basecross {
 		ptrPlayer->AddTag(L"Player");
 
 		AddGameObject<PlayerHpBar>();
+		AddGameObject<PlayerStaminaBar>();
 	}
 
 	//“G‚Ìì¬

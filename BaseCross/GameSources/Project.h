@@ -48,4 +48,5 @@
 
 #include "Geuge.h"
 #include "PlayerHpGeuge.h"
+#include "PlayerStaminaGauge.h"
 #include "GolemHpGeuge.h"

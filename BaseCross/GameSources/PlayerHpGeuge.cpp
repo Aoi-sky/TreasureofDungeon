@@ -19,8 +19,8 @@ namespace basecross {
 		m_bar[1]->UpdateGaugeSize(player->GetMaxLife(), player->GetMaxLife());
 
 		// ‰æ–Ê‚Ì¶ã‚É•\Ž¦
-		m_bar[0]->SetPosition((float)App::GetApp()->GetGameWidth() / 2 + 200.0f, App::GetApp()->GetGameHeight()-100.0f, 0.49f);
-		m_bar[1]->SetPosition((float)App::GetApp()->GetGameWidth() / 2 + 200.0f, App::GetApp()->GetGameHeight() - 100.0f, 0.49f);
+		m_bar[0]->SetPosition((float)App::GetApp()->GetGameWidth() / 2 + 200.0f, App::GetApp()->GetGameHeight()-130.0f, 0.49f);
+		m_bar[1]->SetPosition((float)App::GetApp()->GetGameWidth() / 2 + 200.0f, App::GetApp()->GetGameHeight() - 130.0f, 0.49f);
 
 		auto m_TexKey = L"GREENHPBAR";
 		if (m_TexKey == L"GREENHPBAR"){
