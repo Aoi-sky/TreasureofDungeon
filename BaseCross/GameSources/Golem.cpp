@@ -385,6 +385,9 @@ namespace basecross {
 		case AttackStart_Punch:
 			ptrDraw->UpdateAnimation(deltaTime * 1.5f);
 			break;
+		case Death:
+			ptrDraw->UpdateAnimation(deltaTime * 0.5f);
+			break;
 		default:
 			ptrDraw->UpdateAnimation(deltaTime * 1.0f);
 			break;
@@ -654,17 +657,6 @@ namespace basecross {
 				}
 			}
 			return;
-		}
-
-		if (m_pastMotion == Walking1 || m_pastMotion == Walking2)
-		{
-			if (Other->FindTag(L"Golem"))
-			{
-				
-				auto XAPtr = App::GetApp()->GetXAudio2Manager();
-				XAPtr->Start(L"Walk_SE", 0, 8.0f);
-				return;
-			}
 		}
 
 		// ”­Ë‚³‚ê‚½ŠâÎ‚Æ‚ÌÕ“Ë
