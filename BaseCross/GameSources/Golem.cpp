@@ -494,7 +494,7 @@ namespace basecross {
 
 			// UŒ‚”ÍˆÍ‚Ì’†SÀ•W‚ðŒvŽZ
 			areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
-			areaPos.y = 0.8f;
+			areaPos.y = 0.55f;
 			// UŒ‚”ÍˆÍ‚Ì•`ŽÊ
 			GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
 			return motion;
@@ -504,7 +504,7 @@ namespace basecross {
 
 			// UŒ‚”ÍˆÍ‚Ì’†SÀ•W‚ðŒvŽZ
 			areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
-			areaPos.y = 0.8f;
+			areaPos.y = 0.55f;
 			// UŒ‚”ÍˆÍ‚Ì•`ŽÊ
 			GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
 			return motion;
@@ -519,7 +519,7 @@ namespace basecross {
 
 				// UŒ‚”ÍˆÍ‚Ì’†SÀ•W‚ðŒvŽZ
 				areaPos = golemPos + golemForward * m_attackStatus.SwingdownRange;
-				areaPos.y = 0.8f;
+				areaPos.y = 0.55f;
 				// UŒ‚”ÍˆÍ‚Ì•`ŽÊ
 				GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.SwingdownRange, 90);
 				break;
@@ -529,7 +529,7 @@ namespace basecross {
 
 				// UŒ‚”ÍˆÍ‚Ì’†SÀ•W‚ðŒvŽZ
 				areaPos = golemPos + golemForward * m_attackStatus.PunchRange;
-				areaPos.y = 0.8f;
+				areaPos.y = 0.55f;
 				// UŒ‚”ÍˆÍ‚Ì•`ŽÊ
 				GetStage()->AddGameObject<FillSprite>(areaPos, m_attackStatus.PunchRange, 98);
 				break;
