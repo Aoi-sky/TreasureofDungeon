@@ -16,7 +16,7 @@ namespace basecross{
 		//衝突判定を付ける
 		auto ptrColl = AddComponent<CollisionCapsule>();
 		ptrColl->SetMakedHeight(3.0f);
-		ptrColl->SetDrawActive(true);
+		ptrColl->SetDrawActive(false);
 
 		//各パフォーマンスを得る
 		GetStage()->SetCollisionPerformanceActive(true);

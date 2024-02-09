@@ -240,7 +240,7 @@ namespace basecross{
 
 		/*!
 		@brief 現在体力を取得する関数
-		@return 最大体力
+		@return 現在体力
 		*/
 		float GetCurrentLife()
 		{
@@ -255,6 +255,25 @@ namespace basecross{
 		{
 			return m_status.at(OffensiveAbility);
 		}
+
+		/*!
+		@brief 最大スタミナを取得する関数
+		@return 最大スタミナ
+		*/
+		float GetMaxStamina() const
+		{
+			return m_status.at(MaxStamina);
+		}
+
+		/*!
+		@brief 現在スタミナを取得する関数
+		@return 現在スタミナ
+		*/
+		float GetCurrentStamina()
+		{
+			return  m_stamina;
+		}
+
 	};
 
 }
