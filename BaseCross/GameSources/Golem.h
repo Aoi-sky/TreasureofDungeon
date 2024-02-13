@@ -294,8 +294,8 @@ namespace basecross {
 		}
 
 		/*!
-		@brief	 現在のゴーレムの体力を取得する関数
-		@return 現在のゴーレムの体力
+		@brief	 現在のゴーレムのモーションを取得する関数
+		@return 現在のゴーレムのモーション
 		*/
 		eMotion GetGolemCurrentMotion() const
 		{

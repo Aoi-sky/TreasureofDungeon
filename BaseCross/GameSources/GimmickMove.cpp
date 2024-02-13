@@ -54,6 +54,9 @@ namespace basecross {
 		}
 		if (Other->FindTag(L"Golem"))
 		{
+			const auto& stage = GetStage();
+			const auto& player = stage->GetSharedGameObject<Player>(L"Player");
+			stage->GetSharedGameObject<Golem>(L"Golem")->AddDamage(player->GetOffensiveAbility() * 3.0f);
 			GetStage()->RemoveGameObject<MoveFallingRocks>(GetThis<MoveFallingRocks>());
 			return;
 		}

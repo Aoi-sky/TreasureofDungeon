@@ -11,7 +11,7 @@ namespace basecross{
 		m_ptrTrans = GetComponent<Transform>();
 		m_ptrTrans->SetScale(0.5f, 0.5f, 0.5f);
 		m_ptrTrans->SetRotation(0.0f, 0.0f, 0.0f);
-		m_ptrTrans->SetPosition(Vec3(0.0f, 3.0f, 0.0f));
+		m_ptrTrans->SetPosition(Vec3(0.0f, 1.5f, 0.0f));
 
 		//Õ“Ë”»’è‚ğ•t‚¯‚é
 		auto ptrColl = AddComponent<CollisionCapsule>();

@@ -53,16 +53,12 @@ namespace basecross {
 			GetStage()->AddGameObject<ShotEnemy>(Vec3(0.0f, 1.0f, -20.0f));
 
 			GetStage()->AddGameObject<FallingRocks>();
-			GetStage()->AddGameObject<FallingRocks>();
 			break;
 		case 2://30%
 			GetStage()->AddGameObject<ShotEnemy>(Vec3(-10.0f, 1.0f, 10.0f));
 			GetStage()->AddGameObject<ShotEnemy>(Vec3(10.0f, 1.0f, 10.0f));
 			GetStage()->AddGameObject<ShotEnemy>(Vec3(-10.0f, 1.0f, -10.0f));
 			GetStage()->AddGameObject<ShotEnemy>(Vec3(10.0f, 1.0f, -10.0f));
-
-			GetStage()->AddGameObject<FallingRocks>();
-			GetStage()->AddGameObject<FallingRocks>();
 			break;
 		default:
 			break;
